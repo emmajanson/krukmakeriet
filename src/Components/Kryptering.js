@@ -1,5 +1,7 @@
 //detta kommer att vara i två olika filer, men skriver dom i samma just nu
 
+import { db } from '../firebase-config'
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const userSchema = mongoose.Schema; //detta är för mongoDB, men har det med som exempel. databasen är här.
@@ -20,7 +22,7 @@ app.post('/api/users/register', (req, res) => {
     })
 })
 
-userSchema.pre('save', function ( next ){
+userSchema.pre('save', function (next){
     var user = this; //alltså userSchema
 
     if(user.isModified('password')){ //bara när password ändras triggas det nedan
