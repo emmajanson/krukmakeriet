@@ -9,7 +9,6 @@ import NotFound from "./pages/NotFound";
 import Shop from "./pages/Shop";
 import SignUp from "./pages/SignUp";
 
-
 //Lägg in nestlade routes för att hantera kategorier i webshopen???
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />}/>
+          <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/events" element={<Events />} />
           <Route path="/shop" element={<Shop />} />
