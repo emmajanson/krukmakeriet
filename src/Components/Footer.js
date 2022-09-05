@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import styles from "./Footer.module.css";
 
 function Footer() {
-  return (
-    <footer className='footer-wrapper'>
-      Footer
-    </footer>
-  )
+  return <footer className={styles.wrapper}>Footer</footer>;
 }
 
-export default Footer
+export default Footer;
