@@ -1,8 +1,9 @@
 import React from 'react'
+import styles from "./NotFound.module.css";
 
 function NotFound() {
   return (
-    <main>
+    <main className={styles.wrapper}>
       NotFound
     </main>
   )

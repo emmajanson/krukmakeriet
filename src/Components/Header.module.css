@@ -1,0 +1,21 @@
+.wrapper{
+  position: fixed;
+  width: 100%;
+  min-height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 3rem;
+  background-color: grey; /*tillfällig*/
+}
+.logoWrapper{
+  
+}
+.logoImage{
+  width: 100px;
+  height: 100px;
+}
+.navWrapper{
+  display: flex;
+  gap: 1rem;
+}

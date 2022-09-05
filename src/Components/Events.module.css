@@ -1,0 +1,39 @@
+.wrapper{
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.eventWrapper{
+  border:1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.textWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: 1rem;
+  border:1px solid red;
+}
+.button{
+  margin: 4rem;
+  padding: 2rem;
+}
+
+@media screen and (min-width:800px){
+.eventWrapper{
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.textWrapper{
+  width: 60%;
+}
+
+}
