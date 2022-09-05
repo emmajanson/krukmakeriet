@@ -1,3 +1,60 @@
-.container {
-  background-color: white;
+.wrapper {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.heroWrapper{
+  height: 100vh;
+  width: 100%;
+  background-color: lightgrey; /*tillfällig*/
+}
+.infoWrapper{
+  min-height: 40vh; /*tillfällig*/
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 80px;
+}
+.textWrapper{
+  width: 50%;
+  background-color: lightgrey; /*tillfällig*/
+}
+.imgWrapper{
+   
+}
+.infoImage{
+  width: 300px;
+  height: 300px;
+  background-color: lightgrey; /*tillfällig*/
+}
+.linkWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 80px;
+
+}
+.linkImage{
+  background-color: lightgrey; /*tillfällig*/
+  height: 300px;/*tillfällig*/
+  width: 90%;
+}
+
+@media screen and (min-width:800px){
+  .infoWrapper{
+    justify-content: space-between;
+  }
+  .linkWrapper{
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .linkImage{
+    width: 48%;
+  }
 }

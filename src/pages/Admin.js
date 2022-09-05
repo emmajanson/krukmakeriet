@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from "./Admin.module.css"
 
 // Det här ska finnas
 // - formulär för att uppdatera kurser - skickas till db
@@ -10,7 +11,9 @@ import React from 'react'
 
 function Admin() {
   return (
-    <div>Admin</div>
+    <main className={styles.wrapper}>
+      Admin
+    </main>
   )
 }
 

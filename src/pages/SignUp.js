@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from "./SignUp.module.css";
 
 //Det här ska finnas
 // - formulär för registrering
@@ -6,7 +7,9 @@ import React from 'react'
 
 function SignUp() {
   return (
-    <div>SignUp Form</div>
+    <main className={styles.wrapper}>
+      SignUp Form
+    </main>
   )
 }
 
