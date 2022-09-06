@@ -7,14 +7,16 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Shop from "./pages/Shop";
 import SignUp from "./pages/SignUp";
-import styles from "./App.module.css"
-
+import styles from "./App.module.css";
 
 //Lägg in nestlade routes för att hantera kategorier i webshopen & adminsidan
 
 function App() {
   return (
     <div className={styles.wrapper}>
+      <div id="test">
+        <p>test</p>
+      </div>
       <Router>
         <Header />
         <Routes>

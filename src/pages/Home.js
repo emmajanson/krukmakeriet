@@ -7,33 +7,40 @@ export default function Home() {
   let navigate = useNavigate();
 
   return (
-  <main className={styles.wrapper}>
-    <section className={styles.heroWrapper}>
-      
-    </section>
+    <main className={styles.wrapper}>
+      <section className={styles.heroWrapper}></section>
 
-
-    <section className={styles.infoWrapper}>
-      <div className={styles.textWrapper}>
-        <h2>Rubrik</h2>
-        <p>Information om företaget</p>
-      </div> 
-      <div class={styles.imgWrapper}> 
-        <img className={styles.infoImage} scr="" alt=""/>
-      </div>
+      <section className={styles.infoWrapper}>
+        <div className={styles.textWrapper}>
+          <h2>Rubrik</h2>
+          <p>Information om företaget</p>
+        </div>
+        <div className={styles.imgWrapper}>
+          <img className={styles.infoImage} scr="" alt="" />
+        </div>
       </section>
 
+      <section className={styles.linkWrapper}>
+        {/* byt till klickbara bilder */}
+        <div
+          className={styles.linkImage}
+          onClick={() => {
+            navigate("/courses");
+          }}
+        >
+          LÄNK KURSER
+        </div>
+        <div
+          className={styles.linkImage}
+          onClick={() => {
+            navigate("/courses");
+          }}
+        >
+          LÄNK SHOP
+        </div>
+      </section>
 
-    <section className={styles.linkWrapper}>
-      {/* byt till klickbara bilder */}
-      <div className={styles.linkImage} onClick={() => {navigate("/courses");}}>LÄNK KURSER</div>
-      <div className={styles.linkImage} onClick={() => {navigate("/courses");}}>LÄNK SHOP</div>
-    </section>
-    
-    <Events />
-    
-    
-  </main>
-
-    )
+      <Events />
+    </main>
+  );
 }
