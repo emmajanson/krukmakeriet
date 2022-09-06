@@ -11,9 +11,37 @@ import styles from "./App.module.css";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 
+import { useState, useEffect } from "react";
+ import {db} from "./firebase-config.js"
+import { collection, getDocs } from "firebase/firestore"; 
+
+
 //Lägg in nestlade routes för att hantera kategorier i webshopen & adminsidan
 
 function App() {
+  /* const [users, setUsers] = useState([]);
+  const userCollectionRef = collection(db,"users")
+  useEffect(() => {
+  
+    const getUsers = async () => {
+
+    }
+    getUsers()
+  }, []) */
+  
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
+  useEffect (() => {
+  
+    const getUsers = async () => {
+    const data = await getDocs(usersCollectionRef);
+     console.log(data); 
+    setUsers(data.docs.map((doc) => ({})))
+    };
+
+    getUsers();
+  }, []); 
+
   return (
     <div className={styles.wrapper}>
       <Router>
