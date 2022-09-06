@@ -7,7 +7,7 @@ import styles from "./Events.module.css";
 function Events() {
   return (
     <section className={styles.wrapper}>
-      <h2>[Events]</h2>
+      <h2 className={styles.heading}>[Events]</h2>
       <div className={styles.eventWrapper}>
         <div className={styles.textWrapper}>
           <p className={styles.info}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 

@@ -1,0 +1,51 @@
+.courseCardWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  padding: 1rem;
+  border:1px solid red;/*tillfällig*/
+}
+.imgWrapper{
+  width: 80%;
+  height: 200px;
+}
+.courseImage{
+  background-color: lightgrey; /*tillfällig*/
+  height: 100%;
+  width: 100%;
+}
+.textWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+.price{
+  text-align:right;
+}
+.buttonWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button{
+  padding: 1rem;
+  
+}
+@media screen and (min-width:800px){
+  .courseCardWrapper{
+    flex-direction: row;
+
+  }
+  .imgWrapper{
+    width: 15%;
+    height: 120px;
+  }
+  .text-wrapper{
+    width: 70%;
+  }
+  .button{
+    border-radius: 50%;
+  }
+}
