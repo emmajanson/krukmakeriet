@@ -11,7 +11,7 @@ function SignUp() {
 
   return (
     <main className={styles.wrapper}>
-      <form>
+      <section>
         <label name="name">Name</label>
         <input type="text" name="name" placeholder="Enter your name..." />
         <label name="email">E-mail</label>
@@ -29,7 +29,7 @@ function SignUp() {
           placeholder="Confirm password..."
         />
         <button onClick={navToProfile}>Register Account</button>
-      </form>
+      </section>
     </main>
   );
 }
