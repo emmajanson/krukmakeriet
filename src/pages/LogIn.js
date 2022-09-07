@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./LogIn.module.css";
 import { useNavigate } from "react-router-dom";
+import { comparePassword } from '../Components/Kryptering';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase-config';
+const bcrypt = require("bcrypt");
+
 
 //Det här ska finnas
 // - formulär för registrering
@@ -8,6 +13,18 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const navigate = useNavigate();
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  const usersCollectionRef = collection(db, "users");
+
+  const email = emailInputRef.current.value;
+  const password = passwordInputRef.current.value;
+  const hashedPassword = bcrypt.hashSync(password);
+  const hashedEmail = bcrypt.hashSync(email);
+
+  console.log(hashedPassword, hashedEmail)
+
+
 
   function navToSignUp() {
     navigate("/signup");
@@ -21,9 +38,9 @@ function SignUp() {
     <main className={styles.wrapper}>
       <form>
         <label name="email">E-mail</label>
-        <input type="text" name="email" placeholder="Enter E-mail..." />
+        <input type="text" name="email" placeholder="Enter E-mail..." ref={emailInputRef}/>
         <label name="password">Password</label>
-        <input type="password" name="password" placeholder="Enter Password" />
+        <input type="password" name="password" placeholder="Enter Password" ref={passwordInputRef}/>
         <button onClick={navToProfile}>Log In</button>
         <p>Don't have an account?</p>
       </form>
