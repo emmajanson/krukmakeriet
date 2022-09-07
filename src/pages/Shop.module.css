@@ -1,3 +1,28 @@
 .wrapper{
-  padding-top: 12vh;
+  padding-top: 15vh; /*tillfällig*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shopWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+
+@media screen and (min-width:800px){
+  .wrapper{
+    align-items: center;
+    width: 100%;
+  }
+  .shopWrapper{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+  }
 }
