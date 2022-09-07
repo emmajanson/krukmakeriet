@@ -1,0 +1,32 @@
+.productItemWrapper{
+  border: 1px solid lightgrey;
+  display: flex;
+}
+.imgWrapper{
+  width: 20%;
+  height: 90px;
+
+}
+.itemImage{
+  background-color: lightgrey;
+  width: 100%;
+  height: 100%;
+}
+.infoWrapper{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0.5rem;
+}
+.editQuantityWrapper{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.quantityBtn{
+  padding: 5px;
+}
+.removeBtn{
+  align-self: flex-end;
+
+}

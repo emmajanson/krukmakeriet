@@ -10,6 +10,7 @@ import LogIn from "./pages/LogIn";
 import styles from "./App.module.css";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import Checkout from "./pages/Checkout";
 
 //Lägg in nestlade routes för att hantera kategorier i webshopen & adminsidan
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
