@@ -7,7 +7,7 @@ export default function Home() {
   let navigate = useNavigate();
 
   return (
-    <main className={styles.wrapper}>
+    <main data-testid="home" className={styles.wrapper}>
       <section className={styles.heroWrapper}></section>
 
       <section className={styles.infoWrapper}>
