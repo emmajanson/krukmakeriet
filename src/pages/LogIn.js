@@ -34,9 +34,16 @@ function SignUp() {
       return await db.findOne({ name: userEmail });
     }
 
+    comparePassword(hashedPassword);
+
     console.log(
       `${hashedEmail}: ${userEmail} & ${hashedPassword}: ${userPassword}`
     );
+  }
+
+  async function comparePassword(hashedPassword) {
+    bcrypt.compareSync(hashedPassword, userPassword)
+    navigate("/profile")
   }
 
   async function createUser(hashEmail, hashPass) {
