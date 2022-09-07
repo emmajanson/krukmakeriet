@@ -12,7 +12,6 @@ export default function Home() {
 
       <section className={styles.infoWrapper}>
         <div className={styles.textWrapper}>
-          <h2>Rubrik</h2>
           <p>Information om företaget</p>
         </div>
         <div className={styles.imgWrapper}>
@@ -33,7 +32,7 @@ export default function Home() {
         <div
           className={styles.linkImage}
           onClick={() => {
-            navigate("/courses");
+            navigate("/shop");
           }}
         >
           LÄNK SHOP
