@@ -1,5 +1,5 @@
-import React from 'react'
-import CourseItem from '../Components/CourseItem';
+import React from "react";
+import CourseItem from "../Components/CourseItem";
 import styles from "./Courses.module.css";
 
 // Det här ska finnas
@@ -7,7 +7,6 @@ import styles from "./Courses.module.css";
 // - sortera efter datum
 // - funktion för att mappa ut alla kurser som finns
 // - funktion för att boka in sig på kurs
-
 
 //nedan: endast testobjekt
 const testCourse = {
@@ -17,22 +16,22 @@ const testCourse = {
   name: "Kursnamn",
   price: 500,
   spots: 10,
-  imgUrl: ""
-}
+  imgUrl: "",
+};
 
 function Courses() {
   return (
-    <main className={styles.wrapper}>
+    <main data-testid="courses" className={styles.wrapper}>
       <h2 className={styles.heading}>[kurser]</h2>
       <section className={styles.courseWrapper}>
-      {/* CourseItems ska sedan användas i .map från array  */}
-      <CourseItem props={testCourse}/>
-      <CourseItem props={testCourse}/>
-      <CourseItem props={testCourse}/>
-      <CourseItem props={testCourse}/>
-      </section>  
+        {/* CourseItems ska sedan användas i .map från array  */}
+        <CourseItem props={testCourse} />
+        <CourseItem props={testCourse} />
+        <CourseItem props={testCourse} />
+        <CourseItem props={testCourse} />
+      </section>
     </main>
-  )
+  );
 }
 
-export default Courses
+export default Courses;

@@ -38,5 +38,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/user-event": "^14.4.3",
+    "react-test-renderer": "^18.2.0"
   }
 }
