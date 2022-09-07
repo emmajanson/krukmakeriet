@@ -1,16 +1,26 @@
 import React from 'react'
+import ShopItem from '../Components/ShopItem';
 import styles from "./Shop.module.css";
-
-//Det här ska finnas
-// - entry: funktion för att visa alla produkter
-// - meny/länkar för sortering (Links/nested routes)
-
-
 
 function Shop() {
   return (
     <main className={styles.wrapper}>
-      Shop
+      <h2>Butiken</h2>
+      <section className={styles.shopWrapper}>
+        {/* endast test för att rendera många varor
+        byts sedan till att mappa ut från db och 
+        skicka infon som props till komponent */}
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+        <ShopItem />
+      </section>
     </main>
   )
 }
