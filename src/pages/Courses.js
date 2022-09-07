@@ -21,7 +21,7 @@ const testCourse = {
 
 function Courses() {
   return (
-    <main className={styles.wrapper}>
+    <main data-testid="courses" className={styles.wrapper}>
       <h2 className={styles.heading}>[kurser]</h2>
       <section className={styles.courseWrapper}>
         {/* CourseItems ska sedan användas i .map från array  */}
