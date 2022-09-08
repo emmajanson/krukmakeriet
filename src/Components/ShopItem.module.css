@@ -1,0 +1,30 @@
+.shopItemWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  border:1px solid lightgrey;
+}
+.imgWrapper{
+  width: 100%;
+}
+.shopItemImage{
+  width: 100%;
+  height: 200px;
+  background-color: lightgrey;
+}
+.textWrapper{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.infoPriceWrapper{
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (min-width:800px){
+  .shopItemWrapper{
+    width: 30%;
+  }
+}
