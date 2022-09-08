@@ -42,8 +42,14 @@ function SignUp() {
   }
 
   async function comparePassword(hashedPassword) {
-    bcrypt.compareSync(hashedPassword, userPassword)
-    navigate("/profile")
+    const passwordCompare = bcrypt.compareSync(hashedPassword, userPassword);
+    console.log(typeof(comparePassword))
+    if(passwordCompare) {
+      navigate("/profile")
+    } else {
+      alert("Wrong password")
+    }
+    
   }
 
   async function createUser(hashEmail, hashPass) {
