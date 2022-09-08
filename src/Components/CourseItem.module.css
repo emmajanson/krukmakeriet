@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border:1px solid red;
+  border:1px solid lightgrey;
+  width: 90%;
+
 }
 .imgWrapper{
   width: 100%;
@@ -17,15 +19,39 @@
   display: flex;
   flex-direction: column;
   width: 90%;
+  gap: 1rem;
+}
+.infoWrapper{
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
-.test{
+.infoWrapper{
   display: flex;
   justify-content: space-between;
 }
-.button{
+.iconWrapper{
+  display: flex;
+  justify-content: space-around;
+}
+button{
   padding: 1rem;
 }
+
 @media screen and (min-width:800px){
-  /* inväntar lo-fi */
+  .courseCardWrapper{
+    width: 100%;
+    max-width: 1000px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+
+  }
+  .textWrapper{
+    flex-direction: column;
+    border: 1px solid red;
+  }
+  .imgWrapper{
+    height: 400px;
+  }
 }
