@@ -11,6 +11,8 @@ import styles from "./App.module.css";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 
+import UsersFB from "./Components/Users";
+
 //för inlogg/auth
 import { useState, useEffect } from "react";
 import {db} from "./firebase-config.js"
@@ -22,7 +24,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 function App() {
   
   //för inlogg/auth
-  const [newName, setNewName] = useState("")
+  /* const [newName, setNewName] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [newPwd, setNewPwd] = useState("")
 
@@ -37,11 +39,11 @@ function App() {
     const getUsers = async () => {
     const data = await getDocs(usersCollectionRef);
      /* console.log(data); */ 
-    setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
+    /* setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
     };
 
     getUsers();
-  }, []); 
+  }, []);  */ 
 
   return (
     <div className={styles.wrapper}>
@@ -68,7 +70,6 @@ function App() {
       setNewName(event.target.value);
       }}
       />
-      {/* förstår inte varför det blir name  */}
        <input 
       type="email" 
       email="email"
