@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import {
+  FiShoppingCart,
+  FiUser,
+} from "react-icons/fi";
 
 function Header() {
   return (
@@ -13,6 +17,7 @@ function Header() {
         <Link to="/courses">Kurser</Link>
         <Link to="/shop">Butik</Link>
         <Link to="/login">Logga in</Link>
+        <Link to="#"><FiShoppingCart/></Link>
       </nav>
     </header>
   );
