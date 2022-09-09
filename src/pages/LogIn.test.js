@@ -2,9 +2,10 @@ import "@testing-library/jest-dom";
 import LogIn, {validateEmail} from './LogIn'
 import { BrowserRouter } from "react-router-dom"
 
-import { render,screen } from "@testing-library/react";
+import { fireEvent, render,screen } from "@testing-library/react";
 
 const MockLogin = () => {
+  // mock becuse of usenavigate needs to be surrounded by browserRouter
   return (
     <BrowserRouter>
       <LogIn />
@@ -22,6 +23,7 @@ describe("testing LogIn component", () => {
   })
 
   test("validation that should fail on incorrect email-input",  () => {
+
     const text = 'text.com'
     expect(validateEmail(text)).not.toBe(true)
     
@@ -35,15 +37,25 @@ describe("testing LogIn component", () => {
 
   });
 
-  test("Check for relation between label and input", () => {
-    // email-input should have a label 
+  test("Check for relation between email-label and email-input", () => {
+    // email-input should have a label   
     render(<MockLogin />);
     const inputElement = screen.getByLabelText(/E-mail/i);
     expect(inputElement.getAttribute("name")).toBe("email")
 
   });
 
-  test("are forms correctly filled out", () => {
+  test("email input accept text", () => {
+    render(<MockLogin />);
+    const emailInput = screen.getByLabelText(/E-mail/i);
+    //värdet förväntas vara tomt
+    expect(emailInput.value).toMatch("")
+    // kör igång event som ändrar input värdet
+    fireEvent.change(emailInput, {target: {value: 'testing'}})
+    // värdet förväntas matcha "testing"
+    expect(emailInput.value).toMatch("testing")
+    
+    
   });
 
 });
