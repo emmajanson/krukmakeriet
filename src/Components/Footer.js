@@ -6,7 +6,7 @@ import {
   FiTwitter,
 } from "react-icons/fi";
 
-const Footer = () => {
+function Footer () {
   return (
     <div className={styles.footer}>
       <div className={styles.footer_box}>
