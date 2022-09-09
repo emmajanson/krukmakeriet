@@ -6,9 +6,19 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 const bcrypt = require("bcryptjs");
 
+// function for validate that email has correct syntax with @
+export function validateEmail(str = ""){
+  if(str.includes("@")){
+    return true 
+  }else return false
+}
+
 //Det här ska finnas
 // - formulär för registrering
 // - som ska skickas till db användare
+
+
+
 
 function SignUp() {
   const [userEmail, setUserEmail] = useState("");
@@ -23,7 +33,9 @@ function SignUp() {
     navigate("/signup");
   }
 
+
   async function handleLogin() {
+    validateEmail(userEmail)
     const hashedEmail = await bcrypt.hash(userEmail, 10);
     const hashedPassword = await bcrypt.hash(userPassword, 10);
     setHashedEmail(bcrypt.hash(userEmail, 10));
@@ -69,8 +81,9 @@ function SignUp() {
   return (
     <main className={styles.wrapper}>
       <div>
-        <label name="email">E-mail</label>
+        <label htmlFor="email" name="email">E-mail</label>
         <input
+          id="email"
           type="text"
           name="email"
           placeholder="Enter E-mail..."
