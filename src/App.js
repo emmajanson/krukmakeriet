@@ -12,9 +12,12 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 
+
 //Lägg in nestlade routes för att hantera kategorier i webshopen & adminsidan
 
 function App() {
+   
+
   return (
     <div className={styles.wrapper}>
       <Router>
@@ -30,8 +33,10 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer />
+        <Footer/>
       </Router>
+      
+     
     </div>
   );
 }
