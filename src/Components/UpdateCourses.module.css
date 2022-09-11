@@ -1,0 +1,38 @@
+@media only screen and (max-width: 600px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: auto;
+  }
+  .form a {
+    display: flex;
+    justify-content: center;
+  }
+  .button {
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 50%;
+    margin: auto;
+  }
+  .form a {
+    display: flex;
+    justify-content: center;
+  }
+  .button {
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
