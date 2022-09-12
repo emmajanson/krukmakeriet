@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from "./CourseItem.module.css";
 
 
@@ -11,7 +11,6 @@ function CourseItem({courseData, addCourseToBasket}) {
       </div>
       
       <div className={styles.textWrapper}>
-
         <div className={styles.infoWrapper}>
           <h3 className={styles.name}>{courseData.name}</h3>
           <p className={styles.date}>[ikon]{courseData.details}</p> 

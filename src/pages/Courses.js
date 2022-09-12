@@ -43,8 +43,6 @@ function Courses() {
   return (
     <main data-testid="courses" className={styles.wrapper}>
       <h2 className={styles.heading}>[kurser]</h2>
-      <button className={styles.button} onClick={() => addCourseToBasket("test")}>Boka</button>
-      <button className={styles.button} onClick={() => addCourseToBasket("test2")}>Boka</button>
       <section className={styles.courseWrapper}>
         {/* //map over the testcourses array and display it in the CourseItem component */}
         {courses
