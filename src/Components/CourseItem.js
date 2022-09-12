@@ -1,26 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./CourseItem.module.css";
 
-//Ska finnas med
-//OnClick på knappen för att boka
 
-function CourseItem({courseData}) {
-
-  //state som är vår varukorg
-  const [basket, setBasket] = useState([])
-
-  function addCourseToBasket (courseData) {
-    console.log(courseData)
-
-    setBasket(prevBasket => prevBasket + courseData)
-
-    
-    //klickad kurs lagras i vårt state
-    //vi uppdaterar vår LS med vårt state
-    localStorage.setItem('courseBasket', JSON.stringify(basket))
-  }
-  
-  
+function CourseItem({courseData, addCourseToBasket}) {
 
   return (
     <article className={styles.courseCardWrapper}>
