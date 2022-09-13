@@ -8,14 +8,47 @@
   padding: 0 3rem;
   background-color: grey; /*tillfällig*/
 }
-.logoWrapper{
-  
-}
+
 .logoImage{
   width: 100px;
   height: 100px;
 }
-.navWrapper{
+.LinkWrapper{
   display: flex;
   gap: 1rem;
+}
+
+.mobileMenuIcon {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .LinkWrapper {
+    display: none;
+  }
+
+  .LinkWrapperMobile {
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 16%;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: lightgrey;
+    position: fixed;
+    right: -100%;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .mobileMenuIcon {
+    position: relative;
+    font-size: 25px;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    cursor: pointer;
+  }
 }
