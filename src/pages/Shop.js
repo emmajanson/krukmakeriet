@@ -32,22 +32,6 @@ function Shop() {
         {products
           .map((product) => (<ShopItem key={product.id} productData={product} />))
         }
-      
-
-
-        {/* endast test för att rendera många varor
-        byts sedan till att mappa ut från db och 
-        skicka infon som props till komponent */}
-        {/* <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem /> */}
       </section>
     </main>
   )
