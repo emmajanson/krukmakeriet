@@ -3,6 +3,15 @@ import ShopItem from '../Components/ShopItem';
 import styles from "./Shop.module.css";
 
 function Shop() {
+
+
+
+
+
+
+
+
+
   return (
     <main className={styles.wrapper}>
       <h2>Butiken</h2>

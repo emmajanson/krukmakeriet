@@ -26,6 +26,10 @@ function Header() {
         <Link to="/shop">Butik</Link>
         <Link to="/login">Logga in</Link>
         <Link to="#"><FiShoppingCart /></Link>
+        <Link to="/signin">Logga in</Link>
+        <Link to="#">
+          <FiShoppingCart />
+        </Link>
       </nav>
       <button className={styles.mobileMenuIcon} onClick={() => setMobile(!Mobile)}>
           {Mobile ? <FaTimes /> : <FaBars/>}
