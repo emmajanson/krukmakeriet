@@ -21,6 +21,8 @@ function Profile() {
     });
   }, []);
 
+  console.log(user);
+
   return (
     <main className={styles.wrapper}>
       <h1>Welcome to your profile {location.state.user}!</h1>

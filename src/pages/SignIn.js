@@ -13,6 +13,8 @@ function SignIn() {
   const [user, setUser] = useState({});
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,7 +28,18 @@ function SignIn() {
       console.log(user);
       navigate("/profile", { state: { user: user.user.displayName } });
     } catch (error) {
-      console.log(error);
+      switch (error.message) {
+        case "Firebase: Error (auth/wrong-password).":
+          setIsPasswordWrong(true);
+          console.log("Wrong password!");
+          break;
+        case "Firebase: Error (auth/user-not-found).":
+          setUserNotFound(true);
+          console.log("User not found!");
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -53,6 +66,7 @@ function SignIn() {
           placeholder="Enter E-mail..."
           onChange={(e) => {
             setUserEmail(e.target.value);
+            setUserNotFound(false);
           }}
         />
         <label name="password">Password</label>
@@ -62,8 +76,11 @@ function SignIn() {
           placeholder="Enter Password"
           onChange={(e) => {
             setUserPassword(e.target.value);
+            setIsPasswordWrong(false);
           }}
         />
+        {isPasswordWrong ? <p>Password is wrong!</p> : ""}
+        {userNotFound ? <p>User not found!</p> : ""}
         <button onClick={signin}>Log In</button>
         <p>Don't have an account?</p>
       </div>
