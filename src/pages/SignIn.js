@@ -30,10 +30,12 @@ function SignIn() {
     } catch (error) {
       switch (error.message) {
         case "Firebase: Error (auth/wrong-password).":
+          setUserNotFound(false);
           setIsPasswordWrong(true);
           console.log("Wrong password!");
           break;
         case "Firebase: Error (auth/user-not-found).":
+          setIsPasswordWrong(false);
           setUserNotFound(true);
           console.log("User not found!");
           break;
@@ -79,8 +81,12 @@ function SignIn() {
             setIsPasswordWrong(false);
           }}
         />
-        {isPasswordWrong ? <p>Password is wrong!</p> : ""}
-        {userNotFound ? <p>User not found!</p> : ""}
+        {isPasswordWrong ? (
+          <p style={{ color: "red" }}>Password is wrong!</p>
+        ) : (
+          ""
+        )}
+        {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
         <button onClick={signin}>Log In</button>
         <p>Don't have an account?</p>
       </div>
