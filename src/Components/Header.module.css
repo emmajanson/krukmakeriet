@@ -1,54 +1,77 @@
 .wrapper{
-  position: fixed;
-  width: 100%;
-  min-height: 10vh;
+  width:100%;
+}
+.desktopWrapper{
+  display: none;
+}
+.mobileWrapper{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0 3rem;
-  background-color: grey; /*tillfällig*/
+ }
+
+/*dolda menyn*/
+.mobileMenuWrapperShow {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 10%;
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-color: lightgreen;
+  position: fixed;
+  right: -100%;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.logoImage{
-  width: 100px;
-  height: 100px;
-}
-.LinkWrapper{
+/*hamburgemenyn*/
+.menuBtn {
+  color: black;
+  position: relative;
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
 }
 
-.mobileMenuIcon {
+.mobileMenuWrapperHidden{
   display: none;
 }
+.mobileMenuWrapperShow{
+  display: flex;
+} 
 
-@media (max-width: 820px) {
-  .LinkWrapper {
+
+/* desktop*/
+@media screen and (min-width:800px){
+  .desktopWrapper{
+    position: fixed;
+    width: 100%;
+    min-height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 3rem;
+    background-color: grey; /*tillfällig*/
+  }
+
+  .mobileWrapper {
     display: none;
   }
 
-  .LinkWrapperMobile {
-    position: absolute;
-    display: flex;
-    left: 0;
-    top: 16%;
-    width: 100%;
-    height: calc(100vh - 80px);
-    background-color: lightgrey;
-    position: fixed;
-    right: -100%;
-    z-index: 999;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  .logoImage{
+    width: 100px;
+    height: 100px;
   }
 
-  .mobileMenuIcon {
-    position: relative;
-    font-size: 25px;
-    border: none;
-    background-color: transparent;
+  .linkWrapper{
     display: flex;
-    cursor: pointer;
+    gap: 1rem;
   }
+
 }
