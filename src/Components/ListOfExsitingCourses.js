@@ -12,6 +12,7 @@ function ListOfExsitingCourses() {
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewCourseFunction, setAddNewCourseFunction] = useState(false);
   const [courseID, setCourseID] = useState();
+  const [isActive, setIsActive] = useState(false);
   const [updateOnly, setUpdateOnly] = useState();
   const [courseData, setCourseData] = useState({
     name: "",
@@ -28,12 +29,14 @@ function ListOfExsitingCourses() {
     setCourseData({ ...courseData, name, date, length, price, slots, desc });
     setCourseID(id);
     setUpdateOnly(true);
+    setIsActive(false)
   };
 
   const toggleNewCourse = () => {
     setAddNewCourseFunction((current) => !current);
     //setUpdateOnly(false)
     //setShowUpdate((current) => !current)
+    setIsActive(false)
   };
 
   useEffect(() => {
@@ -86,6 +89,8 @@ function ListOfExsitingCourses() {
           slots={courseData.slots}
           price={courseData.price}
           desc={courseData.desc}
+          isActive={isActive}
+          setIsActive={setIsActive}
         />
       )}
       <div className={styles.modal}>

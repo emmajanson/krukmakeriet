@@ -23,6 +23,8 @@ function UpdateCourses({
   date,
   updateOnly,
   setCourses,
+  isActive,
+  setIsActive
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -32,7 +34,7 @@ function UpdateCourses({
   const [courseDescription, setCourseDescription] = useState("");
   const [courseSpots, setCourseSpots] = useState("");
   const [courseImage, setCourseImage] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  //const [isActive, setIsActive] = useState(false);
 
   const createCourse = async () => {
     await addDoc(coursesCollectionRef, {
@@ -44,12 +46,12 @@ function UpdateCourses({
       spots: Number(courseSpots),
       img: courseImage,
     });
-    toggle();
+    // toggle();
   };
 
-  const toggle = () => {
-    setIsActive((current) => !current);
-  };
+  // const toggle = () => {
+  //   setIsActive(!isActive);
+  // };
 
   useEffect(() => {
     setCourseName(name);
@@ -72,13 +74,13 @@ function UpdateCourses({
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
-    toggle();
+    // toggle();
   };
 
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
-    toggle();
+    // toggle();
   };
 
   return (
@@ -89,7 +91,12 @@ function UpdateCourses({
       }}
     >
       <div className={styles.form}>
-        <FaTimes className={styles.icon} onClick={toggle} />
+        <FaTimes
+          className={styles.icon}
+          onClick={() => {
+            setIsActive(true);
+          }}
+        />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
         <p>Kursens namn: </p>
