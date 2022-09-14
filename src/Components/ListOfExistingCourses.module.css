@@ -5,11 +5,11 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    
   }
   .title {
     display: flex;
     justify-content: center;
+    margin: 2rem;
   }
   .button {
     width: 80%;
@@ -25,15 +25,17 @@
     margin: auto;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
-    
   }
   .courses {
     display: flex;
     flex-direction: column;
     margin: 2rem;
-    
+  }
+  .modal {
+    background-color: red;
 
   }
+  
 }
 @media only screen and (min-width: 600px) {
   .wrapper {
@@ -62,12 +64,13 @@
   .title {
     display: flex;
     justify-content: flex-start;
+    margin: 2rem;
   }
   .courses {
     display: flex;
     margin: 2rem;
   }
-  .FaCaretDown{
+  .FaCaretDown {
     display: none;
   }
 }
