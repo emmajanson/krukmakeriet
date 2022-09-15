@@ -12,12 +12,14 @@ const navigate = useNavigate();
 
 const [email, setEmail] = useState("")
 const [userNotFound, setUserNotFound] = useState(false)
+const [notValidEmail, setNotValidEmail] = useState(false)
+
 
 function backToSignIn() {
     navigate("/signin")
 }
 
-async function resetClickHandler() {
+async function resetClickHandler() {   
     try {
       const checkEmail = await sendPasswordResetEmail(auth, email);
       console.log(checkEmail);
@@ -26,9 +28,14 @@ async function resetClickHandler() {
         console.log(error.message)
       switch (error.message) {
         case "Firebase: Error (auth/user-not-found).":
+          setNotValidEmail(false)
           setUserNotFound(true);
           console.log("User not found!");
           break;
+        case "Firebase: Error (auth/invalid-email).":
+          setNotValidEmail(false)
+          setNotValidEmail(true);
+            break;
         default:
           break;
       }
@@ -44,8 +51,10 @@ return (
             type="text" 
             placeholder="Enter your email" 
             onChange={(e) => {
-                setEmail(e.target.value);
+              setEmail(e.target.value);
           }}></input>
+        {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
+        {notValidEmail ? <p style={{ color: "red" }}>Email not valid!</p> : ""}
         <button onClick={backToSignIn}>Back to signin</button>
         <button onClick={resetClickHandler}>Reset password</button>
     </section>
