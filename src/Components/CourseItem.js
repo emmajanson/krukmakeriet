@@ -6,10 +6,21 @@ import { AppContext } from '../App'
 
 function CourseItem({courseData}) {
 
-  const {setCourseBasket} = useContext(AppContext) 
+  const { courseBasket, setCourseBasket } = useContext(AppContext) 
 
-  function addToBasket(courseData) {
-    setCourseBasket(prevBasket => [...prevBasket, courseData])
+  function addToBasket(course) {
+
+    const exist = courseBasket.find(x => x.id === courseData.id);
+    if (exist){
+      setCourseBasket(
+        courseBasket.map(x => 
+          x.id === course.id ? {...exist, amount: exist.amount + 1} : x
+        )
+      );
+    } else {
+    setCourseBasket([...courseBasket, {...course, amount: 1}])
+    }
+
     console.log("Added to basket " + courseData.name)
   }
   

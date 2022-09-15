@@ -5,19 +5,28 @@ import { AppContext } from '../App'
 
 function ShopItem({productData}) {
 
+  const {productBasket, setProductBasket} = useContext(AppContext) 
 
-  const {setProductBasket} = useContext(AppContext) 
+  function addToBasket(product) {
 
-  function addToBasket(productData) {
-    setProductBasket(prevBasket => [...prevBasket, productData])
+    const exist = productBasket.find(x => x.id === productData.id);
+    if (exist){
+      setProductBasket(
+        productBasket.map(x => 
+          x.id === product.id ? {...exist, amount: exist.amount + 1} : x
+        )
+      );
+    } else {
+    setProductBasket([...productBasket, {...product, amount: 1}])
+    }
+
     console.log("Added to basket " + productData.name)
   }
-
 
   return (
     <article className={styles.shopItemWrapper}>
     <div className={styles.imgWrapper}>
-      <img className={styles.shopItemImage} />
+      <img className={styles.shopItemImage} alt="" />
       {/* köp vara ikon ska in här och lägg onclicken på den*/}
       <button className={styles.button} onClick={() => addToBasket(productData)}>Lägg till</button>
     </div>
