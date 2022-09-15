@@ -1,5 +1,6 @@
 .wrapper{
   width:100%;
+  position: relative;
 }
 .desktopWrapper{
   display: none;
@@ -8,12 +9,24 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
- }
+}
 
-/*dolda menyn*/
+.menuBtn {
+  color: black;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+.mobileMenuWrapperHidden{
+  display: none;
+}
 .mobileMenuWrapperShow {
   position: absolute;
-  display: none;
+  display: flex;
   left: 0;
   top: 10%;
   width: 100%;
@@ -27,24 +40,12 @@
   flex-direction: column;
 }
 
-/*hamburgemenyn*/
-.menuBtn {
-  color: black;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
-}
-
-.mobileMenuWrapperHidden{
+.basketWrapperHidden{
   display: none;
 }
-.mobileMenuWrapperShow{
+.basketWrapperShow{
   display: flex;
-} 
+}
 
 
 /* desktop*/
@@ -59,19 +60,15 @@
     padding: 0 3rem;
     background-color: grey; /*tillfällig*/
   }
-
   .mobileWrapper {
     display: none;
   }
-
   .logoImage{
     width: 100px;
     height: 100px;
   }
-
   .linkWrapper{
     display: flex;
     gap: 1rem;
   }
-
 }
