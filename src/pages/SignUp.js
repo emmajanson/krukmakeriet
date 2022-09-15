@@ -6,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  sendEmailVerification,
+  getAuth
 } from "firebase/auth";
 
 function SignUp() {
@@ -15,6 +17,7 @@ function SignUp() {
   const [signinPassword2, setSigninPassword2] = useState("");
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -30,11 +33,15 @@ function SignUp() {
           signinEmail,
           signinPassword
         );
+
+        const sendMail = getAuth();
+        await sendEmailVerification(sendMail.currentUser);
+
         updateProfile(auth.currentUser, {
           displayName: userName,
           photoURL: null,
         });
-        console.log(user);
+
         navigate("/profile", { state: { user: userName } });
       } catch (error) {
         console.log(error);
