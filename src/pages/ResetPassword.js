@@ -11,17 +11,31 @@ function ResetPassword() {
 const navigate = useNavigate();
 
 const [email, setEmail] = useState("")
+const [userNotFound, setUserNotFound] = useState(false)
 
 function backToSignIn() {
     navigate("/signin")
 }
 
 async function resetClickHandler() {
-    await sendPasswordResetEmail(auth, email)
-    navigate("/signin")
-}
+    try {
+      const checkEmail = await sendPasswordResetEmail(auth, email);
+      console.log(checkEmail);
+      navigate("/signin");
+    } catch (error) {
+        console.log(error.message)
+      switch (error.message) {
+        case "Firebase: Error (auth/user-not-found).":
+          setUserNotFound(true);
+          console.log("User not found!");
+          break;
+        default:
+          break;
+      }
+    }
+  }
 
-console.log(email)
+
 
 return (
     <main className={styles.wrapper}>
