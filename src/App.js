@@ -11,6 +11,7 @@ import styles from "./App.module.css";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
+import ResetPassword from "./pages/ResetPassword";
 import { createContext, useState, useEffect } from "react";
 
 export const AppContext = createContext();
@@ -56,6 +57,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
