@@ -34,6 +34,10 @@ function SignIn() {
     navigate("/signup");
   }
 
+  function navToResetPassword() {
+    navigate("/resetpassword");
+  }
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -42,7 +46,7 @@ function SignIn() {
 
   return (
     <main className={styles.wrapper}>
-      <div>
+      <section className={styles.loginWrapper}>
         <label htmlFor="email" name="email">
           E-mail
         </label>
@@ -64,10 +68,17 @@ function SignIn() {
             setUserPassword(e.target.value);
           }}
         />
-        <button onClick={signin}>Log In</button>
+        <button className={styles.buttonClass}onClick={signin}>Log In</button>
+        </section>
+      
+       
+        <section className={styles.signUpWrapper}>
         <p>Don't have an account?</p>
-      </div>
-      <button onClick={navToSignUp}>Sign up</button>
+      
+        <button className={styles.buttonClass}onClick={navToSignUp}>Sign up</button>
+        <button className={styles.buttonClass}onClick={navToResetPassword}>Forgot password?</button>
+        </section>
+        
     </main>
   );
 }

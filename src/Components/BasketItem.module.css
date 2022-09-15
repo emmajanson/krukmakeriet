@@ -1,0 +1,67 @@
+.wrapper{
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+}
+
+.imgWrapper{
+  width: 50px;
+  height: 50px;
+}
+.basketImage{
+  background-color: lightgrey;
+  width: 100%;
+  height: 100%;
+}
+
+.textWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-grow:1;
+}
+.heading{
+  font-size: 18px;
+}
+.changeAmountWrapper{
+  display: flex;
+  width: 50%;
+  gap: 8px;
+
+}
+.changeAmount{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgrey;
+  padding:2px;
+  border-radius: 5px;;
+}
+.input{
+  text-align: center;
+  width: 20%;
+  outline: none;
+  border-radius: 5px;
+  border: 0.5px solid grey;
+  
+}
+
+
+.priceDeleteWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.price{
+  font-size: 18px;
+}
+.deleteBtn{
+  padding: 2px;
+}
+
+@media screen and (min-width:800px){
+
+}

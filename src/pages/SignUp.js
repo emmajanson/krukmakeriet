@@ -6,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  sendEmailVerification,
+  getAuth,
 } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -32,6 +34,8 @@ function SignUp() {
           signinEmail,
           signinPassword
         );
+        const sendMail = getAuth();
+        await sendEmailVerification(sendMail.currentUser);
         updateProfile(auth.currentUser, {
           displayName: userName,
           photoURL: null,
