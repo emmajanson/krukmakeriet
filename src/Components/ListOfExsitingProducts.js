@@ -11,6 +11,7 @@ function ListOfExsitingProducts() {
   const [products, setProducts] = useState([]);
   const [productID, setProductID] = useState();
   const [updateOnly, setUpdateOnly] = useState();
+  const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewProductFunction, setAddNewProductFunction] = useState(false);
   const [productData, setProductData] = useState({
@@ -21,19 +22,27 @@ function ListOfExsitingProducts() {
     quantity: "",
   });
 
-  const toggleUpdate = (id, name, category, details, price, quantity,) => {
-    console.log("hääääär",id, name, category)
+  const toggleUpdate = (id, name, category, details, price, quantity) => {
     setProductData({});
-    setAddUpdateFunction((current) => !current);
-    setProductData({ ...productData, name, category, details, price, quantity });
+    setAddUpdateFunction(true);
+    setProductData({
+      ...productData,
+      name,
+      category,
+      details,
+      price,
+      quantity,
+    });
     setProductID(id);
     setUpdateOnly(true);
+    setOpenModal(true);
   };
 
   const toggleNewProduct = () => {
     setAddNewProductFunction((current) => !current);
     //setUpdateOnly(false)
     //setShowUpdate((current) => !current)
+    setOpenModal(true);
   };
 
   useEffect(() => {
@@ -48,19 +57,25 @@ function ListOfExsitingProducts() {
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Butik</h3>
       <div className={styles.products}>
-        <button className={styles.button} onClick={() => toggleNewProduct()}>Lägg till en ny produkt</button>
+        <button className={styles.button} onClick={() => toggleNewProduct()}>
+          Lägg till en ny produkt
+        </button>
         {products.map((product, index) => {
           return (
-            <div key={index} className={styles.details} onClick={() =>
-              toggleUpdate(
-                product.id,
-                product.name,
-                product.category,
-                product.details,
-                product.price,
-                product.quantity,
-              )
-            }>
+            <div
+              key={index}
+              className={styles.details}
+              onClick={() =>
+                toggleUpdate(
+                  product.id,
+                  product.name,
+                  product.category,
+                  product.details,
+                  product.price,
+                  product.quantity
+                )
+              }
+            >
               <p>{product.name}</p>
               <FaCaretDown className={styles.FaCaretDown} />
             </div>
@@ -77,11 +92,12 @@ function ListOfExsitingProducts() {
           details={productData.details}
           price={productData.price}
           quantity={productData.quantity}
-          
+          open={openModal}
+          onClose={() => setOpenModal(false)}
         />
       )}
       <div className={styles.modal}>
-      {addNewProductFunction && <UpdateProducts />}
+        {addNewProductFunction && <UpdateProducts />}
       </div>
     </div>
   );

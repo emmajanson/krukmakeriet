@@ -1,8 +1,7 @@
 @media only screen and (max-width: 600px) {
   .wrapper {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
+    
+    position: absolute;
     background-color: rgb(111, 109, 109);
     left:0;
     top:0;
@@ -32,9 +31,11 @@
     margin: 1rem;
     font-size: xx-large;
   }
-.NOwrapper{
-  display: none;
-}
+  .image {
+    width: 100px;
+    height:70px
+  }
+
 }
 @media only screen and (min-width: 600px) {
   .wrapper {
@@ -71,7 +72,9 @@
     margin: 1rem;
     font-size: xx-large;
   }
-  .NOwrapper{
-    display: none;
+  .image {
+    width: 100px;
+    height:70px
   }
+ 
 }

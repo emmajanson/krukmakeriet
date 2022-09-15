@@ -22,6 +22,8 @@ function UpdateProducts({
   img,
   updateOnly,
   setProducts,
+  open,
+  onClose,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
@@ -40,12 +42,8 @@ function UpdateProducts({
       price: Number(productPrice),
       quantity: Number(productQuantity),
     });
-    toggle();
   };
 
-  const toggle = () => {
-    setIsActive((current) => !current);
-  };
 
   useEffect(() => {
     setProductName(name);
@@ -53,8 +51,10 @@ function UpdateProducts({
     setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
-  }, []);
+  }, [name, price, category, details, quantity]);
 
+  if (!open) return null;
+  
   const updateProduct = async () => {
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
@@ -66,24 +66,19 @@ function UpdateProducts({
     };
     await updateDoc(productDoc, newUpdatedProduct);
     console.log("UpdateProduct function");
-    toggle();
   };
 
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
-    toggle();
   };
 
   return (
     <div
       className={styles.wrapper}
-      style={{
-        display: isActive ? "none" : "flex",
-      }}
     >
       <div className={styles.form}>
-        <FaTimes className={styles.icon} onClick={toggle} />
+        <FaTimes className={styles.icon} onClick={onClose} />
         <h4>Lägg till produkt</h4>
         <p>Produktens namn:</p>
         <input

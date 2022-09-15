@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./UpdateCourses.module.css";
-import { db } from "../firebase-config";
+import { db, storage } from "../firebase-config";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -11,7 +11,8 @@ import {
   doc,
 } from "firebase/firestore";
 import { FaTimes } from "react-icons/fa";
-
+import { v4 } from "uuid";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 
 function UpdateCourses({
   id,
@@ -22,17 +23,27 @@ function UpdateCourses({
   slots,
   date,
   updateOnly,
-  setCourses
+  setCourses,
+  open,
+  onClose,
+  setCourseData,
+  url,
+  img,
+  courses
 }) {
   const coursesCollectionRef = collection(db, "courses");
+  const [courseURL, setCourseURL] = useState([]);
   const [courseName, setCourseName] = useState("");
   const [courseDate, setCourseDate] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
   const [coursePrice, setCoursePrice] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseSpots, setCourseSpots] = useState("");
+  const [uploadedImage, setUploadedImage] = useState("");
   const [courseImage, setCourseImage] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  const [imageURL, setImageURL] = useState([]);
+  const imageListRef = ref(storage, "images/");
+  // const [isActive, setIsActive] = useState(false);
 
   const createCourse = async () => {
     await addDoc(coursesCollectionRef, {
@@ -42,14 +53,27 @@ function UpdateCourses({
       price: Number(coursePrice),
       info: courseDescription,
       spots: Number(courseSpots),
+      url: courseURL,
       img: courseImage,
     });
-     toggle();
+    // uploadImage()
   };
+  console.log("KOLLA HÄÄÄÄÄR", courseImage);
 
-  const toggle = () => {
-    setIsActive(!isActive);
-  };
+  useEffect(() => {
+    const imageListRef = ref(storage, "images/");
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageURL((prev) => [...prev, url]);
+          setCourseURL((prev) => [...prev, url]);
+          setCourseImage(courseURL[0]);
+        });
+      });
+    });
+    console.log("image url", imageURL);
+    console.log("course url", courseURL);
+  }, []);
 
   useEffect(() => {
     setCourseName(name);
@@ -58,7 +82,26 @@ function UpdateCourses({
     setCourseDescription(desc);
     setCourseDate(date);
     setCourseSpots(slots);
-  }, []);
+    setCourseImage(img);
+    setCourseURL(url);
+  }, [name, price, length, desc, date, slots, url, img]);
+
+  if (!open) return null;
+
+  function closeModal() {
+    setCourseData("");
+    onClose();
+  }
+
+  const uploadImage = () => {
+    if (uploadedImage == null) return;
+    const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
+    uploadBytes(imageRef, uploadedImage).then(() => {
+      console.log("imageRef",imageRef);
+    }).then(setCourses((prev) => [...prev, {img: "testar"}]));
+  };
+  //uploadImage()
+
 
   const updateCourse = async () => {
     const courseDoc = doc(db, "courses", id);
@@ -69,32 +112,36 @@ function UpdateCourses({
       price: coursePrice,
       info: courseDescription,
       spots: courseSpots,
+      url: courseURL,
+      img: courseImage,
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
-     toggle();
+    // await uploadImage()
   };
+
+  function handleSubmit() {
+    
+    if (updateOnly) {
+      updateCourse();
+    uploadImage()
+    } else {
+      createCourse();
+      uploadImage()
+  
+    }
+  }
 
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
-     toggle();
   };
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{
-        display: isActive ? "none" : "flex",
-      }}
-    >
+    <div className={styles.wrapper}>
+      <img src={courseImage} alt="en bild" className={styles.image} />
       <div className={styles.form}>
-        <FaTimes
-          className={styles.icon}
-          onClick={() => {
-            setIsActive(() => {toggle()});
-          }}
-        />
+        <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
         <p>Kursens namn: </p>
@@ -140,10 +187,10 @@ function UpdateCourses({
         <p>Produktens bild:</p>
         <input
           type="file"
-          accept="image/png, image/jpeg"
           onChange={(e) => {
-            setCourseImage(e.target.value);
+            setUploadedImage(e.target.files[0]);
           }}
+          accept="image/png, image/jpeg"
         />
         <p>Kursens beskrivning:</p>
         <input
@@ -153,11 +200,14 @@ function UpdateCourses({
             setCourseDescription(e.target.value);
           }}
         />
-        <button
+        {/* <button
           className={styles.button}
           onClick={() => (updateOnly ? updateCourse() : createCourse())}
         >
           Spara
+        </button> */}
+        <button onClick={handleSubmit} className={styles.button}>
+          Submit
         </button>
         <a
           href="#"

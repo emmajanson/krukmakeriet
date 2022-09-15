@@ -12,7 +12,9 @@ function ListOfExsitingCourses() {
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewCourseFunction, setAddNewCourseFunction] = useState(false);
   const [courseID, setCourseID] = useState();
-  const [updateOnly, setUpdateOnly] = useState();
+  const [openModal, setOpenModal] = useState(false);
+  const [updateOnly, setUpdateOnly] = useState(false);
+
   const [courseData, setCourseData] = useState({
     name: "",
     date: "",
@@ -20,22 +22,41 @@ function ListOfExsitingCourses() {
     price: "",
     slots: "",
     desc: "",
+    img: "",
+    url: "",
+    img:""
   });
 
-  const toggleUpdate = (id, name, date, length, price, slots, desc) => {
+  const toggleUpdate = (id, name, date, length, price, slots, desc, url, img) => {
     setCourseData({});
-    setAddUpdateFunction((current) => !current);
-    setCourseData({ ...courseData, name, date, length, price, slots, desc });
+    setAddUpdateFunction(true);
+    setCourseData({
+      ...courseData,
+      name,
+      date,
+      length,
+      price,
+      slots,
+      desc,
+      url,
+      img
+    });
     setCourseID(id);
-    setUpdateOnly(true);
-    
+    setOpenModal(true);
   };
 
-  const toggleNewCourse = () => {
-    setAddNewCourseFunction((current) => !current);
-    //setUpdateOnly(false)
-    //setShowUpdate((current) => !current)
+  console.log("courseData:", courseData);
 
+  const toggleNewCourse = () => {
+    if (courses.legth > 0) {
+      console.log("full");
+      toggleUpdate();
+    } else {
+      console.log("tom");
+      setAddNewCourseFunction(true);
+      setCourseData("");
+      setOpenModal(true);
+    }
   };
 
   useEffect(() => {
@@ -66,7 +87,9 @@ function ListOfExsitingCourses() {
                   course.duration,
                   course.price,
                   course.spots,
-                  course.info
+                  course.info,
+                  course.url,
+                  course.img
                 )
               }
             >
@@ -81,13 +104,19 @@ function ListOfExsitingCourses() {
         <UpdateCourses
           setCourses={setCourses}
           id={courseID}
-          updateOnly={updateOnly}
+          updateOnly={addUpdateFunction}
           name={courseData.name}
           date={courseData.date}
           length={courseData.length}
           slots={courseData.slots}
           price={courseData.price}
           desc={courseData.desc}
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          setCourseData={setCourseData}
+          courses={courses}
+          url={courseData.url}
+          img={courseData.img}
         />
       )}
       <div className={styles.modal}>
