@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
 } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -15,6 +16,7 @@ function SignUp() {
   const [signinPassword2, setSigninPassword2] = useState("");
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const usersCollectionRef = collection(db, "users");
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -33,6 +35,12 @@ function SignUp() {
         updateProfile(auth.currentUser, {
           displayName: userName,
           photoURL: null,
+        });
+        await addDoc(usersCollectionRef, {
+          name: userName,
+          email: user.user.email,
+          admin: false,
+          uid: user.user.uid,
         });
         console.log(user);
         navigate("/profile", { state: { user: userName } });
