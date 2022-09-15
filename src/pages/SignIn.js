@@ -34,6 +34,10 @@ function SignIn() {
     navigate("/signup");
   }
 
+  function navToResetPassword() {
+    navigate("/resetpassword");
+  }
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -68,6 +72,7 @@ function SignIn() {
         <p>Don't have an account?</p>
       </div>
       <button onClick={navToSignUp}>Sign up</button>
+      <button onClick={navToResetPassword}>Forgot password?</button>
     </main>
   );
 }
