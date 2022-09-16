@@ -1,3 +1,23 @@
 .wrapper {
   padding-top: 12vh;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #DAE1D9;
+}
+
+.signUpWrapper {
+  width: 227px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+}
+.registerButton {
+  background-color: #414B42;
+  color: white;
+  width: 14.188rem;
+  height: 3.403rem;
+  border-radius: 3.125rem;
+  margin-top: 20px;
 }
