@@ -19,8 +19,8 @@ export const AppContext = createContext();
 function App() {
 
   /* global */
-  const [courseBasket, setCourseBasket] = useState([]);
-  const [productBasket, setProductBasket] = useState([]);
+  const [courseBasket, setCourseBasket] = useState(JSON.parse(localStorage.getItem('courseBasket')));
+  const [productBasket, setProductBasket] = useState(JSON.parse(localStorage.getItem('productBasket')));
 
   const appContextValues = {
     courseBasket: courseBasket,
@@ -29,7 +29,6 @@ function App() {
     setProductBasket: setProductBasket
   };
 
-  /*Uppdatera ls när baskets ändras*/
   useEffect(() => {
     localStorage.setItem('courseBasket', JSON.stringify(courseBasket))
   }, [courseBasket]);
@@ -37,10 +36,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem('productBasket', JSON.stringify(productBasket))
   }, [productBasket]);
-
-
-  //SAKNAS!
-  //Hur styr vi amount? Alltså när flera av samma sort läggs till?
 
   return (
     <div className={styles.wrapper}>
