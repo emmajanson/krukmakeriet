@@ -8,18 +8,21 @@ function ShopItem({productData}) {
   const {productBasket, setProductBasket} = useContext(AppContext) 
 
   function addToBasket(product) {
-
-    const exist = productBasket.find(x => x.id === productData.id);
-    if (exist){
-      setProductBasket(
-        productBasket.map(x => 
-          x.id === product.id ? {...exist, amount: exist.amount + 1} : x
-        )
-      );
+    if (productBasket === null) {
+      setProductBasket([{...product, amount: 1}])
     } else {
-    setProductBasket([...productBasket, {...product, amount: 1}])
+      const exist = productBasket.find(item => item.id === productData.id);
+      if (exist){
+        setProductBasket(
+          productBasket.map(item => 
+            item.id === product.id ? {...exist, amount: exist.amount + 1} : item
+          )
+        );
+      } else {
+        setProductBasket([...productBasket, {...product, amount: 1}])
+      }
     }
-
+    
     console.log("Added to basket " + productData.name)
   }
 
