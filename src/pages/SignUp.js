@@ -58,9 +58,9 @@ function SignUp() {
 
   return (
     <main className={styles.wrapper}>
-      <section>
+      <section className={styles.signUpWrapper}>
         <label name="name">Name</label>
-        <input
+        <input 
           type="text"
           name="name"
           placeholder="Enter your name..."
@@ -95,8 +95,7 @@ function SignUp() {
             setSigninPassword2(e.target.value);
           }}
         />
-        <button onClick={register}>Register Account</button>
-        <h1>{user?.displayName}</h1>
+        <button className={styles.registerButton} onClick={register}>Register Account</button>
       </section>
     </main>
   );
