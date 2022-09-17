@@ -4,31 +4,51 @@ import { AppContext } from '../App';
 
 function BasketItem({productData}) {
 
-  const { productBasket, setProductbasket } = useContext(AppContext)
+  const { productBasket, setProductBasket } = useContext(AppContext)
   const { courseBasket, setCourseBasket } = useContext(AppContext)
 
   //hur styra vilket state jag ska jobba i när jag har samma komponent för bägge?
   //köra en find på bägge statesen och se vart id finns?
-  function findItem(productData){
-    console.log("find")
+  
+  function decrementAmount(productData){
+
+    //Går ej köra båda i samma function för då får man felmeddelande. Hade varit bra om vi lägger in nåt i Firebase där vi sätter ett värde på produkten/kursen att den tillhör kurs/produktkategorin.
+
+    const courseExist = courseBasket.find(item => item.id === productData.id);
+    const productExist = productBasket.find(item => item.id === productData.id);
+
+    courseExist.amount > 0  ? setCourseBasket(
+      courseBasket.map(item =>
+        item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
+      )
+    ) : console.log("Nothing to remove")
+
   }
 
-  function decrementAmount(productData){
-    findItem()
-    //samma som i addToBasket ????
-    console.log("dec")
-  }
 
   function incrementAmount(productData){
-    //samma som i addToBasket ????
-    console.log("inc")
+
+    const productExist = productBasket.find(item => item.id === productData.id);
+    setProductBasket(
+      productBasket.map(item => 
+        item.id === productData.id ? {...productExist, amount: productExist.amount + 1} : item
+      )
+    );
+
+    const courseExist = courseBasket.find(item => item.id === productData.id);
+    setCourseBasket(
+      courseBasket.map(item => 
+        item.id === productData.id ? {...courseExist, amount: courseExist.amount + 1} : item
+      )
+    );
   }
 
   function deleteItem(productData){
     //.filter på alla som inte är productData.id
     //uppdatera state med den här listan
+    setCourseBasket(courseBasket.filter((item) => item.id !== productData.id))
+    setProductBasket(productBasket.filter((item) => item.id !== productData.id))
     
-    console.log("delete")
   }
 
   return (
