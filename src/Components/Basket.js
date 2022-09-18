@@ -9,8 +9,8 @@ function Basket({toggleBasket}, isActiveBasket) {
 
   const navigate = useNavigate();
 
-  const { productBasket, setProductbasket } = useContext(AppContext)
-  const { courseBasket, setCourseBasket } = useContext(AppContext)
+  const { productBasket } = useContext(AppContext)
+  const { courseBasket } = useContext(AppContext)
   
   return (
     <section className={styles.wrapper}>

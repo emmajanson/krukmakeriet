@@ -28,7 +28,6 @@ function Courses() {
     <main data-testid="courses" className={styles.wrapper}>
       <h2 className={styles.heading}>[kurser]</h2>
       <section className={styles.courseWrapper}>
-        {/* //map over the testcourses array and display it in the CourseItem component */}
         {courses
           .sort((course, nextCourse) => (course.details > nextCourse.details ? 1 : -1))
           .map((course) => (<CourseItem key={course.id} courseData={course} />))}

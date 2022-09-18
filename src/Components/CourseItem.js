@@ -2,25 +2,28 @@ import React from 'react'
 import styles from "./CourseItem.module.css";
 import { useContext } from 'react'
 import { AppContext } from '../App'
-
+import ShopItem from './ShopItem';
 
 function CourseItem({courseData}) {
 
   const { courseBasket, setCourseBasket } = useContext(AppContext) 
 
   function addToBasket(course) {
-
-    const exist = courseBasket.find(x => x.id === courseData.id);
-    if (exist){
-      setCourseBasket(
-        courseBasket.map(x => 
-          x.id === course.id ? {...exist, amount: exist.amount + 1} : x
-        )
-      );
+    if (courseBasket === null) {
+      setCourseBasket([{...course, amount: 1}])
     } else {
-    setCourseBasket([...courseBasket, {...course, amount: 1}])
+      const exist = courseBasket.find(item => item.id === courseData.id);
+      if (exist){
+        setCourseBasket(
+          courseBasket.map(item => 
+            item.id === course.id ? {...exist, amount: exist.amount + 1} : item
+          )
+        );
+      } else {
+      setCourseBasket([...courseBasket, {...course, amount: 1}])
+      }
     }
-
+    
     console.log("Added to basket " + courseData.name)
   }
   
