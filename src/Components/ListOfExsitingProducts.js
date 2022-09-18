@@ -14,15 +14,27 @@ function ListOfExsitingProducts() {
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewProductFunction, setAddNewProductFunction] = useState(false);
+  const [showBro, setShowBro] = useState(false);
   const [productData, setProductData] = useState({
     name: "",
     category: "",
     details: "",
     price: "",
     quantity: "",
+    url: "",
+    img: "",
   });
 
-  const toggleUpdate = (id, name, category, details, price, quantity) => {
+  const toggleUpdate = (
+    id,
+    name,
+    category,
+    details,
+    price,
+    quantity,
+    url,
+    img
+  ) => {
     setProductData({});
     setAddUpdateFunction(true);
     setProductData({
@@ -32,17 +44,23 @@ function ListOfExsitingProducts() {
       details,
       price,
       quantity,
+      url,
+      img,
     });
     setProductID(id);
-    setUpdateOnly(true);
     setOpenModal(true);
   };
 
+  useEffect(() => {
+    console.log(addNewProductFunction);
+  }, [addNewProductFunction]);
+
   const toggleNewProduct = () => {
-    setAddNewProductFunction((current) => !current);
-    //setUpdateOnly(false)
-    //setShowUpdate((current) => !current)
-    setOpenModal(true);
+    setAddUpdateFunction(() => false);
+    setAddNewProductFunction(true);
+    setProductData({});
+    console.log("clicky");
+    setOpenModal(() => true);
   };
 
   useEffect(() => {
@@ -72,7 +90,9 @@ function ListOfExsitingProducts() {
                   product.category,
                   product.details,
                   product.price,
-                  product.quantity
+                  product.quantity,
+                  product.url,
+                  product.img
                 )
               }
             >
@@ -86,18 +106,30 @@ function ListOfExsitingProducts() {
         <UpdateProducts
           setProducts={setProducts}
           id={productID}
-          updateOnly={updateOnly}
+          updateOnly={addUpdateFunction}
           name={productData.name}
           category={productData.category}
           details={productData.details}
           price={productData.price}
           quantity={productData.quantity}
           open={openModal}
-          onClose={() => setOpenModal(false)}
+          onClose={setOpenModal}
+          setProductData={setProductData}
+          products={products}
+          url={productData.url}
+          img={productData.img}
         />
       )}
       <div className={styles.modal}>
-        {addNewProductFunction && <UpdateProducts />}
+        {addNewProductFunction && (
+          <UpdateProducts
+            open={openModal}
+            onClose={setOpenModal}
+            closeNewModal={setOpenModal}
+            setProductData={setProductData}
+            setAddNewProductFunction={setAddNewProductFunction}
+          />
+        )}
       </div>
     </div>
   );

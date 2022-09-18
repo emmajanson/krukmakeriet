@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./UpdateProducts.module.css";
-import { db } from "../firebase-config";
+import { db, storage } from "../firebase-config";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -11,6 +11,8 @@ import {
   doc,
 } from "firebase/firestore";
 import { FaTimes } from "react-icons/fa";
+import { v4 } from "uuid";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 
 function UpdateProducts({
   id,
@@ -24,6 +26,11 @@ function UpdateProducts({
   setProducts,
   open,
   onClose,
+  setProductData,
+  products,
+  closeNewModal,
+  setAddNewProductFunction,
+  url,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
@@ -32,7 +39,10 @@ function UpdateProducts({
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  const [productURL, setProductURL] = useState([]);
+  const [uploadedImage, setUploadedImage] = useState("");
+  const [imageURL, setImageURL] = useState([]);
+  const imageListRef = ref(storage, "images/");
 
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
@@ -41,9 +51,22 @@ function UpdateProducts({
       details: productDetails,
       price: Number(productPrice),
       quantity: Number(productQuantity),
+      url: productURL,
+      img: productImage,
     });
+    onClose(false)
   };
 
+  useEffect(() => {
+    const imageListRef = ref(storage, "images/");
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageURL((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
 
   useEffect(() => {
     setProductName(name);
@@ -51,10 +74,32 @@ function UpdateProducts({
     setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
-  }, [name, price, category, details, quantity]);
+  }, [name, price, category, details, quantity, img]);
 
   if (!open) return null;
-  
+
+  function closeModal() {
+    if (updateOnly) {
+      onClose();
+    } else {
+      setProductData("");
+      //closeNewModal(false);
+    setAddNewProductFunction(false);
+    }
+  }
+  console.log("typeof",typeof(closeNewModal))
+
+  const uploadImage = () => {
+    if (uploadedImage == null) return;
+    const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
+    uploadBytes(imageRef, uploadedImage)
+      .then(() => {
+        console.log("imageRef", imageRef);
+      })
+      .then(setProducts((prev) => [...prev, { img: imageRef }]));
+  };
+  //uploadImage()
+
   const updateProduct = async () => {
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
@@ -63,22 +108,34 @@ function UpdateProducts({
       details: productDetails,
       price: productPrice,
       quantity: productQuantity,
+      url: productURL,
+      img: productImage,
     };
     await updateDoc(productDoc, newUpdatedProduct);
     console.log("UpdateProduct function");
+    onClose(false)
   };
 
+
+  function handleSubmit() {
+    if (updateOnly) {
+      updateProduct();
+      uploadImage();
+    } else {
+      createProduct();
+      uploadImage();
+    }
+  }
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
+    onClose(false)
   };
 
   return (
-    <div
-      className={styles.wrapper}
-    >
+    <div className={styles.wrapper}>
       <div className={styles.form}>
-        <FaTimes className={styles.icon} onClick={onClose} />
+        <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
         <p>Produktens namn:</p>
         <input
@@ -128,10 +185,7 @@ function UpdateProducts({
             setProductDetails(e.target.value);
           }}
         />
-        <button
-          className={styles.button}
-          onClick={() => (updateOnly ? updateProduct() : createProduct())}
-        >
+        <button className={styles.button} onClick={handleSubmit}>
           Spara
         </button>
         <a

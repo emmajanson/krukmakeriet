@@ -1,0 +1,65 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 1rem;
+  border: 1px solid #222;
+  border-radius: 15px;;
+  position: absolute;
+  right:1%;
+  top: auto;
+  margin-top:8px;
+  width: 98%;
+  z-index:3;
+  background-color: white;
+}
+.headingWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading{
+  font-size: 24px;
+}
+.closingBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:5px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+}
+.subHeading{
+  font-size: 16px;
+  text-align:left
+}
+.basketItemWrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checkoutWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.totalAmountWrapper{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid black
+}
+.checkoutBtn{
+  width: 30%;
+  padding: 8px;
+}
+
+@media screen and (min-width:800px){
+  .wrapper{
+    width: 25%;
+    right: 4rem;
+    top: 11vh;
+  }
+}

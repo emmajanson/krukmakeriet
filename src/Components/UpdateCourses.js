@@ -29,7 +29,9 @@ function UpdateCourses({
   setCourseData,
   url,
   img,
-  courses
+  courses,
+  closeNewModal,
+  setAddNewCourseFunction,
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseURL, setCourseURL] = useState([]);
@@ -56,9 +58,8 @@ function UpdateCourses({
       url: courseURL,
       img: courseImage,
     });
-    // uploadImage()
+    onClose(false)
   };
-  console.log("KOLLA HÄÄÄÄÄR", courseImage);
 
   useEffect(() => {
     const imageListRef = ref(storage, "images/");
@@ -66,13 +67,9 @@ function UpdateCourses({
       response.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
           setImageURL((prev) => [...prev, url]);
-          setCourseURL((prev) => [...prev, url]);
-          setCourseImage(courseURL[0]);
         });
       });
     });
-    console.log("image url", imageURL);
-    console.log("course url", courseURL);
   }, []);
 
   useEffect(() => {
@@ -82,26 +79,31 @@ function UpdateCourses({
     setCourseDescription(desc);
     setCourseDate(date);
     setCourseSpots(slots);
-    setCourseImage(img);
-    setCourseURL(url);
-  }, [name, price, length, desc, date, slots, url, img]);
+  }, [name, price, length, desc, date, slots, img]);
 
   if (!open) return null;
 
   function closeModal() {
-    setCourseData("");
-    onClose();
+    if (updateOnly) {
+      onClose();
+    } else {
+      setCourseData("");
+      // closeNewModal(false);
+      setAddNewCourseFunction(false);
+    }
   }
+  console.log("typeof", typeof(closeNewModal))
 
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
-    uploadBytes(imageRef, uploadedImage).then(() => {
-      console.log("imageRef",imageRef);
-    }).then(setCourses((prev) => [...prev, {img: "testar"}]));
+    uploadBytes(imageRef, uploadedImage)
+      .then(() => {
+        console.log("imageRef", imageRef);
+      })
+      .then(setCourses((prev) => [...prev, { img: imageRef }]));
   };
   //uploadImage()
-
 
   const updateCourse = async () => {
     const courseDoc = doc(db, "courses", id);
@@ -117,24 +119,25 @@ function UpdateCourses({
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
-    // await uploadImage()
+    onClose(false)
   };
 
   function handleSubmit() {
-    
     if (updateOnly) {
       updateCourse();
-    uploadImage()
+      uploadImage();
+      
     } else {
       createCourse();
-      uploadImage()
-  
+      uploadImage();
+      
     }
   }
 
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
+    onClose(false)
   };
 
   return (
