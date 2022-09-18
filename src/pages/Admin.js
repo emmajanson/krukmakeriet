@@ -1,5 +1,7 @@
 import React from 'react'
 import styles from "./Admin.module.css"
+import ListOfExsitingCourses from "../Components/ListOfExsitingCourses"
+import ListOfExsitingProducts from "../Components/ListOfExsitingProducts"
 
 // Det här ska finnas
 // - formulär för att uppdatera kurser - skickas till db
@@ -12,7 +14,8 @@ import styles from "./Admin.module.css"
 function Admin() {
   return (
     <main className={styles.wrapper}>
-      Admin
+      <ListOfExsitingCourses />
+      <ListOfExsitingProducts />
     </main>
   )
 }

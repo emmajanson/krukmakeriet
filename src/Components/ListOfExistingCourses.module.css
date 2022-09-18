@@ -1,0 +1,75 @@
+/*Mobile first*/
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .title {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+  }
+  .button {
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .details {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: black solid 1px;
+    width: 90%;
+    margin: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  .courses {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+  }
+  .modal {
+    background-color: red;
+  }
+  
+}
+@media only screen and (min-width: 600px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem;
+    border-bottom: black solid 1px;
+  }
+  .button {
+    padding: 2rem;
+    width: 8rem;
+  }
+  .details {
+    border: solid black 1px;
+    width: 8rem;
+    padding: 2rem;
+    margin-left: 1.5rem;
+  }
+  .details p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0.3rem;
+  }
+  .title {
+    display: flex;
+    justify-content: flex-start;
+    margin: 2rem;
+  }
+  .courses {
+    display: flex;
+    margin: 2rem;
+  }
+  .FaCaretDown {
+    display: none;
+  }
+}
