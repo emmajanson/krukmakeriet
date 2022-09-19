@@ -9,9 +9,25 @@ function Basket({toggleBasket}, isActiveBasket) {
 
   const navigate = useNavigate();
 
-  const { productBasket } = useContext(AppContext)
-  const { courseBasket } = useContext(AppContext)
+  let { productBasket } = useContext(AppContext)
+  let { courseBasket } = useContext(AppContext)
+
+  if (courseBasket === null) {courseBasket = []}
+  if (productBasket === null) {productBasket = []}
   
+
+  const totalSum = (basket) => {
+    let sum = 0;
+    basket.forEach(item => {
+      sum += item.price * item.amount
+    })
+    return sum;
+  }
+
+  const totalSumProduct = totalSum(productBasket)
+  const totalSumCourse = totalSum(courseBasket)
+  const totalSumBasket = totalSumProduct + totalSumCourse
+
   return (
     <section className={styles.wrapper}>
 
@@ -20,7 +36,7 @@ function Basket({toggleBasket}, isActiveBasket) {
         <button className={styles.closingBtn} onClick={() => toggleBasket(!isActiveBasket)}><FaTimes/></button>
       </section>
 
-      { productBasket && 
+      { productBasket  && 
         <section className={styles.basketItemWrapper}>
           <h4 className={styles.subHeading}>Produkter</h4>
             {productBasket 
@@ -28,7 +44,7 @@ function Basket({toggleBasket}, isActiveBasket) {
         </section>  
       }
      
-      { courseBasket && 
+      { courseBasket  && 
         <section className={styles.basketItemWrapper}>
           <h4 className={styles.subHeading}>Kurser</h4>
             {courseBasket 
@@ -39,7 +55,7 @@ function Basket({toggleBasket}, isActiveBasket) {
       <section className={styles.checkoutWrapper}>
         <div className={styles.totalAmountWrapper}>
           <p className={styles.totalAmountText}>Totalsumma</p>
-          <p className={styles.totalAmountPrice}>000 sek</p>
+          <p className={styles.totalAmountPrice}>{totalSumBasket}</p>
         </div>
         <button className={styles.checkoutBtn} onClick={() => {navigate("/checkout");toggleBasket(!isActiveBasket);}}>Checka ut</button>
       </section>
