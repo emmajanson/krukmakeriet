@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
+import { doc } from "firebase/firestore";
 
 function Profile() {
   const [user, setUser] = useState({});

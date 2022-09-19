@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 import ResetPassword from "./pages/ResetPassword";
+import PrivateRoutes from "./Components/PrivateRoutes";
 import { createContext, useState, useEffect } from "react";
 
 export const AppContext = createContext();
@@ -47,6 +48,7 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/private" element={<PrivateRoutes />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
