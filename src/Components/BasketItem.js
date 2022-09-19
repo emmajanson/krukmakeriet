@@ -17,13 +17,46 @@ function BasketItem({productData}) {
     const courseExist = courseBasket.find(item => item.id === productData.id);
     const productExist = productBasket.find(item => item.id === productData.id);
 
-    courseExist.amount > 0  ? setCourseBasket(
+
+    
+
+    productExist.amount > 0 ? setProductBasket(
+      productBasket.map(item =>
+        item.id === productData.id ? {...productExist, amount: productExist.amount + -1} : item
+      )
+    ) : console.log("Nothing to remove")
+
+        
+      courseExist.amount > 0  ? setCourseBasket(
       courseBasket.map(item =>
         item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
       )
     ) : console.log("Nothing to remove")
 
+
+
+   /* courseExist.amount > 0  ? setCourseBasket(
+      courseBasket.map(item =>
+        item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
+      )
+    ) : console.log("Nothing to remove")
+
+
+    productExist.amount > 0  ? setProductBasket(
+      productBasket.map(item =>
+        item.id === productData.id ? {...productExist, amount: productExist.amount + -1} : item
+      )
+    ) : console.log("Nothing to remove")
+
+        */
+
+
+
   }
+
+
+
+  
 
 
   function incrementAmount(productData){
