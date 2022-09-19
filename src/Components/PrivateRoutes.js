@@ -9,20 +9,30 @@ const PrivateRoutes = () => {
   const [uid, setUid] = useState("");
   const [users, setUsers] = useState([]);
   const [permission, setPermission] = useState(false);
+  const [bol, setBol] = useState(false);
   const usersCollectionRef = collection(db, "users");
 
+  /*
+  Kolla om du är ADMIN när du loggar in, spara i global state.
+  */
+
   useEffect(() => {
-    getUsers();
-    checkUser();
-    checkForAdmin();
-  }, []);
+    async function doStuff() {
+      await checkUser();
+      await getUsers();
+      checkForAdmin();
+    }
+    doStuff();
+  }, [bol]);
 
   async function getUsers() {
     const usersArr = await getDocs(usersCollectionRef);
+    console.log("usersArr:", usersArr.docs);
     setUsers(usersArr.docs.map((doc) => ({ ...doc.data() })));
+    console.log("users:", users);
   }
 
-  function checkUser() {
+  async function checkUser() {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setUid(currentUser.uid);
@@ -31,14 +41,17 @@ const PrivateRoutes = () => {
 
   function checkForAdmin() {
     const currUser = users.find((user) => user.uid === uid);
-    console.log(currUser);
+    currUser !== undefined && setPermission(currUser.admin);
+    setBol(true);
   }
 
   return (
-    <h1 style={{ paddingTop: "150px" }}>
-      Detta är din nivå: {permission.toString()}
-    </h1>
-    //permission ? <Outlet /> : <Navigate to='/login' />
+    <>
+      <h1 style={{ paddingTop: "150px" }}>
+        Detta är din nivå: {permission.toString()}
+      </h1>
+      {/*!permission && !bol ? <Outlet /> : <Navigate to="/login" />*/}
+    </>
   );
 };
 
