@@ -32,6 +32,7 @@ function UpdateCourses({
   courses,
   closeNewModal,
   setAddNewCourseFunction,
+  getCourses,
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseURL, setCourseURL] = useState([]);
@@ -58,7 +59,8 @@ function UpdateCourses({
       url: courseURL,
       img: courseImage,
     });
-    onClose(false)
+    getCourses();
+    onClose(false);
   };
 
   useEffect(() => {
@@ -92,7 +94,7 @@ function UpdateCourses({
       setAddNewCourseFunction(false);
     }
   }
-  console.log("typeof", typeof(closeNewModal))
+  console.log("typeof", typeof closeNewModal);
 
   const uploadImage = () => {
     if (uploadedImage == null) return;
@@ -119,25 +121,25 @@ function UpdateCourses({
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
-    onClose(false)
+    onClose(false);
+    getCourses();
   };
 
   function handleSubmit() {
     if (updateOnly) {
       updateCourse();
       uploadImage();
-      
     } else {
       createCourse();
       uploadImage();
-      
     }
   }
 
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
-    onClose(false)
+    getCourses();
+    onClose(false);
   };
 
   return (
