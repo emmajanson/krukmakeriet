@@ -18,24 +18,30 @@ import { createContext, useState, useEffect } from "react";
 export const AppContext = createContext();
 
 function App() {
-
   /* global */
-  const [courseBasket, setCourseBasket] = useState(JSON.parse(localStorage.getItem('courseBasket')));
-  const [productBasket, setProductBasket] = useState(JSON.parse(localStorage.getItem('productBasket')));
+  const [courseBasket, setCourseBasket] = useState(
+    JSON.parse(localStorage.getItem("courseBasket"))
+  );
+  const [productBasket, setProductBasket] = useState(
+    JSON.parse(localStorage.getItem("productBasket"))
+  );
+  const [adminPermission, setAdminPermission] = useState(false);
 
   const appContextValues = {
     courseBasket: courseBasket,
     setCourseBasket: setCourseBasket,
     productBasket: productBasket,
-    setProductBasket: setProductBasket
+    setProductBasket: setProductBasket,
+    adminPermission: adminPermission,
+    setAdminPermission: setAdminPermission,
   };
 
   useEffect(() => {
-    localStorage.setItem('courseBasket', JSON.stringify(courseBasket))
+    localStorage.setItem("courseBasket", JSON.stringify(courseBasket));
   }, [courseBasket]);
 
   useEffect(() => {
-    localStorage.setItem('productBasket', JSON.stringify(productBasket))
+    localStorage.setItem("productBasket", JSON.stringify(productBasket));
   }, [productBasket]);
 
   return (
