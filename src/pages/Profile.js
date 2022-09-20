@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
@@ -8,12 +8,14 @@ import { AppContext } from "../App";
 
 function Profile() {
   const [user, setUser] = useState({});
-  const myContext = useContext(AppContext);
-  const permission = myContext.adminPermission;
+  const [userName, setUserName] = useState("");
+  //const myContext = useContext(AppContext);
+  const permission = localStorage.getItem("admin");
   console.log(permission);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const myContext = useContext(AppContext);
 
   async function logout() {
     await signOut(auth);
@@ -30,9 +32,13 @@ function Profile() {
     navigate("/admin");
   }
 
-  return (
+  return user == null ? (
+    <Navigate to="/signin" />
+  ) : (
     <main className={styles.wrapper}>
-      <h1>Welcome to your profile {location.state.user}!</h1>
+      <h1>
+        Welcome to your profile {location.state ? location.state.user : ""}!
+      </h1>
       <section className={styles.userInfoWrapper}>
         <h2>Dina uppgifter</h2>
         {/* här renderas datan ut som hämtas från db via .value i inputsen */}

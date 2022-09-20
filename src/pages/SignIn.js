@@ -17,6 +17,7 @@ function SignIn() {
   const myContext = useContext(AppContext);
   const setPermission = myContext.setAdminPermission;
   const usersRef = collection(db, "users");
+  const setRefresh = myContext.setRefresh;
 
   const navigate = useNavigate();
 
@@ -27,10 +28,7 @@ function SignIn() {
         userEmail,
         userPassword
       );
-      console.log(user.user.uid);
-
-      const isAdmin = users.find((a) => a.uid === user.user.uid);
-      if (isAdmin.admin) setPermission(true);
+      setRefresh((curr) => !curr);
 
       navigate("/profile", { state: { user: user.user.displayName } });
     } catch (error) {
@@ -38,14 +36,14 @@ function SignIn() {
     }
   }
 
-  useEffect(() => {
-    setPermission(false);
-    async function getUsers() {
-      const usersArr = await getDocs(usersRef);
-      setUsers(usersArr.docs.map((doc) => ({ ...doc.data() })));
-    }
-    getUsers();
-  }, []);
+  // useEffect(() => {
+  //   setPermission(false);
+  //   async function getUsers() {
+  //     const usersArr = await getDocs(usersRef);
+  //     setUsers(usersArr.docs.map((doc) => ({ ...doc.data() })));
+  //   }
+  //   getUsers();
+  // }, []);
 
   function navToSignUp() {
     navigate("/signup");

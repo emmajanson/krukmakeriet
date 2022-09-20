@@ -14,6 +14,9 @@ import Checkout from "./pages/Checkout";
 import ResetPassword from "./pages/ResetPassword";
 import PrivateRoutes from "./Components/PrivateRoutes";
 import { createContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "./firebase-config";
+import { collection, getDocs } from "firebase/firestore";
 
 export const AppContext = createContext();
 
@@ -26,6 +29,8 @@ function App() {
     JSON.parse(localStorage.getItem("productBasket"))
   );
   const [adminPermission, setAdminPermission] = useState(false);
+  const [refresh, setRefresh] = useState(true);
+  const usersRef = collection(db, "users");
 
   const appContextValues = {
     courseBasket: courseBasket,
@@ -34,6 +39,7 @@ function App() {
     setProductBasket: setProductBasket,
     adminPermission: adminPermission,
     setAdminPermission: setAdminPermission,
+    setRefresh: setRefresh,
   };
 
   useEffect(() => {
@@ -43,6 +49,20 @@ function App() {
   useEffect(() => {
     localStorage.setItem("productBasket", JSON.stringify(productBasket));
   }, [productBasket]);
+
+  useEffect(() => {
+    async function getUsers() {
+      const data = await getDocs(usersRef);
+      const users = data.docs.map((doc) => ({ ...doc.data() }));
+      onAuthStateChanged(auth, (user) => {
+        const isAdmin = users.find((a) => a.uid === user.uid);
+        setAdminPermission(isAdmin.admin);
+        localStorage.setItem("admin", isAdmin.admin);
+        console.log(user);
+      });
+    }
+    getUsers();
+  }, [refresh]);
 
   return (
     <div className={styles.wrapper}>
@@ -57,7 +77,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
-            <Route element={<PrivateRoutes />} >
+            <Route element={<PrivateRoutes />}>
               <Route path="/admin" element={<Admin />} />
             </Route>
             <Route path="/checkout" element={<Checkout />} />
