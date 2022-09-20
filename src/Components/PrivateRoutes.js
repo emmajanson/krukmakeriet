@@ -1,31 +1,35 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { auth, db } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { collection, getDocs } from "firebase/firestore";
+import { AppContext } from "../App";
 
 const PrivateRoutes = () => {
-  const [user, setUser] = useState({});
+/*   const [user, setUser] = useState({});
   const [uid, setUid] = useState("");
   const [users, setUsers] = useState([]);
-  const [permission, setPermission] = useState(false);
   const [bol, setBol] = useState(false);
-  const usersCollectionRef = collection(db, "users");
+  const usersCollectionRef = collection(db, "users"); */
+
+  const myContext = useContext(AppContext);
+  const permission = myContext.adminPermission;
+  console.log(permission);
 
   /*
   Kolla om du är ADMIN när du loggar in, spara i global state.
   */
 
-  useEffect(() => {
+/*   useEffect(() => {
     async function doStuff() {
       await checkUser();
       await getUsers();
       checkForAdmin();
     }
     doStuff();
-  }, [bol]);
+  }, [bol]); */
 
-  async function getUsers() {
+/*   async function getUsers() {
     const usersArr = await getDocs(usersCollectionRef);
     console.log("usersArr:", usersArr.docs);
     setUsers(usersArr.docs.map((doc) => ({ ...doc.data() })));
@@ -38,20 +42,15 @@ const PrivateRoutes = () => {
       setUid(currentUser.uid);
     });
   }
-
-  function checkForAdmin() {
+ */
+/*   function checkForAdmin() {
     const currUser = users.find((user) => user.uid === uid);
     currUser !== undefined && setPermission(currUser.admin);
     setBol(true);
-  }
+  } */
 
-  return (
-    <>
-      <h1 style={{ paddingTop: "150px" }}>
-        Detta är din nivå: {permission.toString()}
-      </h1>
-      {/*!permission && !bol ? <Outlet /> : <Navigate to="/login" />*/}
-    </>
+  if (!permission) return (
+      <Outlet /> 
   );
 };
 
