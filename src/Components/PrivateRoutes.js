@@ -1,58 +1,58 @@
-import { Outlet, Navigate,  } from 'react-router-dom';
-import { auth, db } from '../firebase-config'
+import { Outlet, Navigate } from "react-router-dom";
+import { auth, db } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { useState, useEffect } from 'react';
-import { collection, doc, getDocs } from 'firebase/firestore'
-
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 
 const PrivateRoutes = () => {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const [uid, setUid] = useState("");
-  const [newUsers, setNewUsers] = useState([]); 
-
+  const [users, setUsers] = useState([]);
   const [permission, setPermission] = useState(false);
+  const [bol, setBol] = useState(false);
   const usersCollectionRef = collection(db, "users");
 
+  /*
+  Kolla om du är ADMIN när du loggar in, spara i global state.
+  */
 
-  useEffect(() => {  
+  useEffect(() => {
+    async function doStuff() {
+      await checkUser();
+      await getUsers();
+      checkForAdmin();
+    }
+    doStuff();
+  }, [bol]);
+
+  async function getUsers() {
+    const usersArr = await getDocs(usersCollectionRef);
+    console.log("usersArr:", usersArr.docs);
+    setUsers(usersArr.docs.map((doc) => ({ ...doc.data() })));
+    console.log("users:", users);
+  }
+
+  async function checkUser() {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setUid(currentUser.uid)
-      
+      setUid(currentUser.uid);
     });
-  }, []);
+  }
 
-  useEffect(() => {
-    newUsers.forEach(user => { 
-      console.log("kör vi detta? ashdkljashldk")
-      if(user.uid === uid) setPermission(user.admin)
-      console.log(user.admin)
-  })
-  }, [])
+  function checkForAdmin() {
+    const currUser = users.find((user) => user.uid === uid);
+    currUser !== undefined && setPermission(currUser.admin);
+    setBol(true);
+  }
 
-  useEffect(() => {
-    async function getUser(){
-      let vadsomhelst = await getDocs(usersCollectionRef)
-      setNewUsers(vadsomhelst.docs.map(doc => ({...doc.data(), id: doc.id})))
-    }
-    getUser()
-    
-  }, []);
-
-    
-
-    return (
-      <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h1>Detta är din nivå: {permission.toString()}</h1>
-      </div>
-        //permission ? <Outlet /> : <Navigate to='/login' />
-    )
-}
+  return (
+    <>
+      <h1 style={{ paddingTop: "150px" }}>
+        Detta är din nivå: {permission.toString()}
+      </h1>
+      {/*!permission && !bol ? <Outlet /> : <Navigate to="/login" />*/}
+    </>
+  );
+};
 
 export default PrivateRoutes;
