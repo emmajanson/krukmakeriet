@@ -10,10 +10,7 @@ function BasketItem({productData}) {
   if (courseBasket === null) {courseBasket = []}
   if (productBasket === null) {productBasket = []}
 
-  
 
-  //hur styra vilket state jag ska jobba i när jag har samma komponent för bägge?
-  //köra en find på bägge statesen och se vart id finns?
   
   const isProduct = courseBasket.some(product => {
     if (product.id === productData.id) {

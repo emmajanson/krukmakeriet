@@ -25,8 +25,9 @@ function Basket({toggleBasket}, isActiveBasket) {
     })
     return sum;
   }
-let coursesInBasket = "";
+  let coursesInBasket = "";
   if (courseBasket.length > 0) {coursesInBasket = "Kurser"}
+
   let productsInBasket = "";
   if (productBasket.length > 0) {productsInBasket = "Produkter"}
 
