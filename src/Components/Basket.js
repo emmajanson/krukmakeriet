@@ -12,8 +12,10 @@ function Basket({toggleBasket}, isActiveBasket) {
   let { productBasket } = useContext(AppContext)
   let { courseBasket } = useContext(AppContext)
 
+  
   if (courseBasket === null) {courseBasket = []}
   if (productBasket === null) {productBasket = []}
+
   
 
   const totalSum = (basket) => {
@@ -23,6 +25,11 @@ function Basket({toggleBasket}, isActiveBasket) {
     })
     return sum;
   }
+let coursesInBasket = "";
+  if (courseBasket.length > 0) {coursesInBasket = "Kurser"}
+  let productsInBasket = "";
+  if (productBasket.length > 0) {productsInBasket = "Produkter"}
+
 
   const totalSumProduct = totalSum(productBasket)
   const totalSumCourse = totalSum(courseBasket)
@@ -38,7 +45,7 @@ function Basket({toggleBasket}, isActiveBasket) {
 
       { productBasket  && 
         <section className={styles.basketItemWrapper}>
-          <h4 className={styles.subHeading}>Produkter</h4>
+          <h4 className={styles.subHeading}>{productsInBasket}</h4>
             {productBasket 
               .map((product) => (<BasketItem key={product.index} productData={product} />))} 
         </section>  
@@ -46,7 +53,7 @@ function Basket({toggleBasket}, isActiveBasket) {
      
       { courseBasket  && 
         <section className={styles.basketItemWrapper}>
-          <h4 className={styles.subHeading}>Kurser</h4>
+          <h4 className={styles.subHeading}>{coursesInBasket}</h4>
             {courseBasket 
               .map((product) => (<BasketItem key={product.index} productData={product} />))} 
         </section>  

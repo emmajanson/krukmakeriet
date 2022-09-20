@@ -21,7 +21,7 @@ function App() {
   /* global */
   let [courseBasket, setCourseBasket] = useState(JSON.parse(localStorage.getItem('courseBasket')));
   let [productBasket, setProductBasket] = useState(JSON.parse(localStorage.getItem('productBasket')));
-  
+  let [courseBasketDefaultState, setCourseBasketDefaultState] = useState(JSON.parse(localStorage.getItem('courseBasket')));
 
   const appContextValues = {
     courseBasket: courseBasket,
