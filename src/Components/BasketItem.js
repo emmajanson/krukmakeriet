@@ -4,14 +4,16 @@ import { AppContext } from '../App';
 
 function BasketItem({productData}) {
 
-  const { productBasket, setProductBasket } = useContext(AppContext)
-  const { courseBasket, setCourseBasket } = useContext(AppContext)
+  let { productBasket, setProductBasket } = useContext(AppContext)
+  let { courseBasket, setCourseBasket } = useContext(AppContext)
 
-  //hur styra vilket state jag ska jobba i när jag har samma komponent för bägge?
-  //köra en find på bägge statesen och se vart id finns?
+  if (courseBasket === null) {courseBasket = []}
+  if (productBasket === null) {productBasket = []}
+
+
   
-  const isProduct = productBasket.some(element => {
-    if (element.id === productData.id) {
+  const isProduct = courseBasket.some(product => {
+    if (product.id === productData.id) {
       return true;
     }
     return false;
@@ -20,32 +22,39 @@ function BasketItem({productData}) {
 
   function decrementAmount(productData){
 
+    
+
 
 
     const courseExist = courseBasket.find(item => item.id === productData.id);
     const productExist = productBasket.find(item => item.id === productData.id);
     
-    if (isProduct) {
+    if (isProduct)  {
 
-    productExist.amount > 0 ? setProductBasket(
-      productBasket.map(item =>
-        item.id === productData.id ? {...productExist, amount: productExist.amount + -1} : item
+    courseExist.amount > 0  ? setCourseBasket(
+      courseBasket.map(item =>
+        item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
       )
     ) : console.log("Nothing to remove")
 
+
     } else {
 
-      courseExist.amount > 0  ? setCourseBasket(
-        courseBasket.map(item =>
-          item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
+      productExist.amount > 0 ? setProductBasket(
+        productBasket.map(item =>
+          item.id === productData.id ? {...productExist, amount: productExist.amount + -1} : item
         )
       ) : console.log("Nothing to remove")
+
+     
 
     }
 
   }
 
   function incrementAmount(productData){
+
+   
 
     const productExist = productBasket.find(item => item.id === productData.id);
     setProductBasket(
@@ -90,7 +99,7 @@ function BasketItem({productData}) {
       </div>
 
       <div className={styles.priceDeleteWrapper}>
-        <p className={styles.price}>000:-</p>
+        <p className={styles.price}>{productData.price}:-</p>
         {/* ska bytas ut mot papperskorg */}
         <button className={styles.deleteBtn} onClick={() => deleteItem(productData)}> D </button>
       </div>
