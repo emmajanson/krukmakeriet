@@ -47,7 +47,7 @@ let coursesInBasket = "";
         <section className={styles.basketItemWrapper}>
           <h4 className={styles.subHeading}>{productsInBasket}</h4>
             {productBasket 
-              .map((product) => (<BasketItem key={product.index} productData={product} />))} 
+              .map((product) => (<BasketItem key={product.id} productData={product} />))} 
         </section>  
       }
      
@@ -55,7 +55,7 @@ let coursesInBasket = "";
         <section className={styles.basketItemWrapper}>
           <h4 className={styles.subHeading}>{coursesInBasket}</h4>
             {courseBasket 
-              .map((product) => (<BasketItem key={product.index} productData={product} />))} 
+              .map((product) => (<BasketItem key={product.id} productData={product} />))} 
         </section>  
       }
 
