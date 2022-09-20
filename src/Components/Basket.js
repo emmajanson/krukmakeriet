@@ -55,7 +55,7 @@ function Basket({toggleBasket}, isActiveBasket) {
       <section className={styles.checkoutWrapper}>
         <div className={styles.totalAmountWrapper}>
           <p className={styles.totalAmountText}>Totalsumma</p>
-          <p className={styles.totalAmountPrice}>{totalSumBasket}</p>
+          <p className={styles.totalAmountPrice}>{totalSumBasket}:-</p>
         </div>
         <button className={styles.checkoutBtn} onClick={() => {navigate("/checkout");toggleBasket(!isActiveBasket);}}>Checka ut</button>
       </section>
