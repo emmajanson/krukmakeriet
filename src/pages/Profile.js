@@ -26,6 +26,10 @@ function Profile() {
     });
   }, []);
 
+  function navToAdmin() {
+    navigate("/admin");
+  }
+
   return (
     <main className={styles.wrapper}>
       <h1>Welcome to your profile {location.state.user}!</h1>
@@ -91,6 +95,7 @@ function Profile() {
         </table>
       </section>
 
+      <button onClick={navToAdmin}>Admin Page</button>
       <button onClick={logout}>Log Out</button>
     </main>
   );
