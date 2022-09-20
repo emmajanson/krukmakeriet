@@ -24,7 +24,7 @@ const PrivateRoutes = () => {
 
   useEffect(() => {
     newUsers.forEach(user => { 
-      console.log("kör vi detta? test")
+      console.log("kör vi detta? ashdkljashldk")
       if(user.uid === uid) setPermission(user.admin)
       console.log(user.admin)
   })
@@ -42,7 +42,15 @@ const PrivateRoutes = () => {
     
 
     return (
-      <p>Detta är din nivå: {permission.toString()}</p>
+      <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h1>Detta är din nivå: {permission.toString()}</h1>
+      </div>
         //permission ? <Outlet /> : <Navigate to='/login' />
     )
 }
