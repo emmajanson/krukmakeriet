@@ -19,8 +19,9 @@ export const AppContext = createContext();
 function App() {
 
   /* global */
-  const [courseBasket, setCourseBasket] = useState(JSON.parse(localStorage.getItem('courseBasket')));
-  const [productBasket, setProductBasket] = useState(JSON.parse(localStorage.getItem('productBasket')));
+  let [courseBasket, setCourseBasket] = useState(JSON.parse(localStorage.getItem('courseBasket')));
+  let [productBasket, setProductBasket] = useState(JSON.parse(localStorage.getItem('productBasket')));
+
 
   const appContextValues = {
     courseBasket: courseBasket,
@@ -28,6 +29,9 @@ function App() {
     productBasket: productBasket,
     setProductBasket: setProductBasket
   };
+
+  if (courseBasket === null) {courseBasket = []}
+  if (productBasket === null) {productBasket = []}
 
   useEffect(() => {
     localStorage.setItem('courseBasket', JSON.stringify(courseBasket))
