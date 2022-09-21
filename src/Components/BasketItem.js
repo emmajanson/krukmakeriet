@@ -10,21 +10,40 @@ function BasketItem({productData}) {
   //hur styra vilket state jag ska jobba i när jag har samma komponent för bägge?
   //köra en find på bägge statesen och se vart id finns?
   
+  const isProduct = productBasket.some(element => {
+    if (element.id === productData.id) {
+      return true;
+    }
+    return false;
+  });
+
+
   function decrementAmount(productData){
 
-    //Går ej köra båda i samma function för då får man felmeddelande. Hade varit bra om vi lägger in nåt i Firebase där vi sätter ett värde på produkten/kursen att den tillhör kurs/produktkategorin.
+
 
     const courseExist = courseBasket.find(item => item.id === productData.id);
     const productExist = productBasket.find(item => item.id === productData.id);
+    
+    if (isProduct) {
 
-    courseExist.amount > 0  ? setCourseBasket(
-      courseBasket.map(item =>
-        item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
+    productExist.amount > 0 ? setProductBasket(
+      productBasket.map(item =>
+        item.id === productData.id ? {...productExist, amount: productExist.amount + -1} : item
       )
     ) : console.log("Nothing to remove")
 
-  }
+    } else {
 
+      courseExist.amount > 0  ? setCourseBasket(
+        courseBasket.map(item =>
+          item.id === productData.id ? {...courseExist, amount: courseExist.amount + -1} : item
+        )
+      ) : console.log("Nothing to remove")
+
+    }
+
+  }
 
   function incrementAmount(productData){
 
@@ -44,8 +63,11 @@ function BasketItem({productData}) {
   }
 
   function deleteItem(productData){
+
+
     //.filter på alla som inte är productData.id
     //uppdatera state med den här listan
+
     setCourseBasket(courseBasket.filter((item) => item.id !== productData.id))
     setProductBasket(productBasket.filter((item) => item.id !== productData.id))
     

@@ -27,24 +27,25 @@ function UpdateCourses({
   open,
   onClose,
   setCourseData,
-  url,
   img,
   courses,
   closeNewModal,
   setAddNewCourseFunction,
+  getCourses,
+  setAddUpdateFunction,
+  rerender
 }) {
   const coursesCollectionRef = collection(db, "courses");
-  const [courseURL, setCourseURL] = useState([]);
   const [courseName, setCourseName] = useState("");
   const [courseDate, setCourseDate] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
   const [coursePrice, setCoursePrice] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseSpots, setCourseSpots] = useState("");
-  const [uploadedImage, setUploadedImage] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
-  const imageListRef = ref(storage, "images/");
+
   // const [isActive, setIsActive] = useState(false);
 
   const createCourse = async () => {
@@ -55,14 +56,15 @@ function UpdateCourses({
       price: Number(coursePrice),
       info: courseDescription,
       spots: Number(courseSpots),
-      url: courseURL,
       img: courseImage,
     });
-    onClose(false)
+
+    getCourses();
+    onClose(false);
   };
+  const imageListRef = ref(storage, "images/");
 
   useEffect(() => {
-    const imageListRef = ref(storage, "images/");
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
@@ -79,33 +81,38 @@ function UpdateCourses({
     setCourseDescription(desc);
     setCourseDate(date);
     setCourseSpots(slots);
+    setCourseImage(img);
   }, [name, price, length, desc, date, slots, img]);
 
   if (!open) return null;
 
+  console.log("course image", courseImage);
+  console.log("course url list", imageURL);
+
   function closeModal() {
     if (updateOnly) {
       onClose();
+      closeNewModal(false);
     } else {
       setCourseData("");
       // closeNewModal(false);
       setAddNewCourseFunction(false);
+      closeNewModal(false);
     }
   }
-  console.log("typeof", typeof(closeNewModal))
 
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
-    uploadBytes(imageRef, uploadedImage)
-      .then(() => {
-        console.log("imageRef", imageRef);
-      })
-      .then(setCourses((prev) => [...prev, { img: imageRef }]))
-      .then(console.log("input:", uploadedImage))
-      .then(console.log("savedImage:", imageRef))
+    uploadBytes(imageRef, uploadedImage).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        // setImageURL((prev) => [...prev, url]);
+        // const lastItem = imageURL[imageURL.length - 1];
+        // console.log("snapshot", lastItem)
+        setCourseImage((prev) => (prev, url));
+      });
+    });
   };
-  //uploadImage()
 
   const updateCourse = async () => {
     const courseDoc = doc(db, "courses", id);
@@ -116,35 +123,34 @@ function UpdateCourses({
       price: coursePrice,
       info: courseDescription,
       spots: courseSpots,
-      url: courseURL,
       img: courseImage,
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
-    onClose(false)
+    onClose(false);
+    getCourses();
   };
 
   function handleSubmit() {
     if (updateOnly) {
       updateCourse();
-      uploadImage();
-      
     } else {
       createCourse();
-      uploadImage();
-      
+      onClose(true);
     }
+    rerender(curr => !curr)
   }
 
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
-    onClose(false)
+    getCourses();
+    onClose(false);
+    closeNewModal(false);
   };
 
   return (
     <div className={styles.wrapper}>
-      <img src={courseImage} alt="en bild" className={styles.image} />
       <div className={styles.form}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
@@ -197,6 +203,7 @@ function UpdateCourses({
           }}
           accept="image/png, image/jpeg"
         />
+        <button onClick={uploadImage}>Ladda upp bilden</button>
         <p>Kursens beskrivning:</p>
         <input
           value={courseDescription}
