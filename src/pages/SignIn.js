@@ -1,11 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase-config";
-import App, { AppContext } from "../App";
+import { AppContext } from "../App";
 
 //Det här ska finnas
 // - formulär för registrering
@@ -13,14 +11,12 @@ import App, { AppContext } from "../App";
 function SignIn() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [users, setUsers] = useState([]);
   const myContext = useContext(AppContext);
-  const setPermission = myContext.setAdminPermission;
-  const usersRef = collection(db, "users");
   const setRefresh = myContext.setRefresh;
 
   const navigate = useNavigate();
 
+  // Signing in the user and navigates to Profile-page
   async function signin() {
     try {
       const user = await signInWithEmailAndPassword(
@@ -34,23 +30,6 @@ function SignIn() {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  // useEffect(() => {
-  //   setPermission(false);
-  //   async function getUsers() {
-  //     const usersArr = await getDocs(usersRef);
-  //     setUsers(usersArr.docs.map((doc) => ({ ...doc.data() })));
-  //   }
-  //   getUsers();
-  // }, []);
-
-  function navToSignUp() {
-    navigate("/signup");
-  }
-
-  function navToResetPassword() {
-    navigate("/resetpassword");
   }
 
   return (
@@ -85,10 +64,20 @@ function SignIn() {
       <section className={styles.signUpWrapper}>
         <p>Don't have an account?</p>
 
-        <button className={styles.buttonClass} onClick={navToSignUp}>
+        <button
+          className={styles.buttonClass}
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
           Sign up
         </button>
-        <button className={styles.buttonClass} onClick={navToResetPassword}>
+        <button
+          className={styles.buttonClass}
+          onClick={() => {
+            navigate("/resetpassword");
+          }}
+        >
           Forgot password?
         </button>
       </section>

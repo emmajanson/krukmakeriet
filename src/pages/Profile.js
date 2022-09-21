@@ -1,36 +1,28 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "../firebase-config";
+import { auth } from "../firebase-config";
 import styles from "./Profile.module.css";
-import { doc } from "firebase/firestore";
-import { AppContext } from "../App";
 
 function Profile() {
   const [user, setUser] = useState({});
-  const [userName, setUserName] = useState("");
-  //const myContext = useContext(AppContext);
-  const permission = localStorage.getItem("admin");
-  console.log(permission);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const myContext = useContext(AppContext);
 
+  // Signs out the user, and navigates to signin-page
   async function logout() {
     await signOut(auth);
+    localStorage.removeItem("admin");
     navigate("/signin");
   }
 
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
-
-  function navToAdmin() {
-    navigate("/admin");
-  }
 
   return user == null ? (
     <Navigate to="/signin" />
@@ -101,7 +93,13 @@ function Profile() {
         </table>
       </section>
 
-      <button onClick={navToAdmin}>Admin Page</button>
+      <button
+        onClick={() => {
+          navigate("/admin");
+        }}
+      >
+        Admin Page
+      </button>
       <button onClick={logout}>Log Out</button>
     </main>
   );

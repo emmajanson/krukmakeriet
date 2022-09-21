@@ -50,6 +50,7 @@ function App() {
     localStorage.setItem("productBasket", JSON.stringify(productBasket));
   }, [productBasket]);
 
+  // Checks if the user is admin on signin
   useEffect(() => {
     async function getUsers() {
       const data = await getDocs(usersRef);
@@ -58,7 +59,6 @@ function App() {
         const isAdmin = users.find((a) => a.uid === user.uid);
         setAdminPermission(isAdmin.admin);
         localStorage.setItem("admin", isAdmin.admin);
-        console.log(user);
       });
     }
     getUsers();
