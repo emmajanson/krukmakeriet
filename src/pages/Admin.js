@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from "./Admin.module.css"
-import ListOfExsitingCourses from "../Components/ListOfExsitingCourses"
-import ListOfExsitingProducts from "../Components/ListOfExsitingProducts"
+import React, { useState } from "react";
+import styles from "./Admin.module.css";
+import ListOfExsitingCourses from "../Components/ListOfExsitingCourses";
+import ListOfExsitingProducts from "../Components/ListOfExsitingProducts";
 
 // Det här ska finnas
 // - formulär för att uppdatera kurser - skickas till db
@@ -10,14 +10,15 @@ import ListOfExsitingProducts from "../Components/ListOfExsitingProducts"
 // - formulär för att ändra infotext
 // - se bokningar på kurser???????????
 
-
 function Admin() {
+  const [rerender, setRerender] = useState(false);
+
   return (
     <main className={styles.wrapper}>
-      <ListOfExsitingCourses />
-      <ListOfExsitingProducts />
+      <ListOfExsitingCourses rerender={setRerender}/>
+      <ListOfExsitingProducts rerender={setRerender}/>
     </main>
-  )
+  );
 }
 
-export default Admin
+export default Admin;
