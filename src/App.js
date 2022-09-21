@@ -42,6 +42,13 @@ function App() {
     setRefresh: setRefresh,
   };
 
+  if (courseBasket === null) {
+    courseBasket = [];
+  }
+  if (productBasket === null) {
+    productBasket = [];
+  }
+
   useEffect(() => {
     localStorage.setItem("courseBasket", JSON.stringify(courseBasket));
   }, [courseBasket]);

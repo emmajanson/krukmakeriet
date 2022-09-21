@@ -31,6 +31,7 @@ function UpdateProducts({
   closeNewModal,
   setAddNewProductFunction,
   url,
+  getProducts,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
@@ -54,7 +55,8 @@ function UpdateProducts({
       url: productURL,
       img: productImage,
     });
-    onClose(false)
+    onClose(false);
+    getProducts();
   };
 
   useEffect(() => {
@@ -84,10 +86,10 @@ function UpdateProducts({
     } else {
       setProductData("");
       //closeNewModal(false);
-    setAddNewProductFunction(false);
+      setAddNewProductFunction(false);
     }
   }
-  console.log("typeof",typeof(closeNewModal))
+  console.log("typeof", typeof closeNewModal);
 
   const uploadImage = () => {
     if (uploadedImage == null) return;
@@ -113,9 +115,9 @@ function UpdateProducts({
     };
     await updateDoc(productDoc, newUpdatedProduct);
     console.log("UpdateProduct function");
-    onClose(false)
+    onClose(false);
+    getProducts();
   };
-
 
   function handleSubmit() {
     if (updateOnly) {
@@ -129,7 +131,8 @@ function UpdateProducts({
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
-    onClose(false)
+    onClose(false);
+    getProducts();
   };
 
   return (

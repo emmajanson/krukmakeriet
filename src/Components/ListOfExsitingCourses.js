@@ -67,11 +67,12 @@ function ListOfExsitingCourses() {
     setOpenModal(() => true);
   };
 
+  async function getCourses() {
+    const data = await getDocs(courseCollectionRef);
+    setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  }
+
   useEffect(() => {
-    const getCourses = async () => {
-      const data = await getDocs(courseCollectionRef);
-      setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getCourses();
   }, []);
 
@@ -125,6 +126,7 @@ function ListOfExsitingCourses() {
           courses={courses}
           url={courseData.url}
           img={courseData.img}
+          getCourses={getCourses}
         />
       )}
       <div className={styles.modal}>
@@ -135,6 +137,7 @@ function ListOfExsitingCourses() {
             closeNewModal={setOpenModal}
             setCourseData={setCourseData}
             setAddNewCourseFunction={setAddNewCourseFunction}
+            getCourses={getCourses}
           />
         )}
       </div>

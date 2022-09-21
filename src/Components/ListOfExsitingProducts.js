@@ -63,11 +63,12 @@ function ListOfExsitingProducts() {
     setOpenModal(() => true);
   };
 
+  async function getProducts() {
+    const data = await getDocs(productsCollectionRef);
+    setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  }
+
   useEffect(() => {
-    const getProducts = async () => {
-      const data = await getDocs(productsCollectionRef);
-      setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getProducts();
   }, []);
 
@@ -118,6 +119,7 @@ function ListOfExsitingProducts() {
           products={products}
           url={productData.url}
           img={productData.img}
+          getProducts={getProducts}
         />
       )}
       <div className={styles.modal}>
@@ -128,6 +130,7 @@ function ListOfExsitingProducts() {
             closeNewModal={setOpenModal}
             setProductData={setProductData}
             setAddNewProductFunction={setAddNewProductFunction}
+            getProducts={getProducts}
           />
         )}
       </div>
