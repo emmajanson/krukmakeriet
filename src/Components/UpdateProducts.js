@@ -58,6 +58,8 @@ function UpdateProducts({
     });
     getProducts();
     onClose(false);
+    setAddNewProductFunction(false)
+    setAddUpdateFunction(false)
   };
   const imageListRef = ref(storage, "images/");
 
@@ -88,7 +90,6 @@ function UpdateProducts({
       closeNewModal(false);
     } else {
       setProductData("");
-      //closeNewModal(false);
       setAddNewProductFunction(false);
       closeNewModal(false);
     }

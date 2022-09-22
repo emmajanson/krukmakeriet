@@ -47,9 +47,7 @@ function UpdateCourses({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
- 
 
-  // const [isActive, setIsActive] = useState(false);
 
   const createCourse = async () => {
     await addDoc(coursesCollectionRef, {
@@ -63,6 +61,8 @@ function UpdateCourses({
     });
     getCourses();
     onClose(false);
+    setAddNewCourseFunction(false)
+    setAddUpdateFunction(false)
   };
   const imageListRef = ref(storage, "images/");
 
@@ -218,15 +218,19 @@ function UpdateCourses({
         <button onClick={handleSubmit} className={styles.button}>
           Submit
         </button>
-        <a
-          className={updateOnly ? styles.showBtn : styles.noShowBtn}
-          href="#"
-          onClick={() => {
-            deleteCourse(id);
-          }}
-        >
-          Ta bort
-        </a>
+        {updateOnly ? (
+          <a
+            className={styles.showBtn}
+            href="#"
+            onClick={() => {
+              deleteCourse(id);
+            }}
+          >
+            Ta bort
+          </a>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

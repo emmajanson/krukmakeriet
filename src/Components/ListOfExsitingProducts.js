@@ -24,9 +24,7 @@ function ListOfExsitingProducts(rerender) {
   });
 
   const toggleUpdate = (id, name, category, details, price, quantity, img) => {
-    setProductData({});
     setAddUpdateFunction(true);
-    setAddNewProductFunction(false);
     setProductData({
       ...productData,
       name,
@@ -37,14 +35,14 @@ function ListOfExsitingProducts(rerender) {
       img,
     });
     setProductID(id);
-    setOpenModal(true);
+    setOpenModal(() => true);
     setShowMessage(false)
   };
 
   const toggleNewProduct = () => {
+    setProductData("");
     setAddUpdateFunction(false);
     setAddNewProductFunction(true);
-    setProductData({});
     console.log("clicky");
     setOpenModal(() => true);
     setShowMessage(false)
@@ -59,6 +57,7 @@ function ListOfExsitingProducts(rerender) {
     getProducts();
   }, []);
 
+  
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Butik</h3>
@@ -85,7 +84,6 @@ function ListOfExsitingProducts(rerender) {
             >
               <img src={product.img} className={styles.productImage} />
               <p>{product.name}</p>
-
               <FaCaretDown className={styles.FaCaretDown} />
             </div>
           );

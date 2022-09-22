@@ -26,16 +26,7 @@ function ListOfExsitingCourses(rerender) {
     img: "",
   });
 
-  const toggleUpdate = (
-    id,
-    name,
-    date,
-    length,
-    price,
-    slots,
-    desc,
-    img,
-  ) => {
+  const toggleUpdate = (id, name, date, length, price, slots, desc, img) => {
     setCourseData({});
     setAddUpdateFunction(true);
     setAddNewCourseFunction(false);
@@ -51,7 +42,7 @@ function ListOfExsitingCourses(rerender) {
     });
     setCourseID(id);
     setOpenModal(true);
-    setShowMessage(false)
+    setShowMessage(false);
   };
 
   const toggleNewCourse = () => {
@@ -60,7 +51,7 @@ function ListOfExsitingCourses(rerender) {
     setCourseData({});
     console.log("clicky");
     setOpenModal(() => true);
-    setShowMessage(false)
+    setShowMessage(false);
   };
 
   async function getCourses() {
@@ -99,7 +90,7 @@ function ListOfExsitingCourses(rerender) {
             >
               <p>{course.name}</p>
               <p>{course.details}</p>
-<img src={course.img} className={styles.courseImage}/>
+              <img src={course.img} className={styles.courseImage} />
               <FaCaretDown className={styles.FaCaretDown} />
             </div>
           );
@@ -139,7 +130,7 @@ function ListOfExsitingCourses(rerender) {
             getCourses={getCourses}
             rerender={rerender}
             showMessage={showMessage}
-          setShowMessage={setShowMessage}
+            setShowMessage={setShowMessage}
           />
         )}
       </div>
