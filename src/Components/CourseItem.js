@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "./CourseItem.module.css";
 import { useContext } from 'react'
 import { AppContext } from '../App'
-import ShopItem from './ShopItem';
+import Popup from './Popup.js';
 
 function CourseItem({courseData}) {
 
   const { courseBasket, setCourseBasket } = useContext(AppContext) 
+  const [showPopup, setShowPopup] = useState(false);
 
   function addToBasket(course) {
     if (courseBasket === null) {
@@ -46,9 +47,12 @@ function CourseItem({courseData}) {
           <p className={styles.length}>[ikon] {courseData.duration}</p>
           <p className={styles.spots}>[ikon] [10/{courseData.spots}]</p>
         </div>
-        <button className={styles.button} onClick={() => addToBasket(courseData)}>Boka</button>
+        <button className={styles.button} onClick={() => {addToBasket(courseData); setShowPopup(true);}}>Boka</button>
       </div>
-    
+      <Popup trigger={showPopup} setTrigger={setShowPopup}>
+        <h1>Succé!</h1>
+        <p>Din kurs är nu lagd i varukorgen.</p>
+      </Popup>
     </article>
   )
 }

@@ -7,10 +7,7 @@ import {
   FiShoppingCart,
   // FiUser,
 } from "react-icons/fi";
-import {
-  FaTimes,
-  FaBars,
-} from "react-icons/fa";
+import { Spin as Hamburger } from 'hamburger-react';
 
 function Header() {
   
@@ -47,7 +44,7 @@ function Header() {
 
       <header className={styles.mobileWrapper}>
         <div className={styles.menuBtn} onClick={() => toggleMenu(!isActiveMobile)}>
-          <div> {isActiveMobile ? <FaTimes/> : <FaBars/>}</div>
+        <Hamburger/>
         </div>
         <nav className={styles.mobileIcons}>
           <Link to="/signin">Logga in</Link>
