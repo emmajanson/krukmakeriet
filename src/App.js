@@ -22,10 +22,10 @@ export const AppContext = createContext();
 
 function App() {
   /* global */
-  let [courseBasket, setCourseBasket] = useState(
+  const [courseBasket, setCourseBasket] = useState(
     JSON.parse(localStorage.getItem("courseBasket"))
   );
-  let [productBasket, setProductBasket] = useState(
+  const [productBasket, setProductBasket] = useState(
     JSON.parse(localStorage.getItem("productBasket"))
   );
   const [adminPermission, setAdminPermission] = useState(false);
@@ -42,12 +42,19 @@ function App() {
     setRefresh: setRefresh,
   };
 
+
   if (courseBasket === null) {
-    courseBasket = [];
+    setCourseBasket([]);
   }
   if (productBasket === null) {
-    productBasket = [];
+    setProductBasket([]);
   }
+
+/*
+ if (courseBasket === null) {courseBasket = []}
+  if (productBasket === null) {productBasket = []}
+*/
+
 
   useEffect(() => {
     localStorage.setItem("courseBasket", JSON.stringify(courseBasket));
