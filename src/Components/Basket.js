@@ -9,13 +9,21 @@ function Basket({toggleBasket}, isActiveBasket) {
 
   const navigate = useNavigate();
 
-  let { productBasket } = useContext(AppContext)
-  let { courseBasket } = useContext(AppContext)
+ 
+    /*
+  let { productBasket} = useContext(AppContext)
+  let { courseBasket} = useContext(AppContext)
 
   
   if (courseBasket === null) {courseBasket = []}
   if (productBasket === null) {productBasket = []}
 
+  */
+
+  
+
+  const { productBasket, setProductBasket} = useContext(AppContext)
+  const { courseBasket, setCourseBasket} = useContext(AppContext)
   
 
   const totalSum = (basket) => {

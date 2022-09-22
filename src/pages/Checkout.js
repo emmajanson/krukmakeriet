@@ -1,24 +1,80 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from "./Checkout.module.css";
 import CheckoutItem from '../Components/CheckoutItem';
+import { AppContext } from '../App';
+import { useNavigate } from 'react-router-dom'
+
 
 function Checkout() {
+
+  const navigate = useNavigate();
+
+  /*
+  let { productBasket} = useContext(AppContext)
+  let { courseBasket} = useContext(AppContext)
+
+  
+  if (courseBasket === null) {courseBasket = []}
+  if (productBasket === null) {productBasket = []}
+
+  */
+
+  
+
+  const { productBasket, setProductBasket} = useContext(AppContext)
+  const { courseBasket, setCourseBasket} = useContext(AppContext)
+  
+
+
+
+  const totalSum = (basket) => {
+    let sum = 0;
+    basket.forEach(item => {
+      sum += item.price * item.amount
+    })
+    return sum;
+  }
+
+  
+  let coursesInBasket = "";
+  if (courseBasket.length > 0) {coursesInBasket = "Kurser"}
+
+  let productsInBasket = "";
+  if (productBasket.length > 0) {productsInBasket = "Produkter"}
+
+
+  const totalSumProduct = totalSum(productBasket)
+  const totalSumCourse = totalSum(courseBasket)
+  const totalSumBasket = totalSumProduct + totalSumCourse
+
+
+
+
   return (
     <main className={styles.wrapper}>
       <section className={styles.basketWrapper}>
         <h2>Varukorg</h2>
         <section className={styles.productsWrapper}>
-          <h3>Produkter</h3>
-          <CheckoutItem />
-          <CheckoutItem />
-          <CheckoutItem />
+          <h3>{productsInBasket}</h3>
+          { productBasket  && 
+        <section className={styles.basketItemWrapper}>
+          <h4 className={styles.subHeading}>{productsInBasket}</h4>
+            {productBasket 
+              .map((product) => (<CheckoutItem key={product.id} productData={product} />))} 
+        </section>  
+      }
         </section>
         <section className={styles.coursesWrapper}>
-          <h3>Kurser</h3>
-          <CheckoutItem />
-          <CheckoutItem />
-          <CheckoutItem />
+          <h3>{coursesInBasket}</h3>
+          { courseBasket  && 
+        <section className={styles.basketItemWrapper}>
+          <h4 className={styles.subHeading}>{coursesInBasket}</h4>
+            {courseBasket 
+              .map((product) => (<CheckoutItem key={product.id} productData={product} />))} 
+        </section>  
+      }
         </section>
+          <h3>Total summa {totalSumBasket}:-</h3>
       </section>
 
 
@@ -120,7 +176,7 @@ function Checkout() {
 
 
       <section className={styles.btnWrapper}>
-        <button className={styles.checkoutBtn}>Fortsätt handla</button>
+        <button className={styles.checkoutBtn} onClick={() => {navigate("/Shop")}}>Fortsätt handla</button>
         <button className={styles.checkoutBtn}>Bekräfta köp</button>
       </section>
 
