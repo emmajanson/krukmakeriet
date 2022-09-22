@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "./ShopItem.module.css";
 import { useContext } from 'react'
 import { AppContext } from '../App'
+import Popup from './Popup.js';
 
 function ShopItem({productData}) {
 
-  const {productBasket, setProductBasket} = useContext(AppContext) 
+  const {productBasket, setProductBasket} = useContext(AppContext);
+  const [showPopup, setShowPopup] = useState(false);
 
   function addToBasket(product) {
     if (productBasket === null) {
@@ -31,7 +33,7 @@ function ShopItem({productData}) {
     <div className={styles.imgWrapper}>
       <img className={styles.shopItemImage} alt="" />
       {/* köp vara ikon ska in här och lägg onclicken på den*/}
-      <button className={styles.button} onClick={() => addToBasket(productData)}>Lägg till</button>
+      <button className={styles.button} onClick={() => {addToBasket(productData); setShowPopup(true);}}>Lägg till</button>
     </div>
     <div className={styles.textWrapper}>
       <h3 className={styles.name}>{productData.name}</h3>
@@ -40,6 +42,10 @@ function ShopItem({productData}) {
         <p className={styles.price}>{productData.price}</p>
       </div>
     </div>
+    <Popup trigger={showPopup} setTrigger={setShowPopup}>
+        <h1>Succé!</h1>
+        <p>Din vara är nu lagd i varukorgen.</p>
+      </Popup>
   </article>
   )
 }
