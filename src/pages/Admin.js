@@ -11,13 +11,16 @@ import ListOfExsitingProducts from "../Components/ListOfExsitingProducts";
 // - se bokningar på kurser???????????
 
 function Admin() {
+  const permission = localStorage.getItem("admin");
   const [rerender, setRerender] = useState(false);
 
-  return (
+  return permission === "true" ? (
     <main className={styles.wrapper}>
-      <ListOfExsitingCourses rerender={setRerender}/>
-      <ListOfExsitingProducts rerender={setRerender}/>
+      <ListOfExsitingCourses rerender={setRerender} />
+      <ListOfExsitingProducts rerender={setRerender} />
     </main>
+  ) : (
+    <h1 style={{ paddingTop: "10rem" }}>Get the fuck out!</h1>
   );
 }
 
