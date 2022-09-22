@@ -6,7 +6,7 @@ import styles from "./ListOfExistingCourses.module.css";
 import { FaCaretDown } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
 
-function ListOfExsitingCourses() {
+function ListOfExsitingCourses(rerender) {
   const courseCollectionRef = collection(db, "courses");
   const [courses, setCourses] = useState([]);
   const [courseID, setCourseID] = useState();
@@ -15,6 +15,7 @@ function ListOfExsitingCourses() {
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewCourseFunction, setAddNewCourseFunction] = useState(false);
   const [showBro, setShowBro] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [courseData, setCourseData] = useState({
     name: "",
     date: "",
@@ -22,8 +23,6 @@ function ListOfExsitingCourses() {
     price: "",
     slots: "",
     desc: "",
-    img: "",
-    url: "",
     img: "",
   });
 
@@ -35,11 +34,11 @@ function ListOfExsitingCourses() {
     price,
     slots,
     desc,
-    url,
-    img
+    img,
   ) => {
     setCourseData({});
     setAddUpdateFunction(true);
+    setAddNewCourseFunction(false);
     setCourseData({
       ...courseData,
       name,
@@ -48,16 +47,12 @@ function ListOfExsitingCourses() {
       price,
       slots,
       desc,
-      url,
       img,
     });
     setCourseID(id);
     setOpenModal(true);
+    setShowMessage(false)
   };
-
-  useEffect(() => {
-    console.log(addNewCourseFunction);
-  }, [addNewCourseFunction]);
 
   const toggleNewCourse = () => {
     setAddUpdateFunction(() => false);
@@ -65,6 +60,7 @@ function ListOfExsitingCourses() {
     setCourseData({});
     console.log("clicky");
     setOpenModal(() => true);
+    setShowMessage(false)
   };
 
   async function getCourses() {
@@ -97,13 +93,13 @@ function ListOfExsitingCourses() {
                   course.price,
                   course.spots,
                   course.info,
-                  course.url,
                   course.img
                 )
               }
             >
               <p>{course.name}</p>
               <p>{course.details}</p>
+<img src={course.img} className={styles.courseImage}/>
               <FaCaretDown className={styles.FaCaretDown} />
             </div>
           );
@@ -124,9 +120,12 @@ function ListOfExsitingCourses() {
           onClose={setOpenModal}
           setCourseData={setCourseData}
           courses={courses}
-          url={courseData.url}
           img={courseData.img}
           getCourses={getCourses}
+          setAddUpdateFunction={setAddUpdateFunction}
+          rerender={rerender}
+          showMessage={showMessage}
+          setShowMessage={setShowMessage}
         />
       )}
       <div className={styles.modal}>
@@ -138,6 +137,9 @@ function ListOfExsitingCourses() {
             setCourseData={setCourseData}
             setAddNewCourseFunction={setAddNewCourseFunction}
             getCourses={getCourses}
+            rerender={rerender}
+            showMessage={showMessage}
+          setShowMessage={setShowMessage}
           />
         )}
       </div>

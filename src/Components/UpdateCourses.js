@@ -27,25 +27,28 @@ function UpdateCourses({
   open,
   onClose,
   setCourseData,
-  url,
   img,
   courses,
   closeNewModal,
   setAddNewCourseFunction,
   getCourses,
+  setAddUpdateFunction,
+  rerender,
+  showMessage,
+  setShowMessage
 }) {
   const coursesCollectionRef = collection(db, "courses");
-  const [courseURL, setCourseURL] = useState([]);
   const [courseName, setCourseName] = useState("");
   const [courseDate, setCourseDate] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
   const [coursePrice, setCoursePrice] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseSpots, setCourseSpots] = useState("");
-  const [uploadedImage, setUploadedImage] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
-  const imageListRef = ref(storage, "images/");
+ 
+
   // const [isActive, setIsActive] = useState(false);
 
   const createCourse = async () => {
@@ -56,15 +59,14 @@ function UpdateCourses({
       price: Number(coursePrice),
       info: courseDescription,
       spots: Number(courseSpots),
-      url: courseURL,
       img: courseImage,
     });
     getCourses();
     onClose(false);
   };
+  const imageListRef = ref(storage, "images/");
 
   useEffect(() => {
-    const imageListRef = ref(storage, "images/");
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
@@ -81,6 +83,7 @@ function UpdateCourses({
     setCourseDescription(desc);
     setCourseDate(date);
     setCourseSpots(slots);
+    setCourseImage(img);
   }, [name, price, length, desc, date, slots, img]);
 
   if (!open) return null;
@@ -88,24 +91,25 @@ function UpdateCourses({
   function closeModal() {
     if (updateOnly) {
       onClose();
+      closeNewModal(false);
     } else {
       setCourseData("");
       // closeNewModal(false);
       setAddNewCourseFunction(false);
+      closeNewModal(false);
     }
   }
-  console.log("typeof", typeof closeNewModal);
 
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
-    uploadBytes(imageRef, uploadedImage)
-      .then(() => {
-        console.log("imageRef", imageRef);
-      })
-      .then(setCourses((prev) => [...prev, { img: imageRef }]));
+    uploadBytes(imageRef, uploadedImage).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setCourseImage((prev) => (prev, url));
+        setShowMessage(true);
+      });
+    });
   };
-  //uploadImage()
 
   const updateCourse = async () => {
     const courseDoc = doc(db, "courses", id);
@@ -116,7 +120,6 @@ function UpdateCourses({
       price: coursePrice,
       info: courseDescription,
       spots: courseSpots,
-      url: courseURL,
       img: courseImage,
     };
     await updateDoc(courseDoc, newUpdatedCourse);
@@ -128,10 +131,9 @@ function UpdateCourses({
   function handleSubmit() {
     if (updateOnly) {
       updateCourse();
-      uploadImage();
     } else {
       createCourse();
-      uploadImage();
+      onClose(true);
     }
   }
 
@@ -140,16 +142,16 @@ function UpdateCourses({
     await deleteDoc(courseDoc);
     getCourses();
     onClose(false);
+    closeNewModal(false);
   };
 
   return (
     <div className={styles.wrapper}>
-      <img src={courseImage} alt="en bild" className={styles.image} />
       <div className={styles.form}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>Kursens namn: </p>
+        <p>* Kursens namn: </p>
         <input
           value={courseName}
           type="text"
@@ -157,7 +159,7 @@ function UpdateCourses({
             setCourseName(e.target.value);
           }}
         />
-        <p>Kursens datum:</p>
+        <p>* Kursens datum:</p>
         <input
           value={courseDate}
           type="datetime-local"
@@ -165,7 +167,7 @@ function UpdateCourses({
             setCourseDate(e.target.value);
           }}
         />
-        <p>Kursens längd:</p>
+        <p>* Kursens längd:</p>
         <input
           value={courseDuration}
           type="number"
@@ -173,7 +175,7 @@ function UpdateCourses({
             setCourseDuration(e.target.value);
           }}
         />
-        <p>Kursens pris:</p>
+        <p>* Kursens pris:</p>
         <input
           value={coursePrice}
           type="number"
@@ -181,7 +183,7 @@ function UpdateCourses({
             setCoursePrice(e.target.value);
           }}
         />
-        <p>Antal platser:</p>
+        <p>* Antal platser:</p>
         <input
           value={courseSpots}
           type="number"
@@ -189,7 +191,7 @@ function UpdateCourses({
             setCourseSpots(e.target.value);
           }}
         />
-        <p>Produktens bild:</p>
+        <p>* Produktens bild:</p>
         <input
           type="file"
           onChange={(e) => {
@@ -197,7 +199,15 @@ function UpdateCourses({
           }}
           accept="image/png, image/jpeg"
         />
-        <p>Kursens beskrivning:</p>
+        {showMessage ? (
+          <p className={styles.message}>Successfully uploaded</p>
+        ) : (
+          ""
+        )}
+        <button className={styles.uploadBtn} onClick={uploadImage}>
+          Ladda upp bilden
+        </button>
+        <p>* Kursens beskrivning:</p>
         <input
           value={courseDescription}
           type="textarea"
@@ -205,16 +215,11 @@ function UpdateCourses({
             setCourseDescription(e.target.value);
           }}
         />
-        {/* <button
-          className={styles.button}
-          onClick={() => (updateOnly ? updateCourse() : createCourse())}
-        >
-          Spara
-        </button> */}
         <button onClick={handleSubmit} className={styles.button}>
           Submit
         </button>
         <a
+          className={updateOnly ? styles.showBtn : styles.noShowBtn}
           href="#"
           onClick={() => {
             deleteCourse(id);

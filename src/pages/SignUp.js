@@ -9,7 +9,7 @@ import {
   sendEmailVerification,
   getAuth,
 } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -40,7 +40,7 @@ function SignUp() {
           displayName: userName,
           photoURL: null,
         });
-        await addDoc(usersCollectionRef, {
+        await setDoc(doc(db, "users", user.user.uid), {
           name: userName,
           email: user.user.email,
           admin: false,

@@ -32,6 +32,18 @@
     margin: 1rem;
     font-size: xx-large;
   }
+  .uploadBtn{
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .showBtn {
+    display: flex;
+  }
+  .message{
+    color: red;
+  }
 }
 @media only screen and (min-width: 600px) {
   .wrapper {
@@ -56,10 +68,10 @@
     justify-content: center;
   }
   .button {
-    width: 80%;
+    width: 60%;
     margin: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   .icon{
     position: absolute;
@@ -68,4 +80,16 @@
     margin: 1rem;
     font-size: xx-large;
   }
+  .uploadBtn{
+    width: 80%;
+  display: flex;
+  justify-content: center;
+  }
+  .showBtn {
+    display: flex;
+  }
+  .message{
+    color: red;
+  }
+  
 }
