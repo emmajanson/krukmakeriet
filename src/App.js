@@ -22,10 +22,10 @@ export const AppContext = createContext();
 
 function App() {
   /* global */
-  const [courseBasket, setCourseBasket] = useState(
+  let [courseBasket, setCourseBasket] = useState(
     JSON.parse(localStorage.getItem("courseBasket"))
   );
-  const [productBasket, setProductBasket] = useState(
+  let [productBasket, setProductBasket] = useState(
     JSON.parse(localStorage.getItem("productBasket"))
   );
   const [adminPermission, setAdminPermission] = useState(false);
