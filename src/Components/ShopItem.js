@@ -31,7 +31,7 @@ function ShopItem({productData}) {
   return (
     <article className={styles.shopItemWrapper}>
     <div className={styles.imgWrapper}>
-      <img className={styles.shopItemImage} alt="" />
+      <img className={styles.shopItemImage} src={productData.img} alt="" />
       {/* köp vara ikon ska in här och lägg onclicken på den*/}
       <button className={styles.button} onClick={() => {addToBasket(productData); setShowPopup(true);}}>Lägg till</button>
     </div>
