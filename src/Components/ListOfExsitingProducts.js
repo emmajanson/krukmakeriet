@@ -6,37 +6,27 @@ import styles from "./ListOfExistingProducts.module.css";
 import { FaCaretDown } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
 
-function ListOfExsitingProducts() {
+function ListOfExsitingProducts(rerender) {
   const productsCollectionRef = collection(db, "products");
   const [products, setProducts] = useState([]);
   const [productID, setProductID] = useState();
-  const [updateOnly, setUpdateOnly] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewProductFunction, setAddNewProductFunction] = useState(false);
-  const [showBro, setShowBro] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [productData, setProductData] = useState({
     name: "",
     category: "",
     details: "",
     price: "",
     quantity: "",
-    url: "",
     img: "",
   });
 
-  const toggleUpdate = (
-    id,
-    name,
-    category,
-    details,
-    price,
-    quantity,
-    url,
-    img
-  ) => {
+  const toggleUpdate = (id, name, category, details, price, quantity, img) => {
     setProductData({});
     setAddUpdateFunction(true);
+    setAddNewProductFunction(false);
     setProductData({
       ...productData,
       name,
@@ -44,23 +34,20 @@ function ListOfExsitingProducts() {
       details,
       price,
       quantity,
-      url,
       img,
     });
     setProductID(id);
     setOpenModal(true);
+    setShowMessage(false)
   };
 
-  useEffect(() => {
-    console.log(addNewProductFunction);
-  }, [addNewProductFunction]);
-
   const toggleNewProduct = () => {
-    setAddUpdateFunction(() => false);
+    setAddUpdateFunction(false);
     setAddNewProductFunction(true);
     setProductData({});
     console.log("clicky");
     setOpenModal(() => true);
+    setShowMessage(false)
   };
 
   async function getProducts() {
@@ -92,12 +79,13 @@ function ListOfExsitingProducts() {
                   product.details,
                   product.price,
                   product.quantity,
-                  product.url,
                   product.img
                 )
               }
             >
+              <img src={product.img} className={styles.productImage} />
               <p>{product.name}</p>
+
               <FaCaretDown className={styles.FaCaretDown} />
             </div>
           );
@@ -117,9 +105,12 @@ function ListOfExsitingProducts() {
           onClose={setOpenModal}
           setProductData={setProductData}
           products={products}
-          url={productData.url}
           img={productData.img}
           getProducts={getProducts}
+          setAddUpdateFunction={setAddUpdateFunction}
+          rerender={rerender}
+          showMessage={showMessage}
+          setShowMessage={setShowMessage}
         />
       )}
       <div className={styles.modal}>
@@ -131,6 +122,10 @@ function ListOfExsitingProducts() {
             setProductData={setProductData}
             setAddNewProductFunction={setAddNewProductFunction}
             getProducts={getProducts}
+            rerender={rerender}
+            showMessage={showMessage}
+            setShowMessage={setShowMessage}
+            setAddUpdateFunction={setAddUpdateFunction}
           />
         )}
       </div>

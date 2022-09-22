@@ -21,17 +21,21 @@ function UpdateProducts({
   details,
   price,
   quantity,
-  img,
   updateOnly,
   setProducts,
   open,
   onClose,
   setProductData,
+  img,
   products,
   closeNewModal,
   setAddNewProductFunction,
+  setAddUpdateFunction,
   url,
   getProducts,
+  rerender,
+  showMessage,
+  setShowMessage,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
@@ -40,10 +44,8 @@ function UpdateProducts({
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState("");
-  const [productURL, setProductURL] = useState([]);
-  const [uploadedImage, setUploadedImage] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [imageURL, setImageURL] = useState([]);
-  const imageListRef = ref(storage, "images/");
 
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
@@ -52,15 +54,14 @@ function UpdateProducts({
       details: productDetails,
       price: Number(productPrice),
       quantity: Number(productQuantity),
-      url: productURL,
       img: productImage,
     });
-    onClose(false);
     getProducts();
+    onClose(false);
   };
+  const imageListRef = ref(storage, "images/");
 
   useEffect(() => {
-    const imageListRef = ref(storage, "images/");
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
@@ -76,6 +77,7 @@ function UpdateProducts({
     setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
+    setProductImage(img);
   }, [name, price, category, details, quantity, img]);
 
   if (!open) return null;
@@ -83,24 +85,25 @@ function UpdateProducts({
   function closeModal() {
     if (updateOnly) {
       onClose();
+      closeNewModal(false);
     } else {
       setProductData("");
       //closeNewModal(false);
       setAddNewProductFunction(false);
+      closeNewModal(false);
     }
   }
-  console.log("typeof", typeof closeNewModal);
 
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
-    uploadBytes(imageRef, uploadedImage)
-      .then(() => {
-        console.log("imageRef", imageRef);
-      })
-      .then(setProducts((prev) => [...prev, { img: imageRef }]));
+    uploadBytes(imageRef, uploadedImage).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setProductImage((prev) => (prev, url));
+        setShowMessage(true);
+      });
+    });
   };
-  //uploadImage()
 
   const updateProduct = async () => {
     const productDoc = doc(db, "products", id);
@@ -110,7 +113,6 @@ function UpdateProducts({
       details: productDetails,
       price: productPrice,
       quantity: productQuantity,
-      url: productURL,
       img: productImage,
     };
     await updateDoc(productDoc, newUpdatedProduct);
@@ -122,17 +124,18 @@ function UpdateProducts({
   function handleSubmit() {
     if (updateOnly) {
       updateProduct();
-      uploadImage();
+      setAddUpdateFunction(()=>false)
     } else {
       createProduct();
-      uploadImage();
+      setAddUpdateFunction(()=>true)
     }
   }
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
+    await getProducts();
     onClose(false);
-    getProducts();
+    closeNewModal(false);
   };
 
   return (
@@ -140,7 +143,8 @@ function UpdateProducts({
       <div className={styles.form}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
-        <p>Produktens namn:</p>
+        <p>Alla fält som är markerade med en * är obligatoriska</p>
+        <p>* Namn:</p>
         <input
           type="text"
           value={productName}
@@ -148,7 +152,7 @@ function UpdateProducts({
             setProductName(e.target.value);
           }}
         />
-        <p>Kategori:</p>
+        <p>* Kategori:</p>
         <input
           type="text"
           value={productCategory}
@@ -156,15 +160,23 @@ function UpdateProducts({
             setProductCategory(e.target.value);
           }}
         />
-        <p>Produktens bild:</p>
+        <p>* Bild:</p>
         <input
           type="file"
           accept="image/png, image/jpeg"
           onChange={(e) => {
-            setProductImage(e.target.value);
+            setUploadedImage(e.target.files[0]);
           }}
         />
-        <p>Produktens pris:</p>
+        {showMessage ? (
+          <p className={styles.message}>Successfully uploaded</p>
+        ) : (
+          ""
+        )}
+        <button onClick={uploadImage} className={styles.uploadBtn}>
+          Ladda upp bilden
+        </button>
+        <p>* Pris:</p>
         <input
           type="number"
           value={productPrice}
@@ -172,7 +184,7 @@ function UpdateProducts({
             setProductPrice(e.target.value);
           }}
         />
-        <p>Antal:</p>
+        <p>* Antal:</p>
         <input
           type="number"
           value={productQuantity}
@@ -180,7 +192,7 @@ function UpdateProducts({
             setProductQuantity(e.target.value);
           }}
         />
-        <p>Produkbeskrivning:</p>
+        <p>* Produkbeskrivning:</p>
         <input
           type="text"
           value={productDetails}
@@ -191,14 +203,19 @@ function UpdateProducts({
         <button className={styles.button} onClick={handleSubmit}>
           Spara
         </button>
-        <a
-          href="#"
-          onClick={() => {
-            deleteProduct(id);
-          }}
-        >
-          Ta bort
-        </a>
+        {updateOnly ? (
+          <a
+            className={styles.showBtn}
+            href="#"
+            onClick={() => {
+              deleteProduct(id);
+            }}
+          >
+            Ta bort
+          </a>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

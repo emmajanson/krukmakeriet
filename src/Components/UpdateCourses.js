@@ -33,7 +33,9 @@ function UpdateCourses({
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  rerender
+  rerender,
+  showMessage,
+  setShowMessage
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -45,6 +47,7 @@ function UpdateCourses({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
+ 
 
   // const [isActive, setIsActive] = useState(false);
 
@@ -58,7 +61,6 @@ function UpdateCourses({
       spots: Number(courseSpots),
       img: courseImage,
     });
-
     getCourses();
     onClose(false);
   };
@@ -86,9 +88,6 @@ function UpdateCourses({
 
   if (!open) return null;
 
-  console.log("course image", courseImage);
-  console.log("course url list", imageURL);
-
   function closeModal() {
     if (updateOnly) {
       onClose();
@@ -106,10 +105,8 @@ function UpdateCourses({
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
     uploadBytes(imageRef, uploadedImage).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        // setImageURL((prev) => [...prev, url]);
-        // const lastItem = imageURL[imageURL.length - 1];
-        // console.log("snapshot", lastItem)
         setCourseImage((prev) => (prev, url));
+        setShowMessage(true);
       });
     });
   };
@@ -138,7 +135,6 @@ function UpdateCourses({
       createCourse();
       onClose(true);
     }
-    rerender(curr => !curr)
   }
 
   const deleteCourse = async (id) => {
@@ -155,7 +151,7 @@ function UpdateCourses({
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>Kursens namn: </p>
+        <p>* Kursens namn: </p>
         <input
           value={courseName}
           type="text"
@@ -163,7 +159,7 @@ function UpdateCourses({
             setCourseName(e.target.value);
           }}
         />
-        <p>Kursens datum:</p>
+        <p>* Kursens datum:</p>
         <input
           value={courseDate}
           type="datetime-local"
@@ -171,7 +167,7 @@ function UpdateCourses({
             setCourseDate(e.target.value);
           }}
         />
-        <p>Kursens längd:</p>
+        <p>* Kursens längd:</p>
         <input
           value={courseDuration}
           type="number"
@@ -179,7 +175,7 @@ function UpdateCourses({
             setCourseDuration(e.target.value);
           }}
         />
-        <p>Kursens pris:</p>
+        <p>* Kursens pris:</p>
         <input
           value={coursePrice}
           type="number"
@@ -187,7 +183,7 @@ function UpdateCourses({
             setCoursePrice(e.target.value);
           }}
         />
-        <p>Antal platser:</p>
+        <p>* Antal platser:</p>
         <input
           value={courseSpots}
           type="number"
@@ -195,7 +191,7 @@ function UpdateCourses({
             setCourseSpots(e.target.value);
           }}
         />
-        <p>Produktens bild:</p>
+        <p>* Produktens bild:</p>
         <input
           type="file"
           onChange={(e) => {
@@ -203,8 +199,15 @@ function UpdateCourses({
           }}
           accept="image/png, image/jpeg"
         />
-        <button onClick={uploadImage}>Ladda upp bilden</button>
-        <p>Kursens beskrivning:</p>
+        {showMessage ? (
+          <p className={styles.message}>Successfully uploaded</p>
+        ) : (
+          ""
+        )}
+        <button className={styles.uploadBtn} onClick={uploadImage}>
+          Ladda upp bilden
+        </button>
+        <p>* Kursens beskrivning:</p>
         <input
           value={courseDescription}
           type="textarea"
@@ -212,16 +215,11 @@ function UpdateCourses({
             setCourseDescription(e.target.value);
           }}
         />
-        {/* <button
-          className={styles.button}
-          onClick={() => (updateOnly ? updateCourse() : createCourse())}
-        >
-          Spara
-        </button> */}
         <button onClick={handleSubmit} className={styles.button}>
           Submit
         </button>
         <a
+          className={updateOnly ? styles.showBtn : styles.noShowBtn}
           href="#"
           onClick={() => {
             deleteCourse(id);
