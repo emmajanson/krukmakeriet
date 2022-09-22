@@ -92,7 +92,7 @@ function BasketItem({productData}) {
     <article className={styles.wrapper}>
 
       <div className={styles.imgWrapper}>
-        <img src="" alt="" className={styles.basketImage} />
+        <img src={productData.img} alt="" className={styles.basketImage} />
       </div>
 
       <div className={styles.textWrapper}>
