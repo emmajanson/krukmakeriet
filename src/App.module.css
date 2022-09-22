@@ -7,3 +7,12 @@ body {
   background-color: #fff;
 }
 /*lägg in generell font mm*/
+a {
+  font-size: 16 px;
+}
+
+@media screen and (min-width:800px) {
+  a {
+    font-size: 18px;
+  }
+}
