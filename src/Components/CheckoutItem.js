@@ -88,7 +88,7 @@ function CheckoutItem({productData}) {
   return (
     <article className={styles.productItemWrapper}>
       <div className={styles.imgWrapper}>
-        <img className={styles.itemImage} src="" alt="" />
+        <img className={styles.itemImage} src={productData.img} alt="" />
       </div>
       <div className={styles.infoWrapper}>
         <h3 className={styles.name}>{productData.name}</h3>

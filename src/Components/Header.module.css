@@ -14,13 +14,44 @@
   gap: 1.5rem;
 }
 
+#mobileIcons{
+  display: flex;
+  gap: 1.5rem;
+}
+
 .mobileIcons a {
+  text-decoration: none;
+  color: #000;
+}
+
+#mobileIcons a {
   text-decoration: none;
   color: #000;
 }
 
 .mobileIcons :hover {
   color: #697569;
+  
+}
+
+#mobileIcons :hover {
+  color: #697569;
+  
+}
+
+.mobileIcons::before {
+  content:attr(data-count);
+  position: absolute;
+  top: 2.5em;
+  right: 0.8em;
+  width: 1em;
+  height: 1em; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: red;
+  color: white; 
 }
 
 .mobileWrapper{
@@ -112,4 +143,31 @@
     width: 50px;
     height: 50px;
   }
+
+  .linkWrapper::before {
+    content:attr(data-count);
+    position: absolute;
+    top: 2.7em;
+    right: 1.6em;
+    width: 1.2em;
+    height: 1.2em; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: red;
+    color: white; 
+  }
+
+  #linkWrapper :hover {
+    color: #697569;
+  }
+
+  #linkWrapper a {
+    color: #000;
+    padding: 1rem;
+    text-decoration: none;
+  }
+
+
 }
