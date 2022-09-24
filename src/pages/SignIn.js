@@ -3,7 +3,6 @@ import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
-import AppContext from "../App";
 import { AllContext } from "../context/AllContext";
 
 //Det här ska finnas
@@ -12,7 +11,7 @@ import { AllContext } from "../context/AllContext";
 function SignIn() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const setRefresh = useContext(AllContext);
+  const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
 
