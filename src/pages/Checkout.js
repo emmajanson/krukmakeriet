@@ -58,7 +58,7 @@ function Checkout() {
           <h3>{productsInBasket}</h3>
           { productBasket  && 
         <section className={styles.basketItemWrapper}>
-          <h4 className={styles.subHeading}>{productsInBasket}</h4>
+          <h4 className={styles.subHeading}></h4>
             {productBasket 
               .map((product) => (<CheckoutItem key={product.id} productData={product} />))} 
         </section>  
@@ -68,7 +68,7 @@ function Checkout() {
           <h3>{coursesInBasket}</h3>
           { courseBasket  && 
         <section className={styles.basketItemWrapper}>
-          <h4 className={styles.subHeading}>{coursesInBasket}</h4>
+          <h4 className={styles.subHeading}></h4>
             {courseBasket 
               .map((product) => (<CheckoutItem key={product.id} productData={product} />))} 
         </section>  
