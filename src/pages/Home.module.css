@@ -24,52 +24,53 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  align-self: center;
 }
 
 
 .infoWrapper{
+  flex-direction: column-reverse;
   width: 90%;
   display: flex;
   gap:2rem;
   margin-top: 80px;
 }
 .textWrapper{
-  width: 50%;
-  border:1px solid lightgrey; /*tillfällig*/
+  width: 100%;
+  font-size: 24px;
 }
 .imgWrapper{
-   width: 50%;
+   width: 100%;
 }
 .infoImage{
   width: 100%;;
-  height: 200px; /*tillfällig*/
+  height: 400px; /*tillfällig*/
   background-color: lightgrey; /*tillfällig*/
 }
 
 
 .linkWrapper{
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 2rem;
   width: 100%;
   margin-top: 80px;
+  text-align: center;
 }
 .linkImage{
   background-color: lightgrey; /*tillfällig*/
   height: 300px;/*tillfällig*/
-  width: 90%;
+  width: 100%;
 }
 
 
 @media screen and (min-width:800px){
   .infoWrapper{
     max-width: 800px;
-    flex-direction:row-reverse
+    flex-direction:row-reverse;
   }
   .linkWrapper{
     max-width: 1000px;
-    flex-direction: row;
+    flex-direction: row-reverse;
   }
 }

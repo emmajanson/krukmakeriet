@@ -19,7 +19,9 @@ export default function Home() {
 
       <section className={styles.infoWrapper}>
         <div className={styles.textWrapper}>
-          <p>Information om företaget</p>
+          <p>Krukmakeriet på Pusterviksgatan är en studio och butik för keramik. Vi öppnade våra dörrar år 2022 med visionen att skapa och sprida keramikkonsten till världen. Genom kurser och event lär vi ut denna ädla konst och för människor närmare varandra.
+
+</p>
         </div>
         <div className={styles.imgWrapper}>
           <img className={styles.infoImage} scr="" alt="" />
