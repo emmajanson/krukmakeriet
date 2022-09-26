@@ -1,3 +1,37 @@
-.shopModalContainer{
-    background-color: aqua;
+.iconXContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.iconXWrapper{
+    font-size: 32px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.productInfoContainer{
+    display: flex;
+}
+
+.productDetailsContainer{
+    padding-left: 20px;
+}
+
+.productDescriptionContainer{
+    padding: 0px 20px 20px 20px;
+}
+
+.buyButtonContainer{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 0px;
+}
+
+.button{
+    padding: 10px 30px 10px 30px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 20px;
 }

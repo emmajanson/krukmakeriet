@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from "react";
+import Modal from "react-modal";
 import ShopItem from '../Components/ShopItem';
 import ShopModal from "../Components/ShopModal";
 import styles from "./Shop.module.css";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
+import { AllContext } from '../context/AllContext';
+
+Modal.setAppElement("#root");
 
 function Shop() {
 
  /*Render from db */
  const [products, setProducts] = useState([])
+
+ const {shopProductModalOpen, setShopProductModalOpen} = useContext(AllContext);
   
  useEffect(() => {
    const productsCollectionRef = collection(db, "products");
@@ -28,7 +34,14 @@ function Shop() {
 
   return (
     <main className={styles.wrapper}>
-      <ShopModal />
+      <Modal
+        isOpen = {shopProductModalOpen}
+        onRequestClose = {() => setShopProductModalOpen(false)}
+        className = {styles.shopProductModal}
+        overlayClassName = {styles.shopProductModalOverlay}
+      >
+        <ShopModal />
+      </Modal>
       <h2>Butiken</h2>
       <section className={styles.shopWrapper}>
         {products

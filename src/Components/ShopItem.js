@@ -5,7 +5,7 @@ import { AllContext } from "../context/AllContext";
 import Popup from "./Popup.js";
 
 function ShopItem({ productData }) {
-  const { productBasket, setProductBasket } = useContext(AllContext);
+  const { productBasket, setProductBasket, setShopProductModalOpen } = useContext(AllContext);
   const [showPopup, setShowPopup] = useState(false);
 
   function addToBasket(product) {
@@ -30,7 +30,7 @@ function ShopItem({ productData }) {
   }
 
   return (
-    <article className={styles.shopItemWrapper}>
+    <article className={styles.shopItemWrapper} onClick={() => setShopProductModalOpen(true)}>
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
         {/* köp vara ikon ska in här och lägg onclicken på den*/}
