@@ -20,7 +20,7 @@ function Admin() {
       <ListOfExsitingProducts rerender={setRerender} />
     </main>
   ) : (
-    <h1 style={{ paddingTop: "10rem" }}>Get the fuck out!</h1>
+    <h1 style={{ paddingTop: "10rem" }}>Access denied!</h1>
   );
 }
 
