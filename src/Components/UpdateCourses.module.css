@@ -1,3 +1,4 @@
+/*Mobile first*/
 @media only screen and (max-width: 600px) {
   .wrapper {
     width: 100vw;
@@ -47,7 +48,12 @@
 .message{
   color: red;
 }
+.uploaded_image{
+  width: 40px;
+  height: 40px;
 }
+}
+/* desktop */
 @media only screen and (min-width: 600px) {
   .wrapper {
     width: 100vw;
@@ -101,5 +107,9 @@
   }
   .message{
     color: red;
+  }
+  .uploaded_image{
+    width: 70px;
+    height: 70px;
   }
 }
