@@ -5,11 +5,26 @@
   align-items: center;
 }
 
-
+/*detta är startbilden*/
 .heroWrapper{
   height: 100vh;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: lightgrey; /*tillfällig*/
+}
+
+.heroTextContainer{
+  border: 2px red solid;
+  font-size: 20px;
+  height: 40%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
 }
 
 

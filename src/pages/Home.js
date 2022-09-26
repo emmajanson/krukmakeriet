@@ -8,7 +8,14 @@ export default function Home() {
 
   return (
     <main data-testid="home" className={styles.wrapper}>
-      <section className={styles.heroWrapper}></section>
+      <section className={styles.heroWrapper}>
+        <div className={styles.heroTextContainer}>
+          <p>BILD KRUKA</p>
+          <p>KRUKMAKERIET</p>
+          <p>EN LINJE</p>
+          <p>SKAPANDE TILLSAMMANS</p>
+        </div>
+      </section>
 
       <section className={styles.infoWrapper}>
         <div className={styles.textWrapper}>
