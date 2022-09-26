@@ -1,22 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase-config";
+import { AllContext } from "../context/AllContext";
 
 //Det här ska finnas
 // - formulär för registrering
 // - som ska skickas till db användare
 function SignIn() {
-  const [user, setUser] = useState({});
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [isPasswordWrong, setIsPasswordWrong] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
+  const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
+
+  // Signing in the user and navigates to Profile-page
 
   async function signin() {
     try {
@@ -25,7 +26,8 @@ function SignIn() {
         userEmail,
         userPassword
       );
-      console.log(user);
+      setRefresh((curr) => !curr);
+
       navigate("/profile", { state: { user: user.user.displayName } });
     } catch (error) {
       switch (error.message) {
@@ -45,19 +47,9 @@ function SignIn() {
     }
   }
 
-  function navToSignUp() {
-    navigate("/signup");
-  }
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-  }, []);
-
   return (
     <main className={styles.wrapper}>
-      <div>
+      <section className={styles.loginWrapper}>
         <label htmlFor="email" name="email">
           E-mail
         </label>
@@ -88,9 +80,31 @@ function SignIn() {
         )}
         {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
         <button onClick={signin}>Log In</button>
+        <button className={styles.buttonClass} onClick={signin}>
+          Log In
+        </button>
+      </section>
+
+      <section className={styles.signUpWrapper}>
         <p>Don't have an account?</p>
-      </div>
-      <button onClick={navToSignUp}>Sign up</button>
+
+        <button
+          className={styles.buttonClass}
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          Sign up
+        </button>
+        <button
+          className={styles.buttonClass}
+          onClick={() => {
+            navigate("/resetpassword");
+          }}
+        >
+          Forgot password?
+        </button>
+      </section>
     </main>
   );
 }

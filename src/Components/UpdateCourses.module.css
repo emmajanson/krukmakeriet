@@ -1,0 +1,105 @@
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgb(111, 109, 109);
+    left:0;
+    top:0;
+    display: flex;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: auto;
+  }
+  .form a {
+    display: flex;
+    justify-content: center;
+  }
+  .button {
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .icon{
+    position: absolute;
+    right: 0;
+    top:0;
+    margin: 1rem;
+    font-size: xx-large;
+  }
+.uploadBtn{
+  width: 80%;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.showBtn {
+  display: flex;
+}
+.noShowBtn {
+  display: none;
+}
+.message{
+  color: red;
+}
+}
+@media only screen and (min-width: 600px) {
+  .wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgb(111, 109, 109);
+    left:0;
+    top:0;
+    display: flex;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 50%;
+    height: 100%;
+    margin: auto;
+  }
+  .form a {
+    display: flex;
+    justify-content: center;
+  }
+  .button {
+    width: 80%;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .icon{
+    position: absolute;
+    right: 0;
+    top:0;
+    margin: 1rem;
+    font-size: xx-large;
+  }
+  .image {
+    width: 100px;
+    height:70px
+  }
+  .uploadBtn{
+    width: 80%;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .showBtn {
+    display: flex;
+  }
+  .noShowBtn {
+    display: none;
+  }
+  .message{
+    color: red;
+  }
+}

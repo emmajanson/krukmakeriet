@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import styles from "./CheckoutItem.module.css";
+import styles from "./BasketItem.module.css";
 import { AllContext } from "../context/AllContext";
 
-function CheckoutItem({ productData }) {
+function BasketItem({ productData }) {
   /*
   let { productBasket} = useContext(AppContext)
   let { courseBasket} = useContext(AppContext)
@@ -13,8 +13,8 @@ function CheckoutItem({ productData }) {
 
   */
 
-  const { productBasket, setProductBasket, courseBasket, setCourseBasket } =
-    useContext(AllContext);
+  const { productBasket, setProductBasket } = useContext(AllContext);
+  const { courseBasket, setCourseBasket } = useContext(AllContext);
 
   const isProduct = courseBasket.some((product) => {
     if (product.id === productData.id) {
@@ -77,6 +77,7 @@ function CheckoutItem({ productData }) {
   function deleteItem(productData) {
     //.filter på alla som inte är productData.id
     //uppdatera state med den här listan
+
     setCourseBasket(courseBasket.filter((item) => item.id !== productData.id));
     setProductBasket(
       productBasket.filter((item) => item.id !== productData.id)
@@ -84,38 +85,45 @@ function CheckoutItem({ productData }) {
   }
 
   return (
-    <article className={styles.productItemWrapper}>
+    <article className={styles.wrapper}>
       <div className={styles.imgWrapper}>
-        <img className={styles.itemImage} src={productData.img} alt="" />
+        <img src={productData.img} alt="" className={styles.basketImage} />
       </div>
-      <div className={styles.infoWrapper}>
-        <h3 className={styles.name}>{productData.name}</h3>
-        <p className={styles.info}>{productData.info}</p>
-        <p className={styles.price}>{productData.price}</p>
-        <div className={styles.editQuantityWrapper}>
-          <button
+
+      <div className={styles.textWrapper}>
+        <p className={styles.heading}>{productData.name}</p>
+        <div className={styles.changeAmountWrapper}>
+          <p
+            className={styles.changeAmount}
             onClick={() => decrementAmount(productData)}
-            className={styles.quantityBtn}
           >
-            -
-          </button>
+            {" "}
+            -{" "}
+          </p>
           <p>{productData.amount}</p>
-          <button
+          <p
+            className={styles.changeAmount}
             onClick={() => incrementAmount(productData)}
-            className={styles.quantityBtn}
           >
-            +
-          </button>
+            {" "}
+            +{" "}
+          </p>
         </div>
       </div>
-      <button
-        onClick={() => deleteItem(productData)}
-        className={styles.removeBtn}
-      >
-        Delete
-      </button>
+
+      <div className={styles.priceDeleteWrapper}>
+        <p className={styles.price}>{productData.price}:-</p>
+        {/* ska bytas ut mot papperskorg */}
+        <button
+          className={styles.deleteBtn}
+          onClick={() => deleteItem(productData)}
+        >
+          {" "}
+          D{" "}
+        </button>
+      </div>
     </article>
   );
 }
 
-export default CheckoutItem;
+export default BasketItem;

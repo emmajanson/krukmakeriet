@@ -1,0 +1,75 @@
+/*Mobile first*/
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .title {
+    display: flex;
+    justify-content: center;
+    
+  }
+  .button {
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .details {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: black solid 1px;
+    width: 90%;
+    margin: auto;
+    padding: 2rem;
+  }
+  .courses {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+  }
+  .courseImage{
+    display: none;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .wrapper {
+    display: flex;
+  }
+  .button {
+    padding: 2rem;
+    width: 8rem;
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: solid black 1px;
+    margin-left: 1.5rem;
+    padding: 1rem;
+  }
+  .details p {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .title {
+    display: flex;
+    justify-content: center;
+  }
+  .courses{
+    display: flex;
+    margin: 2rem;
+  }
+ 
+  .FaCaretDown {
+    display: none;
+  }
+  .courseImage{
+    display: none;
+  }
+}

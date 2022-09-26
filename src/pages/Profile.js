@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 import styles from "./Profile.module.css";
@@ -10,11 +10,14 @@ function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Signs out the user, and navigates to signin-page
   async function logout() {
     await signOut(auth);
+    localStorage.removeItem("admin");
     navigate("/signin");
   }
 
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -23,9 +26,13 @@ function Profile() {
 
   console.log(user);
 
-  return (
+  return user == null ? (
+    <Navigate to="/signin" />
+  ) : (
     <main className={styles.wrapper}>
-      <h1>Welcome to your profile {location.state.user}!</h1>
+      <h1>
+        Welcome to your profile {location.state ? location.state.user : ""}!
+      </h1>
       <section className={styles.userInfoWrapper}>
         <h2>Dina uppgifter</h2>
         {/* här renderas datan ut som hämtas från db via .value i inputsen */}
@@ -88,6 +95,13 @@ function Profile() {
         </table>
       </section>
 
+      <button
+        onClick={() => {
+          navigate("/admin");
+        }}
+      >
+        Admin Page
+      </button>
       <button onClick={logout}>Log Out</button>
     </main>
   );

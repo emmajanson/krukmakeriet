@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  sendEmailVerification,
+  getAuth,
 } from "firebase/auth";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { act } from "react-test-renderer";
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -18,10 +22,13 @@ function SignUp() {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const usersCollectionRef = collection(db, "users");
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      act(() => {
+        setUser(currentUser);
+      });
     });
   }, []);
 
@@ -33,9 +40,17 @@ function SignUp() {
           signinEmail,
           signinPassword
         );
+        const sendMail = getAuth();
+        await sendEmailVerification(sendMail.currentUser);
         updateProfile(auth.currentUser, {
           displayName: userName,
           photoURL: null,
+        });
+        await setDoc(doc(db, "users", user.user.uid), {
+          name: userName,
+          email: user.user.email,
+          admin: false,
+          uid: user.user.uid,
         });
         console.log(user);
         navigate("/profile", { state: { user: userName } });
@@ -59,7 +74,7 @@ function SignUp() {
 
   return (
     <main className={styles.wrapper}>
-      <section>
+      <section className={styles.signUpWrapper}>
         <label name="name">Name</label>
         <input
           type="text"
@@ -113,6 +128,9 @@ function SignUp() {
         )}
         <button onClick={register}>Register Account</button>
         <h1>{user?.displayName}</h1>
+        <button className={styles.registerButton} onClick={register}>
+          Register Account
+        </button>
       </section>
     </main>
   );

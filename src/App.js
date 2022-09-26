@@ -11,27 +11,34 @@ import styles from "./App.module.css";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
-
-//Lägg in nestlade routes för att hantera kategorier i webshopen & adminsidan
+import ResetPassword from "./pages/ResetPassword";
+import PrivateRoutes from "./Components/PrivateRoutes";
+import { AllContextProvider } from "./context/AllContext";
 
 function App() {
   return (
     <div className={styles.wrapper}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <AllContextProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </AllContextProvider>
     </div>
   );
 }

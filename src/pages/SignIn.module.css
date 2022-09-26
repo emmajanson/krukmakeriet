@@ -1,3 +1,47 @@
-.wrapper{
+.wrapper {
   padding-top: 12vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 75vh;
+  align-items: center;
+}
+
+.loginWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25%;
+}
+
+.signUpWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 25%;
+}
+
+.signUpWrapper p {
+  margin-top: 10px;
+  align-self: center;
+}
+
+.buttonClass {
+  width: 14.188rem;
+  height: 3.403rem;
+  border-radius: 3.125rem;
+  margin-top: 2px;
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .loginWrapper {
+    margin-bottom: 20px;
+    margin-left: 0;
+  }
+
+  .signUpWrapper {
+    margin-right: 0;
+  }
 }

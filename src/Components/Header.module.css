@@ -1,21 +1,173 @@
 .wrapper{
+  width:100%;
+  position: relative;
   position: fixed;
-  width: 100%;
-  min-height: 10vh;
+  background-color: white;
+}
+
+.desktopWrapper{
+  display: none;
+}
+
+.mobileIcons{
+  display: flex;
+  gap: 1.5rem;
+}
+
+#mobileIcons{
+  display: flex;
+  gap: 1.5rem;
+}
+
+.mobileIcons a {
+  text-decoration: none;
+  color: #000;
+}
+
+#mobileIcons a {
+  text-decoration: none;
+  color: #000;
+}
+
+.mobileIcons :hover {
+  color: #697569;
+  
+}
+
+#mobileIcons :hover {
+  color: #697569;
+  
+}
+
+.mobileIcons::before {
+  content:attr(data-count);
+  position: absolute;
+  top: 2.5em;
+  right: 0.8em;
+  width: 1em;
+  height: 1em; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: red;
+  color: white; 
+}
+
+.mobileWrapper{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0 3rem;
-  background-color: grey; /*tillfällig*/
+  width: 100%;
+  min-height: 10vh;
+  padding: 1.5rem;
+  background-color: white;
 }
-.logoWrapper{
+
+/* Menyknapp */
+
+.menuBtn {
   
 }
-.logoImage{
-  width: 100px;
-  height: 100px;
+
+/* Mobilmenyn*/
+
+.mobileMenuWrapperHidden{
+  display: none;
 }
-.navWrapper{
+
+.mobileMenuWrapperShow {
+  position: fixed;
   display: flex;
-  gap: 1rem;
+  left: 0;
+  top: 48px;
+  width: 70vw;
+  height: 100vh;
+  background-color: #697569;
+  right: -100%;
+  z-index: -1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.mobileMenuWrapperShow a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.mobileMenuWrapperShow :hover {
+  color: #DAE1D9;
+}
+
+/* Varukorgen */
+
+.basketWrapperHidden{
+  display: none;
+}
+
+.basketWrapperShow{
+  display: flex;
+}
+
+
+/* Desktop*/
+@media screen and (min-width:800px){
+  .desktopWrapper{
+    position: fixed;
+    width: 100%;
+    min-height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: white;
+    padding: 1.5rem;
+  }
+
+  .mobileWrapper {
+    display: none;
+  }
+
+  .linkWrapper a {
+    color: #000;
+    padding: 1rem;
+    text-decoration: none;
+  }
+
+  .linkWrapper :hover {
+    color: #697569;
+  }
+  
+  .logoImage{
+    width: 50px;
+    height: 50px;
+  }
+
+  .linkWrapper::before {
+    content:attr(data-count);
+    position: absolute;
+    top: 2.7em;
+    right: 1.6em;
+    width: 1.2em;
+    height: 1.2em; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: red;
+    color: white; 
+  }
+
+  #linkWrapper :hover {
+    color: #697569;
+  }
+
+  #linkWrapper a {
+    color: #000;
+    padding: 1rem;
+    text-decoration: none;
+  }
+
+
 }
