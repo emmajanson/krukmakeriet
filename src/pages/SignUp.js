@@ -126,7 +126,6 @@ function SignUp() {
         ) : (
           ""
         )}
-        <button onClick={register}>Register Account</button>
         <h1>{user?.displayName}</h1>
         <button className={styles.registerButton} onClick={register}>
           Register Account

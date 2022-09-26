@@ -79,7 +79,6 @@ function SignIn() {
           ""
         )}
         {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
-        <button onClick={signin}>Log In</button>
         <button className={styles.buttonClass} onClick={signin}>
           Log In
         </button>
