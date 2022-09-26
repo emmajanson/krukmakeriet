@@ -42,6 +42,15 @@ function Checkout() {
   const totalSumCourse = totalSum(courseBasket);
   const totalSumBasket = totalSumProduct + totalSumCourse;
 
+  // _PRODUCTS_
+  // 1. Lägga till de köpta Products i användarens DB. (för varje köp, lägg till ett nytt objekt (döp till ett datum))
+  // 2. Uppdatera "amount" på de produkter som köpts (Går inte att minska under 0).
+
+  // _COURSES_
+  // 1. Lägga till Courses i användarens DB.
+  // 2. Uppdatera "spots" i den kursen som är bokad.
+  // 3. Lägga till användarens E-mail i en array på den kurs som är bokad (för admin).
+
   return (
     <main className={styles.wrapper}>
       <section className={styles.basketWrapper}>
