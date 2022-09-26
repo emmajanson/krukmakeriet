@@ -17,10 +17,8 @@
 }
 
 .heroTextContainer{
-  height: 50%;
-  width: 90%;
+
   align-items: center;
-  /*background: url("../../public/images/homeHeroLogoDesktop.png");*/
   background-repeat: no-repeat;
 }
 

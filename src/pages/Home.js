@@ -10,6 +10,7 @@ export default function Home() {
     <main data-testid="home" className={styles.wrapper}>
       <section className={styles.heroWrapper}>
         <div className={styles.heroTextContainer}>
+          <img src={process.env.PUBLIC_URL + '/images/homeHeroLogoDesktop.png'} alt="En fin bild"/>
         </div>
       </section>
 
