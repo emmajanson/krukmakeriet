@@ -13,6 +13,7 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { v4 } from "uuid";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import e from "express";
 
 function UpdateProducts({
   id,
@@ -39,7 +40,7 @@ function UpdateProducts({
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
-  const [productCategory, setProductCategory] = useState("");
+ // const [productCategory, setProductCategory] = useState("");
   const [productDetails, setProductDetails] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -50,7 +51,7 @@ function UpdateProducts({
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
       name: productName,
-      category: productCategory,
+     // category: productCategory,
       details: productDetails,
       price: Number(productPrice),
       quantity: Number(productQuantity),
@@ -76,11 +77,11 @@ function UpdateProducts({
   useEffect(() => {
     setProductName(name);
     setProductPrice(price);
-    setProductCategory(category);
+   // setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
     setProductImage(img);
-  }, [name, price, category, details, quantity, img]);
+  }, [name, price, details, quantity, img]);
 
   if (!open) return null;
 
@@ -110,7 +111,7 @@ function UpdateProducts({
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
       name: productName,
-      category: productCategory,
+     // category: productCategory,
       details: productDetails,
       price: productPrice,
       quantity: productQuantity,
@@ -123,10 +124,13 @@ function UpdateProducts({
   };
 
   function handleSubmit() {
+    
     if (updateOnly) {
+     
       updateProduct();
       setAddUpdateFunction(()=>false)
     } else {
+      
       createProduct();
       setAddUpdateFunction(()=>true)
     }
@@ -145,38 +149,24 @@ function UpdateProducts({
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>* Namn:</p>
+        <p>Namn: *</p>
         <input
           type="text"
           value={productName}
           onChange={(e) => {
             setProductName(e.target.value);
           }}
+          required
         />
-        <p>* Kategori:</p>
+         <p>* Produkbeskrivning:</p>
         <input
           type="text"
-          value={productCategory}
+          value={productDetails}
           onChange={(e) => {
-            setProductCategory(e.target.value);
+            setProductDetails(e.target.value);
           }}
+          required
         />
-        <p>* Bild:</p>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={(e) => {
-            setUploadedImage(e.target.files[0]);
-          }}
-        />
-        {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )}
-        <button onClick={uploadImage} className={styles.uploadBtn}>
-          Ladda upp bilden
-        </button>
         <p>* Pris:</p>
         <input
           type="number"
@@ -184,6 +174,7 @@ function UpdateProducts({
           onChange={(e) => {
             setProductPrice(e.target.value);
           }}
+          required
         />
         <p>* Antal:</p>
         <input
@@ -192,28 +183,38 @@ function UpdateProducts({
           onChange={(e) => {
             setProductQuantity(e.target.value);
           }}
+          required
         />
-        <p>* Produkbeskrivning:</p>
+         <p>* Bild:</p>
         <input
-          type="text"
-          value={productDetails}
+          type="file"
+          accept="image/png, image/jpeg"
           onChange={(e) => {
-            setProductDetails(e.target.value);
+            setUploadedImage(e.target.files[0]);
           }}
+          required
         />
-        <button className={styles.button} onClick={handleSubmit}>
+        {showMessage ? (
+          <p className={styles.message}>Successfully uploaded</p>
+        ) : (
+          ""
+        )}
+        <button type="button" onClick={uploadImage} className={styles.uploadBtn}>
+          Ladda upp bilden
+        </button>
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
           Spara
         </button>
         {updateOnly ? (
-          <a
+          <button
+          type="button"
             className={styles.showBtn}
-            href="#"
             onClick={() => {
               deleteProduct(id);
             }}
           >
             Ta bort
-          </a>
+          </button>
         ) : (
           ""
         )}
