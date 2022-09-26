@@ -179,8 +179,8 @@ function Checkout() {
         </button>
         <button onClick={() => {setShowPopup(true); }}className={styles.checkoutBtn}>Bekräfta köp</button>
         <Popup trigger={showPopup} setTrigger={setShowPopup}>
-        <h1>Succé!</h1>
-        <p>Din vara är nu lagd i varukorgen.</p>
+        <h1>Tack för ditt köp! </h1>
+        <p>Ett bekfrätelsemail har skickats till din angivna mailadress. (Kolla skräppost)</p>
       </Popup>
       </section>
     </main>
