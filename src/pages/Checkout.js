@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./Checkout.module.css";
 import CheckoutItem from "../Components/CheckoutItem";
 import { AllContext } from "../context/AllContext";
 import { useNavigate } from "react-router-dom";
+import Popup from "../Components/PopUpCheckout";
 
 function Checkout() {
   const navigate = useNavigate();
+
+  const [showPopup, setShowPopup] = useState(false);
 
   /*
   let { productBasket} = useContext(AppContext)
@@ -71,7 +74,7 @@ function Checkout() {
         <h3>Total summa {totalSumBasket}:-</h3>
       </section>
 
-      <section className={styles.userInfoWrapper}>
+      <form className={styles.userInfoWrapper}>
         <h2>Leveransuppgifter</h2>
         <div className={styles.userFirstInputsWrapper}>
           <label name="firstName">Förnamn</label>
@@ -88,6 +91,7 @@ function Checkout() {
             type="text"
             name="lastName"
             placeholder="Efternamn"
+            required
           ></input>
 
           <label name="email">E-post</label>
@@ -96,6 +100,7 @@ function Checkout() {
             type="text"
             name="email"
             placeholder="E-post"
+            required
           ></input>
 
           <label name="phoneNumber">Telefonnummer</label>
@@ -104,6 +109,7 @@ function Checkout() {
             type="text"
             name="phoneNumber"
             placeholder="Telefonnummer"
+            required
           ></input>
 
           <label name="address">Adress</label>
@@ -112,20 +118,21 @@ function Checkout() {
             type="text"
             name="address"
             placeholder="Adress"
+            required
           ></input>
         </div>
 
         <div className={styles.userSecondInputsWrapper}>
           <div className={styles.inputSmall}>
             <label name="zipCode">Postnummer</label>
-            <input type="text" name="zipcode" placeholder="Postnummer"></input>
+            <input type="text" name="zipcode" placeholder="Postnummer" required></input>
           </div>
           <div className={styles.inputMedium}>
             <label name="city">Stad</label>
-            <input type="text" name="city" placeholder="Stad"></input>
+            <input type="text" name="city" placeholder="Stad" required></input>
           </div>
         </div>
-      </section>
+      </form>
 
       <section className={styles.paymentWrapper}>
         <h2>Betalningsalternativ</h2>
@@ -136,6 +143,7 @@ function Checkout() {
             type="text"
             name="cardName"
             placeholder="Kortinnehavarens namn"
+            required
           ></input>
 
           <label name="cardNumber">Kortnummer</label>
@@ -144,17 +152,18 @@ function Checkout() {
             type="text"
             name="cardNumber"
             placeholder="Kortnummer"
+            required
           ></input>
         </div>
 
         <div className={styles.paySecondInputsWrapper}>
           <div className={styles.inputSmall}>
             <label name="expDate">Datum</label>
-            <input type="text" name="expDate" placeholder="Datum"></input>
+            <input type="text" name="expDate" placeholder="Datum" required></input>
           </div>
           <div className={styles.inputSmall}>
             <label name="cvc">CVC</label>
-            <input type="text" name="cvc" placeholder="Cvc"></input>
+            <input type="text" name="cvc" placeholder="Cvc" required  ></input>
           </div>
         </div>
       </section>
@@ -168,7 +177,11 @@ function Checkout() {
         >
           Fortsätt handla
         </button>
-        <button className={styles.checkoutBtn}>Bekräfta köp</button>
+        <button onClick={() => {setShowPopup(true); }}className={styles.checkoutBtn}>Bekräfta köp</button>
+        <Popup trigger={showPopup} setTrigger={setShowPopup}>
+        <h1>Succé!</h1>
+        <p>Din vara är nu lagd i varukorgen.</p>
+      </Popup>
       </section>
     </main>
   );
