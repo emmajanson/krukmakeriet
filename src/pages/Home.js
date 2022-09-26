@@ -10,10 +10,6 @@ export default function Home() {
     <main data-testid="home" className={styles.wrapper}>
       <section className={styles.heroWrapper}>
         <div className={styles.heroTextContainer}>
-          <p>BILD KRUKA</p>
-          <p>KRUKMAKERIET</p>
-          <p>EN LINJE</p>
-          <p>SKAPANDE TILLSAMMANS</p>
         </div>
       </section>
 
@@ -24,7 +20,7 @@ export default function Home() {
 </p>
         </div>
         <div className={styles.imgWrapper}>
-          <img className={styles.infoImage} scr="" alt="" />
+          <img className={styles.infoImage} src={process.env.PUBLIC_URL + '/images/homeIntroEtt.jpg'} alt="En fin bild" />
         </div>
       </section>
 
@@ -36,7 +32,8 @@ export default function Home() {
             navigate("/courses");
           }}
         >
-          LÄNK KURSER
+          <img className={styles.linkImageCourses} src={process.env.PUBLIC_URL + '/images/homeLinkCourses.jpg'} alt="En fin bild" />
+          <p className={styles.linkImageText}>KURSER</p>
         </div>
         <div
           className={styles.linkImage}
@@ -44,7 +41,8 @@ export default function Home() {
             navigate("/shop");
           }}
         >
-          LÄNK SHOP
+          <img className={styles.linkImageShop} src={process.env.PUBLIC_URL + '/images/homeLinkShop.jpg'} alt="En fin bild" />
+          <p className={styles.linkImageText}>SHOP</p>
         </div>
       </section>
 
