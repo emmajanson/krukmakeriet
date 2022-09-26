@@ -1,7 +1,13 @@
 import React from "react";
-import styles from "./Popup.module.css";
+import styles from "./PopupTemplate.module.css";
 import { useNavigate } from "react-router-dom";
 import Checkout from "../pages/Checkout";
+import {
+  FiX,
+  // FiUser,
+} from "react-icons/fi";
+
+import { FaCheckCircle } from "react-icons/fa";
 
 function Popup(props) {
   const navigate = useNavigate();
@@ -9,16 +15,19 @@ function Popup(props) {
   return props.trigger ? (
     <div className={styles.popupWrapper}>
       <div className={styles.popupContent}>
-        <button
-          className={styles.btnGoOn}
+        <div
+          className={styles.closeButton}
           onClick={() => {
             props.setTrigger(false);
             navigate(props.navigation);
           }}
         >
-          Stäng
-        </button>
-        {props.children}
+          <FiX color="black" size={39} />
+        </div>
+        <div className={styles.contentWrapper}>
+        <img id={styles.checkMark} src="../images/Icons/checkMark.svg"></img>
+        <div className={styles.textWrapper}>{props.children}</div>
+        </div>
       </div>
     </div>
   ) : (
