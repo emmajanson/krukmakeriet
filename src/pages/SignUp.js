@@ -17,6 +17,9 @@ function SignUp() {
   const [signinEmail, setSigninEmail] = useState("");
   const [signinPassword, setSigninPassword] = useState("");
   const [signinPassword2, setSigninPassword2] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [userInUse, setUserInUse] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
@@ -52,10 +55,20 @@ function SignUp() {
         console.log(user);
         navigate("/profile", { state: { user: userName } });
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
+        switch (error.message) {
+          case "Firebase: Error (auth/email-already-in-use).":
+            setUserInUse(true);
+            break;
+          case "Firebase: Error (auth/invalid-email).":
+            setInvalidEmail(true);
+            break;
+          default:
+            break;
+        }
       }
     } else {
-      alert("Lösenorden matchar ej!");
+      setPasswordMatch(false);
     }
   }
 
@@ -78,8 +91,11 @@ function SignUp() {
           placeholder="Enter your email..."
           onChange={(e) => {
             setSigninEmail(e.target.value);
+            setInvalidEmail(false);
+            setUserInUse(false);
           }}
         />
+        {invalidEmail ? <p style={{ color: "red" }}>Invalid E-mail!</p> : ""}
         <label name="password">Password</label>
         <input
           type="password"
@@ -87,6 +103,7 @@ function SignUp() {
           placeholder="Enter your password..."
           onChange={(e) => {
             setSigninPassword(e.target.value);
+            setPasswordMatch(true);
           }}
         />
         <label name="confirm-password">Confirm Password</label>
@@ -96,8 +113,21 @@ function SignUp() {
           placeholder="Confirm password..."
           onChange={(e) => {
             setSigninPassword2(e.target.value);
+            setPasswordMatch(true);
           }}
         />
+        {passwordMatch ? (
+          ""
+        ) : (
+          <p style={{ color: "red" }}>Your password does not match!</p>
+        )}
+        {userInUse ? (
+          <p style={{ color: "red" }}>This E-mail is already in use!</p>
+        ) : (
+          ""
+        )}
+        <button onClick={register}>Register Account</button>
+        <h1>{user?.displayName}</h1>
         <button className={styles.registerButton} onClick={register}>
           Register Account
         </button>

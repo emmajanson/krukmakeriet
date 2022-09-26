@@ -24,6 +24,8 @@ function Profile() {
     });
   }, []);
 
+  console.log(user);
+
   return user == null ? (
     <Navigate to="/signin" />
   ) : (
