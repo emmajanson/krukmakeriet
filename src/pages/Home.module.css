@@ -29,17 +29,18 @@
 
 .infoWrapper{
   flex-direction: column-reverse;
-  width: 90%;
+  width: 100%;
   display: flex;
   gap:2rem;
   margin-top: 80px;
+  align-items: center;
 }
 .textWrapper{
-  width: 100%;
+  width: 90%;
   font-size: 24px;
 }
 .imgWrapper{
-   width: 100%;
+   width: 90%;
 }
 .infoImage{
   width: 100%;;
@@ -66,7 +67,7 @@
 
 @media screen and (min-width:800px){
   .infoWrapper{
-    max-width: 800px;
+    max-width: 1000px;
     flex-direction:row-reverse;
   }
   .linkWrapper{
