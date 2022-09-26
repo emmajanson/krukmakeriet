@@ -1,0 +1,128 @@
+.popupWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupContent {
+  position: relative;
+  display: flex;
+  height: 354px;
+  padding: 32px;
+  width: auto;
+  max-width: 300px;
+  background-color: #fff;
+  border: solid grey 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.textWrapper p {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+.textWrapper h1 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#checkMark {
+  margin-bottom: 32px;
+}
+
+@media screen and (min-width: 800px) {
+  .popupWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popupContent {
+    position: relative;
+    display: flex;
+    height: 512px;
+    padding: 32px;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border: solid grey 1px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .textWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .textWrapper p {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+  .textWrapper h1 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #checkMark {
+    margin-bottom: 32px;
+  }
+}

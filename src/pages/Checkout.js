@@ -3,7 +3,7 @@ import styles from "./Checkout.module.css";
 import CheckoutItem from "../Components/CheckoutItem";
 import { AllContext } from "../context/AllContext";
 import { useNavigate } from "react-router-dom";
-import Popup from "../Components/PopUpCheckout";
+import Popup from "../Components/PopUpTemplate";
 
 function Checkout() {
   const navigate = useNavigate();
@@ -125,7 +125,12 @@ function Checkout() {
         <div className={styles.userSecondInputsWrapper}>
           <div className={styles.inputSmall}>
             <label name="zipCode">Postnummer</label>
-            <input type="text" name="zipcode" placeholder="Postnummer" required></input>
+            <input
+              type="text"
+              name="zipcode"
+              placeholder="Postnummer"
+              required
+            ></input>
           </div>
           <div className={styles.inputMedium}>
             <label name="city">Stad</label>
@@ -159,11 +164,16 @@ function Checkout() {
         <div className={styles.paySecondInputsWrapper}>
           <div className={styles.inputSmall}>
             <label name="expDate">Datum</label>
-            <input type="text" name="expDate" placeholder="Datum" required></input>
+            <input
+              type="text"
+              name="expDate"
+              placeholder="Datum"
+              required
+            ></input>
           </div>
           <div className={styles.inputSmall}>
             <label name="cvc">CVC</label>
-            <input type="text" name="cvc" placeholder="Cvc" required  ></input>
+            <input type="text" name="cvc" placeholder="Cvc" required></input>
           </div>
         </div>
       </section>
@@ -177,11 +187,23 @@ function Checkout() {
         >
           Fortsätt handla
         </button>
-        <button onClick={() => {setShowPopup(true); }}className={styles.checkoutBtn}>Bekräfta köp</button>
-        <Popup trigger={showPopup} setTrigger={setShowPopup}>
-        <h1>Tack för ditt köp! </h1>
-        <p>Ett bekfrätelsemail har skickats till din angivna mailadress. (Kolla skräppost)</p>
-      </Popup>
+        <button
+          onClick={() => {
+            setShowPopup(true);
+          }}
+          className={styles.checkoutBtn}
+        >
+          Bekräfta köp
+        </button>
+        <Popup
+          trigger={showPopup}
+          setTrigger={setShowPopup}
+          navigation={"/shop"}
+        >
+          <h1>Tack för ditt köp</h1>
+          <p>En beställningsbekräftelse har skickats till din epostadress</p>
+          <p>Ingen e-post? Kolla i skräpposten.</p>
+        </Popup>
       </section>
     </main>
   );
