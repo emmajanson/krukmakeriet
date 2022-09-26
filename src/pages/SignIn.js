@@ -3,7 +3,7 @@ import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { AppContext } from "../App";
+import { AllContext } from "../context/AllContext";
 
 //Det här ska finnas
 // - formulär för registrering
@@ -11,12 +11,12 @@ import { AppContext } from "../App";
 function SignIn() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const myContext = useContext(AppContext);
-  const setRefresh = myContext.setRefresh;
+  const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
 
   // Signing in the user and navigates to Profile-page
+
   async function signin() {
     try {
       const user = await signInWithEmailAndPassword(

@@ -10,6 +10,7 @@ import {
   getAuth,
 } from "firebase/auth";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { act } from "react-test-renderer";
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -22,7 +23,9 @@ function SignUp() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      act(() => {
+        setUser(currentUser);
+      });
     });
   }, []);
 
@@ -60,7 +63,7 @@ function SignUp() {
     <main className={styles.wrapper}>
       <section className={styles.signUpWrapper}>
         <label name="name">Name</label>
-        <input 
+        <input
           type="text"
           name="name"
           placeholder="Enter your name..."
@@ -95,7 +98,9 @@ function SignUp() {
             setSigninPassword2(e.target.value);
           }}
         />
-        <button className={styles.registerButton} onClick={register}>Register Account</button>
+        <button className={styles.registerButton} onClick={register}>
+          Register Account
+        </button>
       </section>
     </main>
   );
