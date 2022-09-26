@@ -3,7 +3,7 @@ import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { AppContext } from "../App";
+import { AllContext } from "../context/AllContext";
 
 //Det här ska finnas
 // - formulär för registrering
@@ -11,12 +11,14 @@ import { AppContext } from "../App";
 function SignIn() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const myContext = useContext(AppContext);
-  const setRefresh = myContext.setRefresh;
+  const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
+  const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
 
   // Signing in the user and navigates to Profile-page
+
   async function signin() {
     try {
       const user = await signInWithEmailAndPassword(
@@ -28,7 +30,20 @@ function SignIn() {
 
       navigate("/profile", { state: { user: user.user.displayName } });
     } catch (error) {
-      console.log(error);
+      switch (error.message) {
+        case "Firebase: Error (auth/wrong-password).":
+          setUserNotFound(false);
+          setIsPasswordWrong(true);
+          console.log("Wrong password!");
+          break;
+        case "Firebase: Error (auth/user-not-found).":
+          setIsPasswordWrong(false);
+          setUserNotFound(true);
+          console.log("User not found!");
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -45,6 +60,7 @@ function SignIn() {
           placeholder="Enter E-mail..."
           onChange={(e) => {
             setUserEmail(e.target.value);
+            setUserNotFound(false);
           }}
         />
         <label name="password">Password</label>
@@ -54,8 +70,15 @@ function SignIn() {
           placeholder="Enter Password"
           onChange={(e) => {
             setUserPassword(e.target.value);
+            setIsPasswordWrong(false);
           }}
         />
+        {isPasswordWrong ? (
+          <p style={{ color: "red" }}>Password is wrong!</p>
+        ) : (
+          ""
+        )}
+        {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
         <button className={styles.buttonClass} onClick={signin}>
           Log In
         </button>

@@ -1,9 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { AppContext } from "../App";
-
+import { AllContext } from "../context/AllContext";
 const PrivateRoutes = () => {
-  const myContext = useContext(AppContext);
+  const myContext = useContext(AllContext);
   const permission = myContext.adminPermission;
 
   // If user is admin, let the Outlet render, otherwise navigate to signin
