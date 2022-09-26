@@ -38,8 +38,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-self: center;
-
+  text-align: center;
 }
 
 .textWrapper p {
@@ -63,9 +62,7 @@
   margin-bottom: 32px;
 }
 
-
 @media screen and (min-width: 800px) {
- 
   .popupWrapper {
     position: fixed;
     top: 0;
@@ -77,7 +74,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   .popupContent {
     position: relative;
     display: flex;
@@ -90,7 +87,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   .closeButton {
     position: absolute;
     top: 16px;
@@ -101,13 +98,13 @@
     border: none;
     cursor: pointer;
   }
-  
+
   .textWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .textWrapper p {
     font-size: 18px;
     margin-bottom: 24px;
@@ -116,7 +113,7 @@
     font-size: 24px;
     margin-bottom: 24px;
   }
-  
+
   .contentWrapper {
     display: flex;
     flex-direction: column;
@@ -124,10 +121,8 @@
     justify-content: center;
     width: 100%;
   }
-  
+
   #checkMark {
     margin-bottom: 32px;
   }
-
-
 }
