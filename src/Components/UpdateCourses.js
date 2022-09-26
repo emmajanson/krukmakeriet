@@ -23,17 +23,14 @@ function UpdateCourses({
   slots,
   date,
   updateOnly,
-  setCourses,
   open,
   onClose,
   setCourseData,
   img,
-  courses,
   closeNewModal,
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  rerender,
   showMessage,
   setShowMessage,
 }) {
@@ -48,6 +45,7 @@ function UpdateCourses({
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
 
+  //create a new course
   const createCourse = async () => {
     await addDoc(coursesCollectionRef, {
       name: courseName,
@@ -63,8 +61,9 @@ function UpdateCourses({
     setAddNewCourseFunction(false);
     setAddUpdateFunction(false);
   };
+  //a ref to the images folder in firebase storage
   const imageListRef = ref(storage, "images/");
-
+  //list all the urls of the images in storage and save them in imageurl state
   useEffect(() => {
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
@@ -75,6 +74,7 @@ function UpdateCourses({
     });
   }, []);
 
+  //everytime a change is made in the input fields display the latest changes in the modal
   useEffect(() => {
     setCourseName(name);
     setCoursePrice(price);
@@ -84,21 +84,20 @@ function UpdateCourses({
     setCourseSpots(slots);
     setCourseImage(img);
   }, [name, price, length, desc, date, slots, img]);
-
+  //if modal is not open dont do anything
   if (!open) return null;
-
+  //close the modal
   function closeModal() {
     if (updateOnly) {
       onClose();
       closeNewModal(false);
     } else {
       setCourseData("");
-      // closeNewModal(false);
       setAddNewCourseFunction(false);
       closeNewModal(false);
     }
   }
-
+  //upload the selected image to the firebase storage
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
@@ -109,7 +108,7 @@ function UpdateCourses({
       });
     });
   };
-
+  //update the course
   const updateCourse = async () => {
     const courseDoc = doc(db, "courses", id);
     const newUpdatedCourse = {
@@ -126,18 +125,16 @@ function UpdateCourses({
     onClose(false);
     getCourses();
   };
-
+//submit the form
   function handleSubmit() {
     if (updateOnly) {
-      
       updateCourse();
     } else {
-     
       createCourse();
       onClose(true);
     }
   }
-
+//delete the course
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
@@ -214,7 +211,6 @@ function UpdateCourses({
             setUploadedImage(e.target.files[0]);
           }}
           accept="image/png, image/jpeg"
-          
         />
         {showMessage ? (
           <p className={styles.message}>Successfully uploaded</p>
@@ -228,6 +224,7 @@ function UpdateCourses({
         >
           Ladda upp bilden
         </button>
+        <img src={courseImage} className={styles.uploaded_image}/>
         <button type="submit" className={styles.button}>
           Submit
         </button>

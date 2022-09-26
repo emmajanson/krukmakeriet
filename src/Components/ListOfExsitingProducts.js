@@ -6,7 +6,7 @@ import styles from "./ListOfExistingProducts.module.css";
 import { FaCaretDown } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
 
-function ListOfExsitingProducts(rerender) {
+function ListOfExsitingProducts() {
   const productsCollectionRef = collection(db, "products");
   const [products, setProducts] = useState([]);
   const [productID, setProductID] = useState();
@@ -21,7 +21,7 @@ function ListOfExsitingProducts(rerender) {
     quantity: "",
     img: "",
   });
-
+//if the props are available set them to the product state and fill the input fields 
   const toggleUpdate = (id, name, details, price, quantity, img) => {
     setAddUpdateFunction(true);
     setProductData({
@@ -36,21 +36,20 @@ function ListOfExsitingProducts(rerender) {
     setOpenModal(() => true);
     setShowMessage(false);
   };
-
+//display an empty modal for the new product
   const toggleNewProduct = () => {
     setProductData("");
     setAddUpdateFunction(false);
     setAddNewProductFunction(true);
-    console.log("clicky");
     setOpenModal(() => true);
     setShowMessage(false);
   };
-
+//get the products from the db
   async function getProducts() {
     const data = await getDocs(productsCollectionRef);
     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
-
+//when refreshed render the products
   useEffect(() => {
     getProducts();
   }, []);
@@ -101,7 +100,7 @@ function ListOfExsitingProducts(rerender) {
           img={productData.img}
           getProducts={getProducts}
           setAddUpdateFunction={setAddUpdateFunction}
-          rerender={rerender}
+    
           showMessage={showMessage}
           setShowMessage={setShowMessage}
         />
@@ -115,7 +114,7 @@ function ListOfExsitingProducts(rerender) {
             setProductData={setProductData}
             setAddNewProductFunction={setAddNewProductFunction}
             getProducts={getProducts}
-            rerender={rerender}
+       
             showMessage={showMessage}
             setShowMessage={setShowMessage}
             setAddUpdateFunction={setAddUpdateFunction}
