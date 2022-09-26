@@ -35,7 +35,7 @@ function UpdateCourses({
   setAddUpdateFunction,
   rerender,
   showMessage,
-  setShowMessage
+  setShowMessage,
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -47,7 +47,6 @@ function UpdateCourses({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
-
 
   const createCourse = async () => {
     await addDoc(coursesCollectionRef, {
@@ -61,8 +60,8 @@ function UpdateCourses({
     });
     getCourses();
     onClose(false);
-    setAddNewCourseFunction(false)
-    setAddUpdateFunction(false)
+    setAddNewCourseFunction(false);
+    setAddUpdateFunction(false);
   };
   const imageListRef = ref(storage, "images/");
 
@@ -130,8 +129,10 @@ function UpdateCourses({
 
   function handleSubmit() {
     if (updateOnly) {
+      
       updateCourse();
     } else {
+     
       createCourse();
       onClose(true);
     }
@@ -147,91 +148,103 @@ function UpdateCourses({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>* Kursens namn: </p>
+        <p>Kursens namn: *</p>
         <input
           value={courseName}
           type="text"
           onChange={(e) => {
             setCourseName(e.target.value);
           }}
+          required
         />
-        <p>* Kursens datum:</p>
-        <input
-          value={courseDate}
-          type="datetime-local"
-          onChange={(e) => {
-            setCourseDate(e.target.value);
-          }}
-        />
-        <p>* Kursens längd:</p>
-        <input
-          value={courseDuration}
-          type="number"
-          onChange={(e) => {
-            setCourseDuration(e.target.value);
-          }}
-        />
-        <p>* Kursens pris:</p>
+        <p>Kursens pris: *</p>
         <input
           value={coursePrice}
           type="number"
           onChange={(e) => {
             setCoursePrice(e.target.value);
           }}
+          required
         />
-        <p>* Antal platser:</p>
+        <p>Kursens datum: *</p>
+        <input
+          value={courseDate}
+          type="datetime-local"
+          onChange={(e) => {
+            setCourseDate(e.target.value);
+          }}
+          required
+        />
+        <p>Kursens längd: *</p>
+        <input
+          value={courseDuration}
+          type="number"
+          onChange={(e) => {
+            setCourseDuration(e.target.value);
+          }}
+          required
+        />
+        <p>Antal platser: *</p>
         <input
           value={courseSpots}
           type="number"
           onChange={(e) => {
             setCourseSpots(e.target.value);
           }}
+          required
         />
-        <p>* Produktens bild:</p>
-        <input
-          type="file"
-          onChange={(e) => {
-            setUploadedImage(e.target.files[0]);
-          }}
-          accept="image/png, image/jpeg"
-        />
-        {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )}
-        <button className={styles.uploadBtn} onClick={uploadImage}>
-          Ladda upp bilden
-        </button>
-        <p>* Kursens beskrivning:</p>
+        <p>Kursens beskrivning: *</p>
         <input
           value={courseDescription}
           type="textarea"
           onChange={(e) => {
             setCourseDescription(e.target.value);
           }}
+          required
         />
-        <button onClick={handleSubmit} className={styles.button}>
+
+        <p>Produktens bild: *</p>
+        <input
+          type="file"
+          onChange={(e) => {
+            setUploadedImage(e.target.files[0]);
+          }}
+          accept="image/png, image/jpeg"
+          
+        />
+        {showMessage ? (
+          <p className={styles.message}>Successfully uploaded</p>
+        ) : (
+          ""
+        )}
+        <button
+          type="button"
+          className={styles.uploadBtn}
+          onClick={uploadImage}
+        >
+          Ladda upp bilden
+        </button>
+        <button type="submit" className={styles.button}>
           Submit
         </button>
         {updateOnly ? (
-          <a
+          <button
+            type="button"
             className={styles.showBtn}
-            href="#"
             onClick={() => {
               deleteCourse(id);
             }}
           >
             Ta bort
-          </a>
+          </button>
         ) : (
           ""
         )}
-      </div>
+      </form>
     </div>
   );
 }

@@ -39,7 +39,7 @@ function UpdateProducts({
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
-  const [productCategory, setProductCategory] = useState("");
+  // const [productCategory, setProductCategory] = useState("");
   const [productDetails, setProductDetails] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -50,7 +50,6 @@ function UpdateProducts({
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
       name: productName,
-      category: productCategory,
       details: productDetails,
       price: Number(productPrice),
       quantity: Number(productQuantity),
@@ -58,8 +57,8 @@ function UpdateProducts({
     });
     getProducts();
     onClose(false);
-    setAddNewProductFunction(false)
-    setAddUpdateFunction(false)
+    setAddNewProductFunction(false);
+    setAddUpdateFunction(false);
   };
   const imageListRef = ref(storage, "images/");
 
@@ -76,11 +75,10 @@ function UpdateProducts({
   useEffect(() => {
     setProductName(name);
     setProductPrice(price);
-    setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
     setProductImage(img);
-  }, [name, price, category, details, quantity, img]);
+  }, [name, price, details, quantity, img]);
 
   if (!open) return null;
 
@@ -110,7 +108,6 @@ function UpdateProducts({
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
       name: productName,
-      category: productCategory,
       details: productDetails,
       price: productPrice,
       quantity: productQuantity,
@@ -125,10 +122,10 @@ function UpdateProducts({
   function handleSubmit() {
     if (updateOnly) {
       updateProduct();
-      setAddUpdateFunction(()=>false)
+      setAddUpdateFunction(() => false);
     } else {
       createProduct();
-      setAddUpdateFunction(()=>true)
+      setAddUpdateFunction(() => true);
     }
   }
   const deleteProduct = async (id) => {
@@ -141,57 +138,18 @@ function UpdateProducts({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>* Namn:</p>
+        <p>Namn: *</p>
         <input
           type="text"
           value={productName}
           onChange={(e) => {
             setProductName(e.target.value);
           }}
-        />
-        <p>* Kategori:</p>
-        <input
-          type="text"
-          value={productCategory}
-          onChange={(e) => {
-            setProductCategory(e.target.value);
-          }}
-        />
-        <p>* Bild:</p>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={(e) => {
-            setUploadedImage(e.target.files[0]);
-          }}
-        />
-        {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )}
-        <button onClick={uploadImage} className={styles.uploadBtn}>
-          Ladda upp bilden
-        </button>
-        <p>* Pris:</p>
-        <input
-          type="number"
-          value={productPrice}
-          onChange={(e) => {
-            setProductPrice(e.target.value);
-          }}
-        />
-        <p>* Antal:</p>
-        <input
-          type="number"
-          value={productQuantity}
-          onChange={(e) => {
-            setProductQuantity(e.target.value);
-          }}
+          required
         />
         <p>* Produkbeskrivning:</p>
         <input
@@ -200,24 +158,64 @@ function UpdateProducts({
           onChange={(e) => {
             setProductDetails(e.target.value);
           }}
+          required
         />
-        <button className={styles.button} onClick={handleSubmit}>
+        <p>* Pris:</p>
+        <input
+          type="number"
+          value={productPrice}
+          onChange={(e) => {
+            setProductPrice(e.target.value);
+          }}
+          required
+        />
+        <p>* Antal:</p>
+        <input
+          type="number"
+          value={productQuantity}
+          onChange={(e) => {
+            setProductQuantity(e.target.value);
+          }}
+          required
+        />
+        <p>* Bild:</p>
+        <input
+          type="file"
+          accept="image/png, image/jpeg"
+          onChange={(e) => {
+            setUploadedImage(e.target.files[0]);
+          }}
+          
+        />
+        {showMessage ? (
+          <p className={styles.message}>Successfully uploaded</p>
+        ) : (
+          ""
+        )}
+        <button
+          type="button"
+          onClick={uploadImage}
+          className={styles.uploadBtn}
+        >
+          Ladda upp bilden
+        </button>
+        <button type="submit" className={styles.button}>
           Spara
         </button>
         {updateOnly ? (
-          <a
+          <button
+            type="button"
             className={styles.showBtn}
-            href="#"
             onClick={() => {
               deleteProduct(id);
             }}
           >
             Ta bort
-          </a>
+          </button>
         ) : (
           ""
         )}
-      </div>
+      </form>
     </div>
   );
 }
