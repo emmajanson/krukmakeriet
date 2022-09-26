@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import ShopItem from '../Components/ShopItem';
+import ShopModal from "../Components/ShopModal";
 import styles from "./Shop.module.css";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
@@ -27,6 +28,7 @@ function Shop() {
 
   return (
     <main className={styles.wrapper}>
+      <ShopModal />
       <h2>Butiken</h2>
       <section className={styles.shopWrapper}>
         {products
