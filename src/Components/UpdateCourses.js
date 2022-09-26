@@ -129,8 +129,10 @@ function UpdateCourses({
 
   function handleSubmit() {
     if (updateOnly) {
+      
       updateCourse();
     } else {
+     
       createCourse();
       onClose(true);
     }
@@ -146,7 +148,7 @@ function UpdateCourses({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
@@ -212,7 +214,7 @@ function UpdateCourses({
             setUploadedImage(e.target.files[0]);
           }}
           accept="image/png, image/jpeg"
-          required
+          
         />
         {showMessage ? (
           <p className={styles.message}>Successfully uploaded</p>
@@ -226,7 +228,7 @@ function UpdateCourses({
         >
           Ladda upp bilden
         </button>
-        <button type="submit" onClick={handleSubmit} className={styles.button}>
+        <button type="submit" className={styles.button}>
           Submit
         </button>
         {updateOnly ? (
@@ -242,7 +244,7 @@ function UpdateCourses({
         ) : (
           ""
         )}
-      </div>
+      </form>
     </div>
   );
 }

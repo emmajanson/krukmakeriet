@@ -1,21 +1,22 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 
+import Home from "../src/pages/Home";
 import "@testing-library/jest-dom";
-// import { BrowserRouter, MemoryRouter } from "react-router-dom";
-
-import App from "./App";
+const MockHome = () => {
+  // mock becuse of usenavigate needs to be surrounded by browserRouter
+  return (
+    <BrowserRouter>
+      <Home />;
+    </BrowserRouter>
+  );
+};
 
 describe("App and navigation", () => {
   test("full app rendering/navigation to courses-page", async () => {
-    const user = userEvent.setup();
-    render(<App />);
+    render(<MockHome />);
     const routeForHome = screen.getByTestId("home");
     expect(routeForHome).toBeInTheDocument();
-    await user.click(screen.getByText(/LÄNK KURSER/i));
-    //verify course-page after navigating //
-    const routeForCourses = screen.getByTestId("courses");
-    expect(routeForCourses).toBeInTheDocument();
   });
 });

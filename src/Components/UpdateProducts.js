@@ -13,7 +13,6 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { v4 } from "uuid";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import e from "express";
 
 function UpdateProducts({
   id,
@@ -40,7 +39,7 @@ function UpdateProducts({
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
- // const [productCategory, setProductCategory] = useState("");
+  // const [productCategory, setProductCategory] = useState("");
   const [productDetails, setProductDetails] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -51,7 +50,6 @@ function UpdateProducts({
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
       name: productName,
-     // category: productCategory,
       details: productDetails,
       price: Number(productPrice),
       quantity: Number(productQuantity),
@@ -59,8 +57,8 @@ function UpdateProducts({
     });
     getProducts();
     onClose(false);
-    setAddNewProductFunction(false)
-    setAddUpdateFunction(false)
+    setAddNewProductFunction(false);
+    setAddUpdateFunction(false);
   };
   const imageListRef = ref(storage, "images/");
 
@@ -77,7 +75,6 @@ function UpdateProducts({
   useEffect(() => {
     setProductName(name);
     setProductPrice(price);
-   // setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
     setProductImage(img);
@@ -111,7 +108,6 @@ function UpdateProducts({
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
       name: productName,
-     // category: productCategory,
       details: productDetails,
       price: productPrice,
       quantity: productQuantity,
@@ -124,15 +120,12 @@ function UpdateProducts({
   };
 
   function handleSubmit() {
-    
     if (updateOnly) {
-     
       updateProduct();
-      setAddUpdateFunction(()=>false)
+      setAddUpdateFunction(() => false);
     } else {
-      
       createProduct();
-      setAddUpdateFunction(()=>true)
+      setAddUpdateFunction(() => true);
     }
   }
   const deleteProduct = async (id) => {
@@ -145,7 +138,7 @@ function UpdateProducts({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
@@ -158,7 +151,7 @@ function UpdateProducts({
           }}
           required
         />
-         <p>* Produkbeskrivning:</p>
+        <p>* Produkbeskrivning:</p>
         <input
           type="text"
           value={productDetails}
@@ -185,29 +178,33 @@ function UpdateProducts({
           }}
           required
         />
-         <p>* Bild:</p>
+        <p>* Bild:</p>
         <input
           type="file"
           accept="image/png, image/jpeg"
           onChange={(e) => {
             setUploadedImage(e.target.files[0]);
           }}
-          required
+          
         />
         {showMessage ? (
           <p className={styles.message}>Successfully uploaded</p>
         ) : (
           ""
         )}
-        <button type="button" onClick={uploadImage} className={styles.uploadBtn}>
+        <button
+          type="button"
+          onClick={uploadImage}
+          className={styles.uploadBtn}
+        >
           Ladda upp bilden
         </button>
-        <button type="submit" className={styles.button} onClick={handleSubmit}>
+        <button type="submit" className={styles.button}>
           Spara
         </button>
         {updateOnly ? (
           <button
-          type="button"
+            type="button"
             className={styles.showBtn}
             onClick={() => {
               deleteProduct(id);
@@ -218,7 +215,7 @@ function UpdateProducts({
         ) : (
           ""
         )}
-      </div>
+      </form>
     </div>
   );
 }
