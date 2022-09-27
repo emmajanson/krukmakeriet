@@ -1,43 +1,114 @@
-.footer {
+.wrapper {
   width: 100%;
-  padding-block: 1.5rem;
   background-color: #414B42;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0 2.5rem 0;
+}
+.infoWrapper {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+.topContWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+.textWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.icon{
+  display: none;
+}
+.subheader{
+  /*lägg in font-family*/
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: white;
+}
+.text{
+  /*lägg in font-family*/
+  font-size: 1rem;
+  color: white;
+  line-height: 1.5rem;
+  font-weight: 400;
 }
 
-.footer_box {
-  width: 80%;
-  min-height: 20vh;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.3fr repeat(1, 1fr);
+.bottomContWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
-
-.footer_box_info {
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.footer_box_social {
+.socialMediaWrapper{
   display: flex;
   justify-content: flex-end;
   gap: 1.5rem;
   font-size: 1.5rem;
   align-items: center;
 }
-
-.footer_box_social a {
-  text-decoration: none;
-  color: black;
+.iconLink{
+  cursor: pointer;
+}
+.socialIcon{
+  font-size: 2.5rem;
+  color: white;
 }
 
-@media screen and (max-width: 45em) {
-  .footer_box {
-    width: 90%;
-  }  
+.copyright {
+  /*lägg in font-family*/
+  font-size: 1rem;
+  color: white;
+  font-weight: 400;
 }
 
-@media screen and (max-width: 35em) {
-  .footer_box {
-    width: 90%;
-  }  
+@media screen and (min-width:800px){
+  .wrapper{
+    padding: 6.5rem 0 6.5rem 0;
+  }
+  .infoWrapper{
+    width: 100%;
+    max-width: 954px;
+    gap: 5rem;
+  }
+  .topContWrapper{
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .textWrapper{
+    gap: 1rem;
+  }
+  .icon{
+    display: inline;
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .subheader{
+    font-size: 1.5rem; 
+  }
+  .text{
+    font-size: 1.1rem;
+  }
+  .bottomContWrapper{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+  }
+  .copyright {
+    font-size: 1.1rem;
+  }
+  .socialIcon{
+    font-size: 3rem;
+  }
 }

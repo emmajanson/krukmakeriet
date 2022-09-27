@@ -23,19 +23,16 @@ function UpdateCourses({
   slots,
   date,
   updateOnly,
-  setCourses,
   open,
   onClose,
   setCourseData,
   img,
-  courses,
   closeNewModal,
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  rerender,
   showMessage,
-  setShowMessage
+  setShowMessage,
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -48,7 +45,7 @@ function UpdateCourses({
   const [courseImage, setCourseImage] = useState("");
   const [imageURL, setImageURL] = useState([]);
 
-
+  //create a new course
   const createCourse = async () => {
     await addDoc(coursesCollectionRef, {
       name: courseName,
@@ -61,11 +58,12 @@ function UpdateCourses({
     });
     getCourses();
     onClose(false);
-    setAddNewCourseFunction(false)
-    setAddUpdateFunction(false)
+    setAddNewCourseFunction(false);
+    setAddUpdateFunction(false);
   };
+  //a ref to the images folder in firebase storage
   const imageListRef = ref(storage, "images/");
-
+  //list all the urls of the images in storage and save them in imageurl state
   useEffect(() => {
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
@@ -76,6 +74,7 @@ function UpdateCourses({
     });
   }, []);
 
+  //everytime a change is made in the input fields display the latest changes in the modal
   useEffect(() => {
     setCourseName(name);
     setCoursePrice(price);
@@ -85,21 +84,20 @@ function UpdateCourses({
     setCourseSpots(slots);
     setCourseImage(img);
   }, [name, price, length, desc, date, slots, img]);
-
+  //if modal is not open dont do anything
   if (!open) return null;
-
+  //close the modal
   function closeModal() {
     if (updateOnly) {
       onClose();
       closeNewModal(false);
     } else {
       setCourseData("");
-      // closeNewModal(false);
       setAddNewCourseFunction(false);
       closeNewModal(false);
     }
   }
-
+  //upload the selected image to the firebase storage
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
@@ -110,7 +108,7 @@ function UpdateCourses({
       });
     });
   };
-
+  //update the course
   const updateCourse = async () => {
     const courseDoc = doc(db, "courses", id);
     const newUpdatedCourse = {
@@ -127,7 +125,7 @@ function UpdateCourses({
     onClose(false);
     getCourses();
   };
-
+//submit the form
   function handleSubmit() {
     if (updateOnly) {
       updateCourse();
@@ -136,7 +134,7 @@ function UpdateCourses({
       onClose(true);
     }
   }
-
+//delete the course
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
@@ -151,47 +149,62 @@ function UpdateCourses({
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>* Kursens namn: </p>
+        <p>Kursens namn: *</p>
         <input
           value={courseName}
           type="text"
           onChange={(e) => {
             setCourseName(e.target.value);
           }}
+          required
         />
-        <p>* Kursens datum:</p>
-        <input
-          value={courseDate}
-          type="datetime-local"
-          onChange={(e) => {
-            setCourseDate(e.target.value);
-          }}
-        />
-        <p>* Kursens längd:</p>
-        <input
-          value={courseDuration}
-          type="number"
-          onChange={(e) => {
-            setCourseDuration(e.target.value);
-          }}
-        />
-        <p>* Kursens pris:</p>
+        <p>Kursens pris: *</p>
         <input
           value={coursePrice}
           type="number"
           onChange={(e) => {
             setCoursePrice(e.target.value);
           }}
+          required
         />
-        <p>* Antal platser:</p>
+        <p>Kursens datum: *</p>
+        <input
+          value={courseDate}
+          type="datetime-local"
+          onChange={(e) => {
+            setCourseDate(e.target.value);
+          }}
+          required
+        />
+        <p>Kursens längd: *</p>
+        <input
+          value={courseDuration}
+          type="number"
+          onChange={(e) => {
+            setCourseDuration(e.target.value);
+          }}
+          required
+        />
+        <p>Antal platser: *</p>
         <input
           value={courseSpots}
           type="number"
           onChange={(e) => {
             setCourseSpots(e.target.value);
           }}
+          required
         />
-        <p>* Produktens bild:</p>
+        <p>Kursens beskrivning: *</p>
+        <input
+          value={courseDescription}
+          type="textarea"
+          onChange={(e) => {
+            setCourseDescription(e.target.value);
+          }}
+          required
+        />
+
+        <p>Produktens bild: *</p>
         <input
           type="file"
           onChange={(e) => {
@@ -204,30 +217,27 @@ function UpdateCourses({
         ) : (
           ""
         )}
-        <button className={styles.uploadBtn} onClick={uploadImage}>
+        <button
+          type="button"
+          className={styles.uploadBtn}
+          onClick={uploadImage}
+        >
           Ladda upp bilden
         </button>
-        <p>* Kursens beskrivning:</p>
-        <input
-          value={courseDescription}
-          type="textarea"
-          onChange={(e) => {
-            setCourseDescription(e.target.value);
-          }}
-        />
-        <button onClick={handleSubmit} className={styles.button}>
+        <img src={courseImage} className={styles.uploaded_image}/>
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
           Submit
         </button>
         {updateOnly ? (
-          <a
+          <button
+            type="button"
             className={styles.showBtn}
-            href="#"
             onClick={() => {
               deleteCourse(id);
             }}
           >
             Ta bort
-          </a>
+          </button>
         ) : (
           ""
         )}

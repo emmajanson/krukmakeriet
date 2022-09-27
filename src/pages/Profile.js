@@ -10,6 +10,9 @@ function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const permission = localStorage.getItem("admin");
+
+
   // Signs out the user, and navigates to signin-page
   async function logout() {
     await signOut(auth);
@@ -23,6 +26,8 @@ function Profile() {
       setUser(currentUser);
     });
   }, []);
+
+  console.log(user);
 
   return user == null ? (
     <Navigate to="/signin" />
@@ -93,13 +98,17 @@ function Profile() {
         </table>
       </section>
 
-      <button
-        onClick={() => {
-          navigate("/admin");
-        }}
-      >
-        Admin Page
-      </button>
+      { permission === "true" ? (
+        <button
+          onClick={() => {
+            navigate("/admin");
+          }}
+        >
+          Admin Page
+        </button>
+      ) : null}
+      
+
       <button onClick={logout}>Log Out</button>
     </main>
   );

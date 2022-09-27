@@ -17,29 +17,24 @@ import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 function UpdateProducts({
   id,
   name,
-  category,
   details,
   price,
   quantity,
   updateOnly,
-  setProducts,
   open,
+  product,
   onClose,
   setProductData,
   img,
-  products,
   closeNewModal,
   setAddNewProductFunction,
   setAddUpdateFunction,
-  url,
   getProducts,
-  rerender,
   showMessage,
   setShowMessage,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
-  const [productCategory, setProductCategory] = useState("");
   const [productDetails, setProductDetails] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -47,10 +42,10 @@ function UpdateProducts({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imageURL, setImageURL] = useState([]);
 
+  //create a new product
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
       name: productName,
-      category: productCategory,
       details: productDetails,
       price: Number(productPrice),
       quantity: Number(productQuantity),
@@ -58,11 +53,13 @@ function UpdateProducts({
     });
     getProducts();
     onClose(false);
-    setAddNewProductFunction(false)
-    setAddUpdateFunction(false)
+    setAddNewProductFunction(false);
+    setAddUpdateFunction(false);
   };
+  //a ref to the images folder in firebase storage
   const imageListRef = ref(storage, "images/");
 
+  //listing all the urls of the images in the storage and setting them to the imageurl state
   useEffect(() => {
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
@@ -73,17 +70,19 @@ function UpdateProducts({
     });
   }, []);
 
+  //everytime a change is made in the input fields the modal is updated with the latest changes
   useEffect(() => {
     setProductName(name);
     setProductPrice(price);
-    setProductCategory(category);
     setProductDetails(details);
     setProductQuantity(quantity);
     setProductImage(img);
-  }, [name, price, category, details, quantity, img]);
+  }, [name, price, details, quantity, img]);
 
+  //if the modal is not opened dont do anything
   if (!open) return null;
 
+  //closing the modal
   function closeModal() {
     if (updateOnly) {
       onClose();
@@ -94,7 +93,7 @@ function UpdateProducts({
       closeNewModal(false);
     }
   }
-
+  //uploading the images to storage in firebase
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
@@ -105,12 +104,11 @@ function UpdateProducts({
       });
     });
   };
-
+  //updating the product
   const updateProduct = async () => {
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
       name: productName,
-      category: productCategory,
       details: productDetails,
       price: productPrice,
       quantity: productQuantity,
@@ -121,16 +119,17 @@ function UpdateProducts({
     onClose(false);
     getProducts();
   };
-
+  //submit the form (both the new and update)
   function handleSubmit() {
     if (updateOnly) {
       updateProduct();
-      setAddUpdateFunction(()=>false)
+      setAddUpdateFunction(() => false);
     } else {
       createProduct();
-      setAddUpdateFunction(()=>true)
+      setAddUpdateFunction(() => true);
     }
   }
+  //delete the product
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
@@ -145,21 +144,41 @@ function UpdateProducts({
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>* Namn:</p>
+        <p>Namn: *</p>
         <input
           type="text"
           value={productName}
           onChange={(e) => {
             setProductName(e.target.value);
           }}
+          required
         />
-        <p>* Kategori:</p>
+        <p>* Produkbeskrivning:</p>
         <input
           type="text"
-          value={productCategory}
+          value={productDetails}
           onChange={(e) => {
-            setProductCategory(e.target.value);
+            setProductDetails(e.target.value);
           }}
+          required
+        />
+        <p>* Pris:</p>
+        <input
+          type="number"
+          value={productPrice}
+          onChange={(e) => {
+            setProductPrice(e.target.value);
+          }}
+          required
+        />
+        <p>* Antal:</p>
+        <input
+          type="number"
+          value={productQuantity}
+          onChange={(e) => {
+            setProductQuantity(e.target.value);
+          }}
+          required
         />
         <p>* Bild:</p>
         <input
@@ -174,46 +193,27 @@ function UpdateProducts({
         ) : (
           ""
         )}
-        <button onClick={uploadImage} className={styles.uploadBtn}>
+        <button
+          type="button"
+          onClick={uploadImage}
+          className={styles.uploadBtn}
+        >
           Ladda upp bilden
         </button>
-        <p>* Pris:</p>
-        <input
-          type="number"
-          value={productPrice}
-          onChange={(e) => {
-            setProductPrice(e.target.value);
-          }}
-        />
-        <p>* Antal:</p>
-        <input
-          type="number"
-          value={productQuantity}
-          onChange={(e) => {
-            setProductQuantity(e.target.value);
-          }}
-        />
-        <p>* Produkbeskrivning:</p>
-        <input
-          type="text"
-          value={productDetails}
-          onChange={(e) => {
-            setProductDetails(e.target.value);
-          }}
-        />
-        <button className={styles.button} onClick={handleSubmit}>
+        <img src={productImage} className={styles.uploadedImage} />
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
           Spara
         </button>
         {updateOnly ? (
-          <a
+          <button
+            type="button"
             className={styles.showBtn}
-            href="#"
             onClick={() => {
               deleteProduct(id);
             }}
           >
             Ta bort
-          </a>
+          </button>
         ) : (
           ""
         )}
