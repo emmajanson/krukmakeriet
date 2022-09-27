@@ -51,8 +51,8 @@
   background-color: white;
 }
 
-/* Mobilmenyn*/
 
+/* Mobilmenyn*/
 .mobileMenuWrapperHidden {
   display: none;
 }
@@ -88,8 +88,8 @@
   margin: 10px;
 }
 
-/* Varukorgen */
 
+/* Varukorgen */
 .basketWrapperHidden {
   display: none;
 }
@@ -97,6 +97,7 @@
 .basketWrapperShow {
   display: flex;
 }
+
 
 /* Desktop*/
 @media screen and (min-width: 800px) {
@@ -117,12 +118,55 @@
     display: none;
   }
 
-  .desktopWrapper a {
+  a {
     font-family: 'Playfair Display', serif;
     font-size: 18px;
-    color: black;
     text-decoration: none;
     margin: 10px;
+    background-image: linear-gradient(
+      to right,
+      #697569,
+      #697569 50%,
+      #000 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 3px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  a:before {
+    content: '';
+    background: #697569;
+    display: block;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  a:hover {
+   background-position: 0;
+  }
+  
+  a:hover::before {
+    width:100%;
+  }
+
+  .shoppingCart {
+    color: black;
+    font-size: 26px;
+  }
+
+  .shoppingCart:hover {
+    color: #697569;
+    transition: all 0.3s ease-in-out;
   }
 
   .logoImage{
