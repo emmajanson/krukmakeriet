@@ -17,29 +17,24 @@ import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 function UpdateProducts({
   id,
   name,
-  category,
   details,
   price,
   quantity,
   updateOnly,
-  setProducts,
   open,
+  product,
   onClose,
   setProductData,
   img,
-  products,
   closeNewModal,
   setAddNewProductFunction,
   setAddUpdateFunction,
-  url,
   getProducts,
-  rerender,
   showMessage,
   setShowMessage,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
-  // const [productCategory, setProductCategory] = useState("");
   const [productDetails, setProductDetails] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -47,6 +42,7 @@ function UpdateProducts({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imageURL, setImageURL] = useState([]);
 
+  //create a new product
   const createProduct = async () => {
     await addDoc(productsCollectionRef, {
       name: productName,
@@ -60,8 +56,10 @@ function UpdateProducts({
     setAddNewProductFunction(false);
     setAddUpdateFunction(false);
   };
+  //a ref to the images folder in firebase storage
   const imageListRef = ref(storage, "images/");
 
+  //listing all the urls of the images in the storage and setting them to the imageurl state
   useEffect(() => {
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
@@ -72,6 +70,7 @@ function UpdateProducts({
     });
   }, []);
 
+  //everytime a change is made in the input fields the modal is updated with the latest changes
   useEffect(() => {
     setProductName(name);
     setProductPrice(price);
@@ -80,8 +79,10 @@ function UpdateProducts({
     setProductImage(img);
   }, [name, price, details, quantity, img]);
 
+  //if the modal is not opened dont do anything
   if (!open) return null;
 
+  //closing the modal 
   function closeModal() {
     if (updateOnly) {
       onClose();
@@ -92,7 +93,7 @@ function UpdateProducts({
       closeNewModal(false);
     }
   }
-
+//uploading the images to storage in firebase
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
@@ -103,7 +104,7 @@ function UpdateProducts({
       });
     });
   };
-
+//updating the product
   const updateProduct = async () => {
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
@@ -118,7 +119,7 @@ function UpdateProducts({
     onClose(false);
     getProducts();
   };
-
+//submit the form (both the new and update)
   function handleSubmit() {
     if (updateOnly) {
       updateProduct();
@@ -128,6 +129,7 @@ function UpdateProducts({
       setAddUpdateFunction(() => true);
     }
   }
+  //delete the product
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
@@ -199,6 +201,7 @@ function UpdateProducts({
         >
           Ladda upp bilden
         </button>
+        <img src={productImage} className={styles.uploadedImage}/>
         <button type="submit" className={styles.button}>
           Spara
         </button>

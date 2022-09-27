@@ -6,7 +6,7 @@ import styles from "./ListOfExistingCourses.module.css";
 import { FaCaretDown } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
 
-function ListOfExsitingCourses(rerender) {
+function ListOfExsitingCourses() {
   const courseCollectionRef = collection(db, "courses");
   const [courses, setCourses] = useState([]);
   const [courseID, setCourseID] = useState();
@@ -25,7 +25,7 @@ function ListOfExsitingCourses(rerender) {
     desc: "",
     img: "",
   });
-
+//if the props are avaiable set them to the course state and display a modal with already filled input fields
   const toggleUpdate = (id, name, date, length, price, slots, desc, img) => {
     setCourseData({});
     setAddUpdateFunction(true);
@@ -44,7 +44,7 @@ function ListOfExsitingCourses(rerender) {
     setOpenModal(true);
     setShowMessage(false);
   };
-
+//empty the course state and display an empty modal for the new course
   const toggleNewCourse = () => {
     setAddUpdateFunction(() => false);
     setAddNewCourseFunction(true);
@@ -53,12 +53,12 @@ function ListOfExsitingCourses(rerender) {
     setOpenModal(() => true);
     setShowMessage(false);
   };
-
+//get the courses from db
   async function getCourses() {
     const data = await getDocs(courseCollectionRef);
     setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
-
+//render the courses when refreshed
   useEffect(() => {
     getCourses();
   }, []);
@@ -114,7 +114,7 @@ function ListOfExsitingCourses(rerender) {
           img={courseData.img}
           getCourses={getCourses}
           setAddUpdateFunction={setAddUpdateFunction}
-          rerender={rerender}
+        
           showMessage={showMessage}
           setShowMessage={setShowMessage}
         />
@@ -128,7 +128,6 @@ function ListOfExsitingCourses(rerender) {
             setCourseData={setCourseData}
             setAddNewCourseFunction={setAddNewCourseFunction}
             getCourses={getCourses}
-            rerender={rerender}
             showMessage={showMessage}
             setShowMessage={setShowMessage}
           />
