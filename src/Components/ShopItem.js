@@ -30,6 +30,16 @@ function ShopItem({ productData }) {
     console.log("Added to basket " + productData.name);
   }
 
+  const timeout = setTimeout(trigger, 2000);
+
+  function trigger() {
+    setShowPopup(false);
+  }
+
+  function removeModal() {
+    clearTimeout(timeout);
+  }
+
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
     <article className={styles.shopItemWrapper}>
@@ -47,6 +57,7 @@ function ShopItem({ productData }) {
             onClick={() => {
               addToBasket(productData);
               setShowPopup(true);
+              removeModal();
             }}
           >
             <FaShoppingBag className={styles.icon} />
