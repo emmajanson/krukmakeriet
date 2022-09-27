@@ -1,17 +1,23 @@
 import React from 'react';
 import styles from "./Popup.module.css";
 import { useNavigate } from 'react-router-dom';
+import { FiX } from "react-icons/fi";
 
 function Popup(props) {
   const navigate = useNavigate();
-  
+
   return (props.trigger) ? (
-    <div className={styles.popupWrapper}>
-        <div className={styles.popupContent}>
-          <button className={styles.btnGoOn} onClick={() => props.setTrigger(false)}>Fortsätt handla</button>
-          <button className={styles.btnPay} onClick={() => navigate("/checkout")}>Gå till kassan</button>
-          { props.children }
-        </div>
+    <div className={styles.popupContent}>
+      <p className={styles.text}>{ props.children }</p>
+      <button
+        className={styles.closingBtn}
+        onClick={() => {
+          props.setTrigger(false);
+        navigate(props.navigation);
+        }}
+        >
+        <FiX className={styles.cross} />
+      </button>
     </div>
   ) : "";
 }
