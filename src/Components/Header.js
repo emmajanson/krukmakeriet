@@ -5,11 +5,11 @@ import Basket from "./Basket";
 import { AllContext } from "../context/AllContext";
 // fiUser ska sedan användas som profillogga när man är inloggad
 import {
-  FiShoppingCart,
-  // FiUser,
-} from "react-icons/fi";
-import { Spin as Hamburger } from "hamburger-react";
+  FaShoppingBag,
+} from "react-icons/fa";
+import HamburgerButton from "./HamburgerButton";
 // import { doc } from "firebase/firestore";
+
 
 function Header() {
   const [isActiveMobile, setIsActiveMobile] = useState(false);
@@ -47,66 +47,46 @@ function Header() {
         <div className={styles.logoWrapper}>
           <img className={styles.logoImage} src="" alt="" />
         </div>
-        {basketAmount ? (
-          <nav data-count={basketAmount} className={styles.linkWrapper}>
-            <Link to="/">Start</Link>
-            <Link data-testid="toCourses" to="/courses">
-              Kurser
-            </Link>
+          <nav className={styles.navMiddle}>
+            <Link to="/">Hem</Link>
+            <Link data-testid="toCourses" to="/courses">Kurser</Link>
             <Link to="/shop">Butik</Link>
+          </nav>
+          <nav className={styles.navRightSide}>
             <Link to="/signin">Logga in</Link>
             {/* profile ska sedan visas när man är inloggad */}
             {/* <Link to="/profile"><FiUser/></Link> */}
             {/* admin som sedan ska visas om man är inloggad som admin */}
             {/* <Link to="/admin"><FiUser/></Link> */}
             <Link to="#">
-              <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
+              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
             </Link>
+            <nav
+              data-count={basketAmount}
+              className={
+              basketAmount ? styles.linkWrapper : styles.linkWrapperFalse
+              }
+            >
+            </nav>
           </nav>
-        ) : (
-          <nav id={styles.linkWrapper}>
-            <Link to="/">Start</Link>
-            <Link to="/courses">Kurser</Link>
-            <Link to="/shop">Butik</Link>
-            <Link to="/signin">Logga in</Link>
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
-            <Link to="#">
-              <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        )}
+        
       </header>
 
+      {/* MOBILMENY */}
       <header className={styles.mobileWrapper}>
-        <div
-          className={styles.menuBtn}
-          onClick={() => toggleMenu(!isActiveMobile)}
-        >
-          <Hamburger />
+        <div className={styles.BurgerBtn} onClick={() => toggleMenu(!isActiveMobile)}>
+          <HamburgerButton/>
         </div>
         {basketAmount ? (
           <nav data-count={basketAmount} className={styles.mobileIcons}>
-            <Link to="/signin">Logga in</Link>
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
             <Link to="#">
-              <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
+              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
             </Link>
           </nav>
         ) : (
           <nav id={styles.mobileIcons}>
-            <Link to="/signin">Logga in</Link>
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
             <Link to="#">
-              <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
+              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
             </Link>
           </nav>
         )}
@@ -118,15 +98,24 @@ function Header() {
               : styles.mobileMenuWrapperHidden
           }
         >
-          <Link to="/" onClick={() => toggleMenu(!isActiveMobile)}>
-            Start
-          </Link>
-          <Link to="/courses" onClick={() => toggleMenu(!isActiveMobile)}>
-            Kurser
-          </Link>
-          <Link to="/shop" onClick={() => toggleMenu(!isActiveMobile)}>
-            Butik
-          </Link>
+            <div className={styles.MobileMenuLinkWrapper}>
+              <Link to="/">
+                Hem
+              </Link>
+              <Link to="/courses">
+                Kurser
+              </Link>
+              <Link to="/shop">
+                Butik
+              </Link>
+              <Link to="/signin">
+                Logga in
+              </Link>
+                {/* profile ska sedan visas när man är inloggad */}
+                {/* <Link to="/profile"><FiUser/></Link> */}
+                {/* admin som sedan ska visas om man är inloggad som admin */}
+                {/* <Link to="/admin"><FiUser/></Link> */}
+            </div>
         </nav>
       </header>
 
