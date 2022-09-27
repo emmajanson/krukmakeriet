@@ -17,9 +17,8 @@
 .eventImage {
   background: url("../../public/images/event.jpg");
   background-size: cover;
-
-  width: 100%;
-  height: 650px; /*tillfällig*/
+  max-width: 100%;
+  height: auto;
 }
 .textWrapper {
   width: 90%;
