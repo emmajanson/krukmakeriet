@@ -82,7 +82,7 @@ function UpdateProducts({
   //if the modal is not opened dont do anything
   if (!open) return null;
 
-  //closing the modal 
+  //closing the modal
   function closeModal() {
     if (updateOnly) {
       onClose();
@@ -93,7 +93,7 @@ function UpdateProducts({
       closeNewModal(false);
     }
   }
-//uploading the images to storage in firebase
+  //uploading the images to storage in firebase
   const uploadImage = () => {
     if (uploadedImage == null) return;
     const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`);
@@ -104,7 +104,7 @@ function UpdateProducts({
       });
     });
   };
-//updating the product
+  //updating the product
   const updateProduct = async () => {
     const productDoc = doc(db, "products", id);
     const newUpdatedProduct = {
@@ -119,7 +119,7 @@ function UpdateProducts({
     onClose(false);
     getProducts();
   };
-//submit the form (both the new and update)
+  //submit the form (both the new and update)
   function handleSubmit() {
     if (updateOnly) {
       updateProduct();
@@ -140,7 +140,7 @@ function UpdateProducts({
 
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.form}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till produkt</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
@@ -187,7 +187,6 @@ function UpdateProducts({
           onChange={(e) => {
             setUploadedImage(e.target.files[0]);
           }}
-          
         />
         {showMessage ? (
           <p className={styles.message}>Successfully uploaded</p>
@@ -201,8 +200,8 @@ function UpdateProducts({
         >
           Ladda upp bilden
         </button>
-        <img src={productImage} className={styles.uploadedImage}/>
-        <button type="submit" className={styles.button}>
+        <img src={productImage} className={styles.uploadedImage} />
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
           Spara
         </button>
         {updateOnly ? (
@@ -218,7 +217,7 @@ function UpdateProducts({
         ) : (
           ""
         )}
-      </form>
+      </div>
     </div>
   );
 }
