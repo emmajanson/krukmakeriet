@@ -1,9 +1,9 @@
-.wrapper{
+.wrapper {
   width: 100%;
   background-color: hsla(134, 20%, 75%, 0.301);
   display: flex;
 }
-.contentWrapper{
+.contentWrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -11,32 +11,41 @@
   margin-top: 80px;
   gap: 2rem;
 }
-.imgWrapper{
+.imgWrapper {
   width: 90%;
 }
-.eventImage{
+.eventImage {
   background: url("../../public/images/event.jpg");
   background-size: cover;
 
   width: 100%;
-  height: 650px;/*tillfällig*/
+  height: 650px; /*tillfällig*/
 }
-.textWrapper{
+.textWrapper {
   width: 90%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-.button{
-  padding: 10px;
+.button {
+  width: 14.188rem;
+  height: 3.403rem;
+  border-radius: 3.125rem;
+  margin-top: 2px;
+  margin: auto;
+  background-color: #414b42;
+  color: #fff;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  font-size: 20px;
 }
 
-@media screen and (min-width:800px){
-  .wrapper{
+@media screen and (min-width: 800px) {
+  .wrapper {
     justify-content: center;
   }
-  .contentWrapper{
-    max-width: 1000px;
+  .contentWrapper {
+    max-width: 954px;
     flex-direction: row;
     align-items: flex-start;
   }
