@@ -59,7 +59,7 @@ function Header() {
             {/* admin som sedan ska visas om man är inloggad som admin */}
             {/* <Link to="/admin"><FiUser/></Link> */}
             <Link to="#">
-              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
+              <FaShoppingBag className={styles.shoppingCart} onClick={() => toggleBasket(!isActiveBasket)} />
             </Link>
             <nav
               data-count={basketAmount}
