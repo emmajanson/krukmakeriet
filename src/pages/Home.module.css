@@ -5,56 +5,128 @@
   align-items: center;
 }
 
-
-.heroWrapper{
+.heroWrapper {
   height: 100vh;
   width: 100%;
-  background-color: lightgrey; /*tillfällig*/
-}
-
-
-.infoWrapper{
-  width: 90%;
   display: flex;
-  gap:2rem;
-  margin-top: 80px;
-}
-.textWrapper{
-  width: 50%;
-  border:1px solid lightgrey; /*tillfällig*/
-}
-.imgWrapper{
-   width: 50%;
-}
-.infoImage{
-  width: 100%;;
-  height: 200px; /*tillfällig*/
-  background-color: lightgrey; /*tillfällig*/
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../public/images/homeHero.jpg");
+  background-position: center center;
+  background-size: cover;
+  margin-bottom: 2rem;
 }
 
+.heroTextContainer {
+  align-items: center;
+  background-repeat: no-repeat;
+}
 
-.linkWrapper{
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  gap: 2rem;
+}
+
+.imgTextWrapper {
+  display: none;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.test {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.heading {
+  display: none;
+  margin-bottom: 20px;
+}
+.imgWrapper {
+  width: 100%;
+}
+.infoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imgTextWrapper {
+}
+
+.imgText {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.linkWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
   width: 100%;
-  margin-top: 80px;
-}
-.linkImage{
-  background-color: lightgrey; /*tillfällig*/
-  height: 300px;/*tillfällig*/
-  width: 90%;
+  margin-top: 2rem;
+  text-align: center;
 }
 
+.linkImageShop {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-@media screen and (min-width:800px){
-  .infoWrapper{
-    max-width: 800px;
-    flex-direction:row-reverse
+.linkImageCourses {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.linkImageWrapper {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+  height: 400px;
+}
+
+.linkImageText {
+  position: relative;
+  top: -70%;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+}
+
+@media screen and (min-width: 800px) {
+  .infoWrapper {
+    flex-direction: row;
+    width: 954px;
+    align-items: flex-end;
   }
-  .linkWrapper{
-    max-width: 1000px;
+  .imgWrapper {
+    height: 489px;
+    width: 50%;
+  }
+  .textWrapper {
+    width: 50%;
+  }
+  .heading {
+    display: inline;
+  }
+  .imgTextWrapper {
+    display: inline;
+  }
+  .linkImageShop {
+    max-width: 100%;
+    max-height: auto;
+    height: 100%;
+  }
+  .linkWrapper {
+    max-width: 954px;
     flex-direction: row;
   }
 }
