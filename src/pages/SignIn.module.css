@@ -1,47 +1,164 @@
 .wrapper {
   padding-top: 12vh;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 75vh;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url(/public/images/signInBackground.jpg);
+  background-size: cover ;
+  background-position: center center;
 }
-
-.loginWrapper {
+.signinWrapper {
+  width: 100%;
+}
+.signinOverlay{
   display: flex;
   flex-direction: column;
-  margin-left: 25%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: rgba(105, 117, 105, 0.9);
+  width: 100%;
+  padding: 2.5rem 0 ;
 }
-
-.signUpWrapper {
+.heading{
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.inputWrapper{
   display: flex;
   flex-direction: column;
-  margin-right: 25%;
+  width:80%;
+}
+.label{
+  display: inline;
+  color: white;
+  font-size: 1rem; 
+  font-weight: 400;
+  margin-left: 0.8rem;
+}
+.inputWrapper input{
+  border: none;
+  height: 3rem;
+  border-radius: 1rem;
+}
+.inputWrapper input::placeholder{
+  color: #A19B9B;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+}
+.buttonClassWhite,
+.buttonClassGreen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 3rem;
+  width: 11.25rem;
+  height: 3rem;
+}
+.resetPassword{
+  padding: 0.3rem;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+}
+.signupWrapperDesk{
+  display: none;
+}
+.signupWrapperMob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.text {
+  font-size: 1rem;
+  font-weight: 600;
 }
 
-.signUpWrapper p {
-  margin-top: 10px;
-  align-self: center;
-}
-
-.buttonClass {
-  width: 14.188rem;
-  height: 3.403rem;
-  border-radius: 3.125rem;
-  margin-top: 2px;
-}
-
-@media screen and (max-width: 800px) {
-  .wrapper {
+@media screen and (min-width: 800px) {
+  .wrapper{
+    background-image: none;
+    flex-direction: row;
+  }
+  .signinWrapper{
+    background-image: url(/public/images/signInBackground.jpg);
+    background-size: cover ;
+    background-position: center center;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .signinOverlay{
+    width: 60%;
+  }
+  .inputWrapper{
+    max-width: 350px;
+  } 
+  .heading{
+    font-size: 2rem;
+  }
+  .label{
+    font-size: 1.1rem; 
+  }
+  .inputWrapper input::placeholder{
+    font-size: 1.1rem;
+  }
+  .buttonClassWhite {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    width: 11.25rem;
+  }
+  .buttonClassWhite:hover{
+    background-color:#414B42 ;
+    color: white;
+    transition: 0.3s;
+  }
+  .buttonClassGreen {
+    font-size: 1.5rem;
+    width: 11.25rem;
+    background-color: #414B42;
+    color: white;
+  }
+  .buttonClassGreen:hover{
+    background-color: white;
+    color: #414B42;
+    border: 0.5px solid#414B42;
+    transition: 0.3s;
+  }
+  .resetPassword{
+    font-size: 1.1rem;
+  } 
+  .signupWrapperMob{
+    display: none;
+  }
+  .signupWrapperDesk{
+    display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 50%;
+    background-color: rgba(218, 225, 217, 0.8);
+    height: 100%;
+    gap: 2.5rem;
   }
-  .loginWrapper {
-    margin-bottom: 20px;
-    margin-left: 0;
+  .signupWrapperDesk h3{
+    font-size: 2rem;
   }
-
-  .signUpWrapper {
-    margin-right: 0;
+  .text {
+    font-size: 1.5rem ;
+    font-weight: 400;
   }
 }

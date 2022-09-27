@@ -5,14 +5,12 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { AllContext } from "../context/AllContext";
 
-//Det här ska finnas
-// - formulär för registrering
-// - som ska skickas till db användare
 function SignIn() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [isPasswordWrong, setIsPasswordWrong] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
   const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
@@ -33,12 +31,20 @@ function SignIn() {
       switch (error.message) {
         case "Firebase: Error (auth/wrong-password).":
           setUserNotFound(false);
+          setInvalidEmail(false);
           setIsPasswordWrong(true);
           console.log("Wrong password!");
           break;
         case "Firebase: Error (auth/user-not-found).":
           setIsPasswordWrong(false);
+          setInvalidEmail(false);
           setUserNotFound(true);
+          console.log("User not found!");
+          break;
+        case "Firebase: Error (auth/invalid-email).":
+          setIsPasswordWrong(false);
+          setUserNotFound(false);
+          setInvalidEmail(true);
           console.log("User not found!");
           break;
         default:
@@ -49,59 +55,73 @@ function SignIn() {
 
   return (
     <main className={styles.wrapper}>
-      <section className={styles.loginWrapper}>
-        <label htmlFor="email" name="email">
-          E-mail
-        </label>
-        <input
-          id="email"
-          type="text"
-          name="email"
-          placeholder="Enter E-mail..."
-          onChange={(e) => {
-            setUserEmail(e.target.value);
-            setUserNotFound(false);
-          }}
-        />
-        <label name="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          onChange={(e) => {
-            setUserPassword(e.target.value);
-            setIsPasswordWrong(false);
-          }}
-        />
-        {isPasswordWrong ? (
-          <p style={{ color: "red" }}>Password is wrong!</p>
-        ) : (
-          ""
-        )}
-        {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
-        <button className={styles.buttonClass} onClick={signin}>
-          Log In
-        </button>
-      </section>
-
-      <section className={styles.signUpWrapper}>
-        <p>Don't have an account?</p>
-
+      <section className={styles.signupWrapperDesk}>
+        <h3>Registrera dig</h3>
+        <p className={styles.text}>Registrera dig om du inte har ett konto</p>
         <button
-          className={styles.buttonClass}
+          className={styles.buttonClassGreen}
           onClick={() => {
             navigate("/signup");
           }}
         >
-          Sign up
+          Registrera
         </button>
+      </section>
+
+      <section className={styles.signinWrapper}>
+        <form className={styles.signinOverlay}>
+          <h3 className={styles.heading}>Logga in</h3>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="email">E-postadress</label>
+            <input
+              id="email"
+              type="text"
+              name="email"
+              placeholder="exempel@exempel.se"
+              onChange={(e) => {
+                setUserEmail(e.target.value);
+                setUserNotFound(false);
+              }}
+            />
+            {userNotFound ? <p style={{ color: "red" }}>* Användare hittas ej</p> : ""}
+            {invalidEmail ? <p style={{ color: "red" }}>* Felaktigt angiven e-post</p> : ""}
+          </div>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="password">Lösenord</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="********"
+              onChange={(e) => {
+                setUserPassword(e.target.value);
+                setIsPasswordWrong(false);
+              }}
+            />
+            {isPasswordWrong ? (<p style={{ color: "red" }}>* Felaktigt lösenord</p>) : ("")}
+          </div>
+          <button type="button" className={styles.buttonClassWhite} onClick={signin}>
+            Logga in
+          </button>
+          <button
+            className={styles.resetPassword}
+            onClick={() => {
+              navigate("/resetpassword");
+            }}
+          >
+            Glöm lösenord? Klicka här
+          </button>
+        </form>
+      </section>
+
+      <section className={styles.signupWrapperMob}>
+        <p className={styles.text}>Har du inget konto? Registrera dig nu.</p>
         <button
-          className={styles.buttonClass}
+          className={styles.buttonClassGreen}
           onClick={() => {
-            navigate("/resetpassword");
+            navigate("/signup");
           }}
         >
-          Forgot password?
+          Registrera
         </button>
       </section>
     </main>

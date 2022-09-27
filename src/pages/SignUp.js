@@ -74,62 +74,77 @@ function SignUp() {
 
   return (
     <main className={styles.wrapper}>
-      <section className={styles.signUpWrapper}>
-        <label name="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter your name..."
-          onChange={(e) => {
-            setUserName(e.target.value);
-          }}
-        />
-        <label name="email">E-mail</label>
-        <input
-          type="text"
-          name="email"
-          placeholder="Enter your email..."
-          onChange={(e) => {
-            setSigninEmail(e.target.value);
-            setInvalidEmail(false);
-            setUserInUse(false);
-          }}
-        />
-        {invalidEmail ? <p style={{ color: "red" }}>Invalid E-mail!</p> : ""}
-        <label name="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter your password..."
-          onChange={(e) => {
-            setSigninPassword(e.target.value);
-            setPasswordMatch(true);
-          }}
-        />
-        <label name="confirm-password">Confirm Password</label>
-        <input
-          type="password"
-          name="confirm-password"
-          placeholder="Confirm password..."
-          onChange={(e) => {
-            setSigninPassword2(e.target.value);
-            setPasswordMatch(true);
-          }}
-        />
-        {passwordMatch ? (
-          ""
-        ) : (
-          <p style={{ color: "red" }}>Your password does not match!</p>
-        )}
-        {userInUse ? (
-          <p style={{ color: "red" }}>This E-mail is already in use!</p>
-        ) : (
-          ""
-        )}
-        <h1>{user?.displayName}</h1>
-        <button className={styles.registerButton} onClick={register}>
-          Register Account
-        </button>
+      <section className={styles.bgWrapperDesk}>
+      </section>
+
+      <section className={styles.signupWrapper}>
+        <form className={styles.signupOverlay}>
+          <h3 className={styles.heading}>Registrera</h3>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="name">Namn</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Förnamn Efternamn"
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.inputWrapper}> 
+            <label className={styles.label} htmlFor="email">E-postadress</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="exempel@exempel.se"
+              onChange={(e) => {
+                setSigninEmail(e.target.value);
+                setInvalidEmail(false);
+                setUserInUse(false);
+              }}
+            />
+            {invalidEmail ? <p style={{ color: "red" }}>* Felaktig e-post</p> : ""}
+            {userInUse ? (<p style={{ color: "red" }}>* Användare finns redan</p>) : ("")}
+          </div>
+          <div className={styles.inputWrapper}> 
+            <label className={styles.label} htmlFor="password">Lösenord</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="********"
+              onChange={(e) => {
+                setSigninPassword(e.target.value);
+                setPasswordMatch(true);
+              }}
+            />
+          </div>
+          <div className={styles.inputWrapper}> 
+            <label className={styles.label} htmlFor="confirm-password">Upprepa lösenord</label>
+            <input
+              type="password"
+              name="confirm-password"
+              placeholder="********"
+              onChange={(e) => {
+                setSigninPassword2(e.target.value);
+                setPasswordMatch(true);
+              }}
+            />
+            {passwordMatch ? ("") : (<p style={{ color: "red" }}>* Lösenordet stämmer inte</p>)}
+          </div>
+
+
+
+
+          {/* ????? */}
+          {/* <h1>{user?.displayName}</h1> */}
+
+
+
+
+          <button type="button" className={styles.buttonClass}  onClick={register}>
+            Registrera
+          </button>
+        </form>
       </section>
     </main>
   );
