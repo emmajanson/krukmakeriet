@@ -45,7 +45,7 @@ function Header() {
     <header className={styles.wrapper}>
       <header className={styles.desktopWrapper}>
         <div className={styles.logoWrapper}>
-          <img className={styles.logoImage} src="" alt="" />
+          <img className={styles.logoImage} src="../images\headerLogoDesktop.png" alt="" />
         </div>
           <nav className={styles.navMiddle}>
             <Link to="/">Hem</Link>

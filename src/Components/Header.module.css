@@ -5,7 +5,11 @@
   position: relative;
   position: fixed;
   background-color: white;
-  padding: 0rem 1.5rem;
+  z-index: 99;
+}
+
+a {
+  font-family: 'Playfair Display', serif;
 }
 
 .desktopWrapper {
@@ -19,7 +23,6 @@
 }
 
 .mobileIcons a {
-  font-family: 'Playfair Display', serif;
   font-size: 30px;
   text-decoration: none;
   color: #000;
@@ -46,8 +49,7 @@
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
-  min-height: 10vh;
-  padding: 0.8rem;
+  padding: 1.2rem;
   background-color: white;
 }
 
@@ -69,7 +71,7 @@
   width: 85%;
   height: 100%;
   background-color: #697569;
-  z-index: 99;
+
 }
 
 .MobileMenuLinkWrapper {
@@ -98,6 +100,35 @@
   display: flex;
 }
 
+.shoppingCart {
+  font-size: 23px;
+}
+
+.linkWrapper::before {
+  content: attr(data-count);
+  position: absolute;
+  top: 3.2em;
+  right: 1.9em;
+  width: 1.2em;
+  height: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #697569;
+  color: white; 
+}
+
+.linkWrapperFalse:hover {
+  color: #697569;
+}
+
+.linkWrapperFalse a {
+  color: #000;
+  padding: 1rem;
+  text-decoration: none;
+}
+
 
 /* Desktop*/
 @media screen and (min-width: 800px) {
@@ -106,12 +137,10 @@
     display: flex;
     width: 100%;
     left: 0;
-    min-height: 10vh;
     justify-content: space-between;
     background-color: white;
-    padding: 0.7rem 3rem;
+    padding: 0rem 2rem;
     align-items: center;
-    z-index: 99;
   }
 
   .mobileWrapper {
@@ -119,83 +148,19 @@
   }
 
   a {
-    font-family: 'Playfair Display', serif;
     font-size: 18px;
+    color: #000;
     text-decoration: none;
     margin: 10px;
-    background-image: linear-gradient(
-      to right,
-      #697569,
-      #697569 50%,
-      #000 50%
-    );
-    background-size: 200% 100%;
-    background-position: -100%;
-    display: inline-block;
-    padding: 3px 0;
-    position: relative;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  a:before {
-    content: '';
-    background: #697569;
-    display: block;
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    transition: all 0.3s ease-in-out;
   }
   
   a:hover {
-   background-position: 0;
-  }
-  
-  a:hover::before {
-    width:100%;
-  }
-
-  .shoppingCart {
-    color: black;
-    font-size: 26px;
-  }
-
-  .shoppingCart:hover {
-    color: #697569;
-    transition: all 0.3s ease-in-out;
+   color: #697569;
   }
 
   .logoImage{
-    width: 50px;
-    height: 50px;
+    width: 140px;
+    height: auto;
   }
 
-  .linkWrapper::before {
-    content: attr(data-count);
-    position: absolute;
-    top: 1.2em;
-    right: 2.7em;
-    width: 1.2em;
-    height: 1.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #697569;
-    color: white; 
-  }
-
-  .linkWrapperFalse:hover {
-    color: #697569;
-  }
-
-  .linkWrapperFalse a {
-    color: #000;
-    padding: 1rem;
-    text-decoration: none;
-  }
 }
