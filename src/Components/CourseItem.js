@@ -29,6 +29,16 @@ function CourseItem({ courseData }) {
     console.log("Added to basket " + courseData.name);
   }
 
+  const timeout = setTimeout(trigger, 2000);
+
+  function trigger() {
+    setShowPopup(false);
+  }
+
+  function removeModal() {
+    clearTimeout(timeout);
+  }
+
   return (
     <article className={styles.courseCardWrapper}>
       <div className={styles.imgWrapper}>
@@ -52,6 +62,7 @@ function CourseItem({ courseData }) {
           onClick={() => {
             addToBasket(courseData);
             setShowPopup(true);
+            removeModal();
           }}
         >
           Boka
