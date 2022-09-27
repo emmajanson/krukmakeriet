@@ -14,12 +14,39 @@ import Checkout from "./pages/Checkout";
 import ResetPassword from "./pages/ResetPassword";
 import PrivateRoutes from "./Components/PrivateRoutes";
 import { AllContextProvider } from "./context/AllContext";
+import { addDoc, collection } from "firebase/firestore";
+
+import React, { useEffect, useState } from "react";
+import { db } from "./firebase-config";
+import { getDocs, doc, getDoc } from "firebase/firestore";
 
 function App() {
+  const [testUser, setTestUser] = useState();
+
+  console.log("Render App.js");
+  useEffect(() => {
+    console.log("In useEffect");
+    async function getDb() {
+      console.log("In getDb");
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+
+        querySnapshot.forEach((e) => {
+          setTestUser(e.data().name);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getDb();
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <AllContextProvider>
         <Router>
+          {testUser && <h1 data-testid="user">{testUser}</h1>}
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />

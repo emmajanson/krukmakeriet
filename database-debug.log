@@ -1,0 +1,10 @@
+07:30:42.587 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+07:30:42.685 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+07:30:51.762 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - krukmakeri-a0c76-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 71ms, init: 0ms
+07:30:51.791 [NamespaceSystem-blocking-namespace-operation-dispatcher-6:krukmakeri-a0c76-default-rtdb$267518915:] INFO com.firebase.core.namespace.StateManager - Namespace krukmakeri-a0c76-default-rtdb status Active to Active
+08:44:45.789 [NamespaceSystem-akka.actor.default-dispatcher-16] INFO com.firebase.core.namespace.NamespaceActor - krukmakeri-a0c76 successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms
+21:46:00.807 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+21:46:00.883 [NamespaceSystem-akka.actor.default-dispatcher-28] INFO com.firebase.core.namespace.Terminator$Terminator - 2 actors left to terminate: krukmakeri-a0c76, krukmakeri-a0c76-default-rtdb
+21:46:00.891 [NamespaceSystem-akka.actor.default-dispatcher-28] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for krukmakeri-a0c76
+21:46:00.891 [NamespaceSystem-akka.actor.default-dispatcher-32] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for krukmakeri-a0c76-default-rtdb
+21:46:00.898 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

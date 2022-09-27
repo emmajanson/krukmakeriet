@@ -20,7 +20,6 @@ describe("testing LogIn component", () => {
     // Check for element with the placeholder text "Enter E-mail"
 
     render(<MockLogin />);
-
     const inputElement = screen.getByPlaceholderText("Enter your email...");
     expect(inputElement).toBeInTheDocument();
   });
