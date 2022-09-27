@@ -145,7 +145,7 @@ function UpdateCourses({
 
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.form}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <h4>Lägg till kurs</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
@@ -225,7 +225,7 @@ function UpdateCourses({
           Ladda upp bilden
         </button>
         <img src={courseImage} className={styles.uploaded_image}/>
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
           Submit
         </button>
         {updateOnly ? (
@@ -241,7 +241,7 @@ function UpdateCourses({
         ) : (
           ""
         )}
-      </form>
+      </div>
     </div>
   );
 }
