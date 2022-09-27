@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingProducts.module.css";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretRight } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
 
 function ListOfExsitingProducts() {
@@ -56,10 +56,11 @@ function ListOfExsitingProducts() {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.productsWrapper}>
       <h3 className={styles.title}>Butik</h3>
-      <div className={styles.products}>
+      <p className={styles.text}>Lägg till ny produkt eller välj befintlig för att uppdatera</p>
         <button className={styles.button} onClick={() => toggleNewProduct()}>
-          Lägg till en ny produkt
+          Lägg till ny produkt +
         </button>
         {products.map((product, index) => {
           return (
@@ -77,9 +78,13 @@ function ListOfExsitingProducts() {
                 )
               }
             >
-              <img src={product.img} className={styles.productImage} />
-              <p>{product.name}</p>
-              <FaCaretDown className={styles.FaCaretDown} />
+              <div className={styles.imgWrapper}>
+                <img src={product.img} className={styles.productImage} />
+              </div>
+              <div className={styles.nameWrapper}>
+                <p className={styles.name}>{product.name}</p>
+              </div>
+              <FaCaretRight className={styles.FaCaretRight} />
             </div>
           );
         })}
