@@ -3,7 +3,6 @@ import styles from "./Checkout.module.css";
 import CheckoutItem from "../Components/CheckoutItem";
 import { AllContext } from "../context/AllContext";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import {
   addDoc,
   arrayUnion,
@@ -15,9 +14,6 @@ import {
 import Popup from "../Components/PopUpCheckout";
 import { auth, db } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-=======
-import Popup from "../Components/PopUpTemplate";
->>>>>>> main
 
 function Checkout() {
   const navigate = useNavigate();
@@ -272,23 +268,12 @@ function Checkout() {
         <button
           onClick={() => {
             setShowPopup(true);
-<<<<<<< HEAD
             updateProducts();
-=======
->>>>>>> main
           }}
           className={styles.checkoutBtn}
         >
           Bekräfta köp
         </button>
-<<<<<<< HEAD
-        <Popup trigger={showPopup} setTrigger={setShowPopup}>
-          <h1>Tack för ditt köp! </h1>
-          <p>
-            Ett bekfrätelsemail har skickats till din angivna mailadress. (Kolla
-            skräppost)
-          </p>
-=======
         <Popup
           trigger={showPopup}
           setTrigger={setShowPopup}
@@ -297,7 +282,6 @@ function Checkout() {
           <h1>Tack för ditt köp</h1>
           <p>En beställningsbekräftelse har skickats till din epostadress</p>
           <p>Ingen e-post? Kolla i skräpposten.</p>
->>>>>>> main
         </Popup>
       </section>
     </main>
