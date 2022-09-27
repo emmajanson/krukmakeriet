@@ -59,7 +59,6 @@ function ShopItem({ productData }) {
       </div>
 
       <Popup trigger={showPopup} setTrigger={setShowPopup}>
-        <h1>Succé!</h1>
         <p>Din vara är nu lagd i varukorgen.</p>
       </Popup>
 

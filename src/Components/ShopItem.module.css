@@ -25,7 +25,6 @@
   padding: 1rem 0.5rem 0.5rem 0.5rem;
 }
 .name{
-  /*lägg in font-family*/
   color: white;
   font-size: 1.1rem;
   font-weight: 500;
@@ -36,7 +35,6 @@
   align-items: flex-end;
 }
 .price{
-    /*lägg in font-family*/
   font-size: 1.1rem;
   font-weight: 500;
   color: white;
@@ -53,6 +51,7 @@
 .icon{
   font-size: 1rem;
 }
+
 @media screen and (min-width:800px){
   .shopItemWrapper{
     width: 32%;
