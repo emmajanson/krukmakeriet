@@ -11,7 +11,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import Popup from "../Components/PopUpCheckout";
+import Popup from "../Components/PopUpTemplate";
 import { auth, db } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 
