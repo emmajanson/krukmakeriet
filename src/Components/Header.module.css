@@ -1,20 +1,20 @@
-.wrapper{
-  width:100%;
+.wrapper {
+  width: 100%;
   position: relative;
   position: fixed;
   background-color: white;
 }
 
-.desktopWrapper{
+.desktopWrapper {
   display: none;
 }
 
-.mobileIcons{
+.mobileIcons {
   display: flex;
   gap: 1.5rem;
 }
 
-#mobileIcons{
+#mobileIcons {
   display: flex;
   gap: 1.5rem;
 }
@@ -31,30 +31,28 @@
 
 .mobileIcons :hover {
   color: #697569;
-  
 }
 
 #mobileIcons :hover {
   color: #697569;
-  
 }
 
 .mobileIcons::before {
-  content:attr(data-count);
+  content: attr(data-count);
   position: absolute;
   top: 2.5em;
   right: 0.8em;
   width: 1em;
-  height: 1em; 
+  height: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   background-color: red;
-  color: white; 
+  color: white;
 }
 
-.mobileWrapper{
+.mobileWrapper {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -67,12 +65,11 @@
 /* Menyknapp */
 
 .menuBtn {
-  
 }
 
 /* Mobilmenyn*/
 
-.mobileMenuWrapperHidden{
+.mobileMenuWrapperHidden {
   display: none;
 }
 
@@ -98,23 +95,22 @@
 }
 
 .mobileMenuWrapperShow :hover {
-  color: #DAE1D9;
+  color: #dae1d9;
 }
 
 /* Varukorgen */
 
-.basketWrapperHidden{
+.basketWrapperHidden {
   display: none;
 }
 
-.basketWrapperShow{
+.basketWrapperShow {
   display: flex;
 }
 
-
 /* Desktop*/
-@media screen and (min-width:800px){
-  .desktopWrapper{
+@media screen and (min-width: 800px) {
+  .desktopWrapper {
     position: fixed;
     width: 100%;
     min-height: 10vh;
@@ -135,39 +131,37 @@
     text-decoration: none;
   }
 
-  .linkWrapper :hover {
+  .linkWrapper:hover {
     color: #697569;
   }
-  
-  .logoImage{
+
+  .logoImage {
     width: 50px;
     height: 50px;
   }
 
   .linkWrapper::before {
-    content:attr(data-count);
+    content: attr(data-count);
     position: absolute;
     top: 2.7em;
     right: 1.6em;
     width: 1.2em;
-    height: 1.2em; 
+    height: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     background-color: red;
-    color: white; 
+    color: white;
   }
 
-  #linkWrapper :hover {
+  .linkWrapperFalse:hover {
     color: #697569;
   }
 
-  #linkWrapper a {
+  .linkWrapperFalse a {
     color: #000;
     padding: 1rem;
     text-decoration: none;
   }
-
-
 }

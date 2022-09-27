@@ -47,39 +47,27 @@ function Header() {
         <div className={styles.logoWrapper}>
           <img className={styles.logoImage} src="" alt="" />
         </div>
-        {basketAmount ? (
-          <nav data-count={basketAmount} className={styles.linkWrapper}>
-            <Link to="/">Start</Link>
-            <Link data-testid="toCourses" to="/courses">
-              Kurser
-            </Link>
-            <Link to="/shop">Butik</Link>
-            <Link to="/signin">Logga in</Link>
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
-            <Link to="#">
-              <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        ) : (
-          <nav id={styles.linkWrapper}>
-            <Link to="/">Start</Link>
-            <Link to="/courses">Kurser</Link>
-            <Link to="/shop">Butik</Link>
-            <Link to="/signin">Logga in</Link>
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
-            <Link to="#">
-              <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        )}
+        <nav
+          data-count={basketAmount}
+          className={
+            basketAmount ? styles.linkWrapper : styles.linkWrapperFalse
+          }
+        >
+          <Link to="/">Start</Link>
+          <Link data-testid="toCourses" to="/courses">
+            Kurser
+          </Link>
+          <Link to="/shop">Butik</Link>
+          <Link to="/signin">Logga in</Link>
+          {/* profile ska sedan visas när man är inloggad */}
+          {/* <Link to="/profile"><FiUser/></Link> */}
+          {/* admin som sedan ska visas om man är inloggad som admin */}
+          {/* <Link to="/admin"><FiUser/></Link> */}
+          <Link to="#">
+            <FiShoppingCart onClick={() => toggleBasket(!isActiveBasket)} />
+          </Link>
+        </nav>
       </header>
-
       <header className={styles.mobileWrapper}>
         <div
           className={styles.menuBtn}
