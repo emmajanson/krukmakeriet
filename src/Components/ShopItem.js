@@ -3,15 +3,12 @@ import styles from "./ShopItem.module.css";
 import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
 import Popup from "./Popup.js";
-import { 
-  FaShoppingBag
-} from 'react-icons/fa';
-
+import { FaShoppingBag } from "react-icons/fa";
 
 function ShopItem({ productData }) {
   const { productBasket, setProductBasket } = useContext(AllContext);
   const [showPopup, setShowPopup] = useState(false);
-  
+
   function addToBasket(product) {
     if (productBasket === null) {
       setProductBasket([{ ...product, amount: 1 }]);
@@ -33,7 +30,17 @@ function ShopItem({ productData }) {
     console.log("Added to basket " + productData.name);
   }
 
-//  en onClick ska in på shopItemWrapper för att öppna produkt modalen
+  const timeout = setTimeout(trigger, 2000);
+
+  function trigger() {
+    setShowPopup(false);
+  }
+
+  function removeModal() {
+    clearTimeout(timeout);
+  }
+
+  //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
     <article className={styles.shopItemWrapper}>
       <div className={styles.imgWrapper}>
@@ -50,18 +57,17 @@ function ShopItem({ productData }) {
             onClick={() => {
               addToBasket(productData);
               setShowPopup(true);
+              removeModal();
             }}
           >
-            <FaShoppingBag className={styles.icon}/>
+            <FaShoppingBag className={styles.icon} />
           </button>
         </div>
-
       </div>
 
       <Popup trigger={showPopup} setTrigger={setShowPopup}>
         <p>Din vara är nu lagd i varukorgen.</p>
       </Popup>
-
     </article>
   );
 }
