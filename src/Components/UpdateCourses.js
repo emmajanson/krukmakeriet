@@ -43,6 +43,7 @@ function UpdateCourses({
   const [courseSpots, setCourseSpots] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
+  const [courseEmails, setCourseEmails] = useState([])
   const [imageURL, setImageURL] = useState([]);
 
   //create a new course
@@ -55,6 +56,7 @@ function UpdateCourses({
       info: courseDescription,
       spots: Number(courseSpots),
       img: courseImage,
+      emails: courseEmails
     });
     getCourses();
     onClose(false);
@@ -119,6 +121,7 @@ function UpdateCourses({
       info: courseDescription,
       spots: courseSpots,
       img: courseImage,
+      emails: courseEmails
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
