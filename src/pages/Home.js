@@ -27,7 +27,7 @@ export default function Home() {
         </div>
 
         <div className={styles.textWrapper}>
-          <div className={styles.test}>
+          <div className={styles.left}>
             <h3 className={styles.heading}>Det här är vi</h3>
             <p className={styles.text}>
               Krukmakeriet på Pusterviksgatan är en studio och butik för
