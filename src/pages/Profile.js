@@ -48,6 +48,7 @@ function Profile() {
     const nameRef = doc(db, "users", auth.currentUser.uid);
 
     if (newUserName.length > 0) {
+      setShowNewUserName(true);
       updateDoc(nameRef, {
         name: newUserName,
       });
