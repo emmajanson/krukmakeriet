@@ -59,6 +59,7 @@ function Header() {
   return (
     <header className={styles.wrapper}>
       <header className={styles.desktopWrapper}>
+
         <div className={styles.logoWrapper}>
 <<<<<<< HEAD
           <img className={styles.logoImage} src="../images\headerLogoDesktop.png" alt="" />
@@ -93,6 +94,7 @@ function Header() {
             alt=""
           />
         </div>
+
         <nav className={styles.navMiddle}>
           <Link to="/">Hem</Link>
           <Link data-testid="toCourses" to="/courses">
@@ -100,6 +102,7 @@ function Header() {
           </Link>
           <Link to="/shop">Butik</Link>
         </nav>
+
         <nav className={styles.navRightSide}>
           {user == null ? (
             <Link to="/signin">Logga in</Link>
@@ -111,6 +114,7 @@ function Header() {
           {/* <Link to="/profile"><FiUser/></Link> */}
           {/* admin som sedan ska visas om man är inloggad som admin */}
           {/* <Link to="/admin"><FiUser/></Link> */}
+
           <Link to="#">
             <FaShoppingBag
               className={styles.shoppingCart}
@@ -140,19 +144,25 @@ function Header() {
           <HamburgerButton />
 >>>>>>> main
         </div>
-        {basketAmount ? (
-          <nav data-count={basketAmount} className={styles.mobileIcons}>
-            <Link to="#">
-              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        ) : (
-          <nav id={styles.mobileIcons}>
-            <Link to="#">
-              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        )}
+        <div className={styles.mobLogoWrapper}>
+            <img className={styles.mobLogo}src={"../images/headerLogoMobile.png"} alt="Logo"/>
+        </div>
+
+        <div>
+          {basketAmount ? (
+            <nav data-count={basketAmount} className={styles.mobileIcons}>
+              <Link to="#">
+                <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
+              </Link>
+            </nav>
+          ) : (
+            <nav id={styles.mobileIcons}>
+              <Link to="#">
+                <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
+              </Link>
+            </nav>
+          )}
+        </div>
 
         <nav
           className={
@@ -186,11 +196,7 @@ function Header() {
             <Link to="/courses">Kurser</Link>
             <Link to="/shop">Butik</Link>
             {user == null ? (<Link to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
-          )}
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
+            )}
           </div>
 >>>>>>> main
         </nav>

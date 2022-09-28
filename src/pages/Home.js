@@ -9,9 +9,10 @@ export default function Home() {
   return (
     <main data-testid="home" className={styles.wrapper}>
       <section className={styles.heroWrapper}>
-        <div className={styles.heroTextContainer}>
+        <div className={styles.heroImgWrapper}>
           <img
-            src={process.env.PUBLIC_URL + "/images/headerLogoDesktop.png"}
+            className={styles.heroLogo}
+            src={process.env.PUBLIC_URL + "/images/homeLogo.png"}
             alt="En fin bild"
           />
         </div>
@@ -26,7 +27,7 @@ export default function Home() {
         </div>
 
         <div className={styles.textWrapper}>
-          <div className={styles.test}>
+          <div className={styles.left}>
             <h3 className={styles.heading}>Det här är vi</h3>
             <p className={styles.text}>
               Krukmakeriet på Pusterviksgatan är en studio och butik för
