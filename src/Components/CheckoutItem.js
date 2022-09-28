@@ -84,7 +84,7 @@ function CheckoutItem({ productData }) {
   }
 
   return (
-    <article className={styles.productItemWrapper}>
+    <article className={styles.productItemWrapper} data-testid="checkoutItem">
       <div className={styles.imgWrapper}>
         <img className={styles.itemImage} src={productData.img} alt="" />
       </div>
