@@ -16,6 +16,7 @@ export const AllContextProvider = ({ children }) => {
   const [refresh, setRefresh] = useState(true);
   const usersRef = collection(db, "users");
   const [shopProductModalOpen, setShopProductModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   if (courseBasket === null) {
     setCourseBasket([]);
@@ -61,7 +62,9 @@ export const AllContextProvider = ({ children }) => {
         refresh,
         setRefresh,
         shopProductModalOpen,
-        setShopProductModalOpen
+        setShopProductModalOpen,
+        selectedProduct,
+        setSelectedProduct
       }}
     >
       {children}

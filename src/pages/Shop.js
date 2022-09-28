@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import ShopItem from '../Components/ShopItem';
-// import ShopModal from "../Components/ShopModal";
+import ShopModal from "../Components/ShopModal";
 import styles from "./Shop.module.css";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
@@ -36,7 +36,7 @@ function Shop() {
         className = {styles.shopProductModal}
         overlayClassName = {styles.shopProductModalOverlay}
       >
-        <ShopModal productData = {productData} />
+        <ShopModal />
       </Modal> 
       
       <h2>Butiken</h2>

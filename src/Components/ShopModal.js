@@ -5,7 +5,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { AllContext } from "../context/AllContext";
 
 function ShopModal(){
-    const {setShopProductModalOpen, productBasket, setProductBasket} = useContext(AllContext);
+    const {setShopProductModalOpen, selectedProduct} = useContext(AllContext);
 
     const closeModal = () => {
         setShopProductModalOpen(false);
@@ -21,12 +21,12 @@ return(
 
         <section className={styles.productInfoContainer}>
             <figure>
-                <img src="./images/products/skalEmma.jpg" width="200px" alt="Produktbild"></img>
+                <img src={selectedProduct && selectedProduct.img} width="200px" alt="Produktbild"></img>
             </figure>
             <article className={styles.productDetailsContainer}>
-                <h2>Titel</h2>
-                <h3>Detaljer</h3>
-                <h3>Pris</h3>
+                <h2>{selectedProduct && selectedProduct.name}</h2>
+                <h3>{selectedProduct && selectedProduct.details}</h3>
+                <h3>{selectedProduct && selectedProduct.price}:-</h3>
             </article>         
         </section>
 
