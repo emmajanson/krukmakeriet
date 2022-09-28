@@ -30,10 +30,12 @@
     "webpack": "^5.74.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test --detectOpenHandles",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postpuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
