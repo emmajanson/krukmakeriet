@@ -114,7 +114,6 @@ function BasketItem({ productData }) {
 
       <div className={styles.priceDeleteWrapper}>
         <p className={styles.price}>{productData.price}:-</p>
-        {/* ska bytas ut mot papperskorg */}
         <FaTrash 
           className={styles.deleteBtn}
           onClick={() => deleteItem(productData)}

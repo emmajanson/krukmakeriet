@@ -83,7 +83,7 @@ function Basket({ toggleBasket }, isActiveBasket) {
             toggleBasket(!isActiveBasket);
           }}
         >
-          Checka ut
+          Till kassan
         </button>
       </section>
     </section>
