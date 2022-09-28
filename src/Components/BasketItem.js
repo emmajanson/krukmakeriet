@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./BasketItem.module.css";
 import { AllContext } from "../context/AllContext";
+import { FaTrash } from "react-icons/fa";
 
 function BasketItem({ productData }) {
   /*
@@ -114,13 +115,10 @@ function BasketItem({ productData }) {
       <div className={styles.priceDeleteWrapper}>
         <p className={styles.price}>{productData.price}:-</p>
         {/* ska bytas ut mot papperskorg */}
-        <button
+        <FaTrash 
           className={styles.deleteBtn}
           onClick={() => deleteItem(productData)}
-        >
-          {" "}
-          D{" "}
-        </button>
+        />
       </div>
     </article>
   );
