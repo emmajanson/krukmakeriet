@@ -1,23 +1,120 @@
 .wrapper {
   padding-top: 12vh;
-  height: 75vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(/public/images/signUpBackground.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+.signupWrapper{
+  width: 100%;
+}
+.signupOverlay{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: rgba(105, 117, 105, 0.9);
+  width: 100%;
+  padding: 2.5rem 0 ;
+}
+.heading{
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.inputWrapper{
+  display: flex;
+  flex-direction: column;
+  width:80%;
+}
+.label{
+  display: inline;
+  color: white;
+  font-size: 1rem; 
+  font-weight: 400;
+  margin-left: 0.8rem;
+}
+.inputWrapper input{
+  border: none;
+  height: 3rem;
+  border-radius: 1rem;
+}
+.inputWrapper input::placeholder{
+  color: #A19B9B;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+}
+.buttonClass{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #DAE1D9;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 3rem;
+  width: 11.25rem;
+  height: 3rem;
 }
 
-.signUpWrapper {
-  width: 227px;
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-}
-.registerButton {
-  background-color: #414B42;
-  color: white;
-  width: 14.188rem;
-  height: 3.403rem;
-  border-radius: 3.125rem;
-  margin-top: 20px;
+@media screen and (min-width: 800px) {
+  .wrapper{
+    background-image: none;
+    flex-direction: row;
+  }
+  .bgWrapperDesk{
+    background-image: url(/public/images/signUpBackground.jpg);
+    background-size: cover ;
+    background-position: center center;
+    width: 50%;
+    height: 100%;
+  }
+  .signupWrapper{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgba(218, 225, 217, 0.8) ;
+  }
+  .signupOverlay{
+    width: 60%;
+    background-color: transparent;
+  }
+  .inputWrapper{
+    max-width: 350px;
+  } 
+  .heading{
+    color: black;
+    font-size: 2rem;
+  }
+  .label{
+    color: black;
+    font-size: 1.1rem; 
+  }
+  .inputWrapper input{
+    border: 0.2px solid rgba(0, 0, 0, 0.3)
+  }
+  .inputWrapper input::placeholder{
+    font-size: 1.1rem;
+  }
+  .buttonClass {
+    font-size: 1.5rem;
+    width: 11.25rem;
+    background-color: #414B42;
+    color: white;
+    margin-top: 2rem;
+  }
+  .buttonClass:hover{
+    background-color: white;
+    color: #414B42;
+    border: 0.5px solid#414B42;
+    transition: 0.3s;
+  }
 }
