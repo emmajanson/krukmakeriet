@@ -83,9 +83,7 @@ function Profile() {
     <Navigate to="/signin" />
   ) : (
     <main className={styles.wrapper}>
-      <h2>
-        Profile
-      </h2>
+      <h2>Profile</h2>
 
       {/* uppdatera uppgifter sektion */}
       <section className={styles.userInfoWrapper}>
