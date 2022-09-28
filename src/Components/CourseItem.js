@@ -40,7 +40,7 @@ function CourseItem({ courseData }) {
   }
 
   return (
-    <article className={styles.courseCardWrapper}>
+    <article className={styles.courseCardWrapper} data-testid="courseItem">
       <div className={styles.imgWrapper}>
         <img className={styles.courseImage} src={courseData.img} alt="" />
       </div>

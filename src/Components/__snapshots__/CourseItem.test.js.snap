@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseItem Matches DOM Snapshot 1`] = `
+<article
+  className="courseCardWrapper"
+  data-testid="courseItem"
+>
+  <div
+    className="imgWrapper"
+  >
+    <img
+      alt=""
+      className="courseImage"
+      src="https"
+    />
+  </div>
+  <div
+    className="textWrapper"
+  >
+    <div
+      className="infoWrapper"
+    >
+      <h3
+        className="name"
+      >
+        abc
+      </h3>
+      <p
+        className="date"
+      >
+        [ikon]
+      </p>
+      <p
+        className="info"
+      />
+    </div>
+    <div
+      className="iconWrapper"
+    >
+      <p
+        className="price"
+      >
+        [ikon] 
+        :-
+      </p>
+      <p
+        className="length"
+      >
+        [ikon] 
+      </p>
+      <p
+        className="spots"
+      >
+        [ikon] [10/
+        ]
+      </p>
+    </div>
+    <button
+      className="button"
+      onClick={[Function]}
+    >
+      Boka
+    </button>
+  </div>
+</article>
+`;

@@ -9,9 +9,10 @@ export default function Home() {
   return (
     <main data-testid="home" className={styles.wrapper}>
       <section className={styles.heroWrapper}>
-        <div className={styles.heroTextContainer}>
+        <div className={styles.heroImgWrapper}>
           <img
-            src={process.env.PUBLIC_URL + "/images/headerLogoDesktop.png"}
+            className={styles.heroLogo}
+            src={process.env.PUBLIC_URL + "/images/homeLogo.png"}
             alt="En fin bild"
           />
         </div>

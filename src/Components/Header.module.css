@@ -6,6 +6,7 @@
   position: fixed;
   background-color: white;
   z-index: 99;
+
 }
 
 a {
@@ -51,6 +52,7 @@ a {
   width: 100%;
   padding: 1.2rem;
   background-color: white;
+  border-bottom: 1px solid rgba(218, 225, 217, 0.2)
 }
 
 
@@ -103,24 +105,25 @@ a {
 .shoppingCart {
   font-size: 23px;
 }
-
 .linkWrapper::before {
   content: attr(data-count);
   position: absolute;
-  top: 3.2em;
-  right: 1.9em;
+  top: 2.8em;
+  right:3em;
   width: 1.2em;
   height: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #697569;
+  background-color: #414B42;
   color: white; 
+  padding:0.2rem;
+  font-size: 1.1rem;
 }
 
 .linkWrapperFalse:hover {
-  color: #697569;
+  color: #414B42;
 }
 
 .linkWrapperFalse a {
@@ -138,9 +141,10 @@ a {
     width: 100%;
     left: 0;
     justify-content: space-between;
+    align-items: flex-end;
     background-color: white;
-    padding: 0rem 2rem;
-    align-items: center;
+    padding: 1rem 3rem 1rem 3rem;
+    border-bottom: 1px solid rgba(218, 225, 217, 0.2)
   }
 
   .mobileWrapper {
@@ -148,19 +152,38 @@ a {
   }
 
   a {
-    font-size: 18px;
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
     color: #000;
     text-decoration: none;
-    margin: 10px;
+    /* margin: 10px; */
   }
   
   a:hover {
    color: #697569;
   }
-
+  .logoWrapper{
+    display: flex;
+    align-items: flex-end;
+    width: 25%;
+  }
   .logoImage{
     width: 140px;
     height: auto;
+  }
+  .navMiddle{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1.5rem;
+    width: 25%;
+  }
+  .navRightSide{
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 1rem;
+    width: 25%;
   }
 
 }

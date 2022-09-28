@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
+<article
+  className="productItemWrapper"
+  data-testid="checkoutItem"
+>
+  <div
+    className="imgWrapper"
+  >
+    <img
+      alt=""
+      className="itemImage"
+      src="https"
+    />
+  </div>
+  <div
+    className="infoWrapper"
+  >
+    <h3
+      className="name"
+    >
+      skål
+    </h3>
+    <p
+      className="info"
+    />
+    <p
+      className="price"
+    />
+    <div
+      className="editQuantityWrapper"
+    >
+      <button
+        className="quantityBtn"
+        data-testid="decrementBtn"
+        onClick={[Function]}
+      >
+        -
+      </button>
+      <p
+        data-testid="counterText"
+      />
+      <button
+        className="quantityBtn"
+        data-testid="incrementBtn"
+        onClick={[Function]}
+      >
+        +
+      </button>
+    </div>
+  </div>
+  <button
+    className="removeBtn"
+    onClick={[Function]}
+  >
+    Delete
+  </button>
+</article>
+`;

@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { act } from "react-test-renderer";
+import Popup from "../Components/PopUpTemplate";
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -24,6 +25,8 @@ function SignUp() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
+
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -41,6 +44,7 @@ function SignUp() {
           signinEmail,
           signinPassword
         );
+        setShowPopup(true);
         const sendMail = getAuth();
         await sendEmailVerification(sendMail.currentUser);
         updateProfile(auth.currentUser, {
@@ -54,7 +58,7 @@ function SignUp() {
           uid: user.user.uid,
         });
         console.log(user);
-        navigate("/profile", { state: { user: userName } });
+        navigate({ state: { user: userName } });
       } catch (error) {
         console.log(error.message);
         switch (error.message) {
@@ -75,14 +79,15 @@ function SignUp() {
 
   return (
     <main className={styles.wrapper}>
-      <section className={styles.bgWrapperDesk}>
-      </section>
+      <section className={styles.bgWrapperDesk}></section>
 
       <section className={styles.signupWrapper}>
         <form className={styles.signupOverlay}>
           <h3 className={styles.heading}>Registrera</h3>
           <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="name">Namn</label>
+            <label className={styles.label} htmlFor="name">
+              Namn
+            </label>
             <input
               type="text"
               name="name"
@@ -92,8 +97,10 @@ function SignUp() {
               }}
             />
           </div>
-          <div className={styles.inputWrapper}> 
-            <label className={styles.label} htmlFor="email">E-postadress</label>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="email">
+              E-postadress
+            </label>
             <input
               type="text"
               name="email"
@@ -104,11 +111,21 @@ function SignUp() {
                 setUserInUse(false);
               }}
             />
-            {invalidEmail ? <p style={{ color: "red" }}>* Felaktig e-post</p> : ""}
-            {userInUse ? (<p style={{ color: "red" }}>* Användare finns redan</p>) : ("")}
+            {invalidEmail ? (
+              <p style={{ color: "red" }}>* Felaktig e-post</p>
+            ) : (
+              ""
+            )}
+            {userInUse ? (
+              <p style={{ color: "red" }}>* Användare finns redan</p>
+            ) : (
+              ""
+            )}
           </div>
-          <div className={styles.inputWrapper}> 
-            <label className={styles.label} htmlFor="password">Lösenord</label>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="password">
+              Lösenord
+            </label>
             <input
               type="password"
               name="password"
@@ -119,8 +136,10 @@ function SignUp() {
               }}
             />
           </div>
-          <div className={styles.inputWrapper}> 
-            <label className={styles.label} htmlFor="confirm-password">Upprepa lösenord</label>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="confirm-password">
+              Upprepa lösenord
+            </label>
             <input
               type="password"
               name="confirm-password"
@@ -130,19 +149,30 @@ function SignUp() {
                 setPasswordMatch(true);
               }}
             />
-            {passwordMatch ? ("") : (<p style={{ color: "red" }}>* Lösenordet stämmer inte</p>)}
+            {passwordMatch ? (
+              ""
+            ) : (
+              <p style={{ color: "red" }}>* Lösenordet stämmer inte</p>
+            )}
           </div>
-
-
-
 
           {/* ????? */}
           {/* <h1>{user?.displayName}</h1> */}
 
-
-
-
-          <button type="button" className={styles.buttonClass}  onClick={register}>
+          <button
+            type="button"
+            className={styles.buttonClass}
+            onClick={register}
+          >
+            <Popup
+              trigger={showPopup}
+              setTrigger={setShowPopup}
+              navigation={"/profile"}
+            >
+              <h1>Välkommen till Krukmakeriet</h1>
+              <p>Ett veriferingsmail har nu skickats till din epostadress</p>
+              <p>Ingen e-post? Kolla i skräpposten.</p>
+            </Popup>
             Registrera
           </button>
         </form>
