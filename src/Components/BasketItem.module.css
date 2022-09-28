@@ -8,10 +8,11 @@
   width: 75px;
   height: 75px;
 }
+
 .basketImage{
-  background-color: lightgrey;
-  width: 100%;
   height: 100%;
+  width: 100%;
+  object-fit: fill;
 }
 
 .textWrapper{
@@ -23,13 +24,15 @@
   flex-grow:1;
   padding-bottom: 25px;
 }
+
 .heading{
   font-size: 18px;
   margin-top: px;
 }
+
 .changeAmountWrapper{
   display: flex;
-  width: 50%;
+  width: 95px;
   gap: 9px;
   background-color: #414B42;
   border-radius: 20px;
