@@ -24,7 +24,8 @@ describe("CheckoutItem", () => {
     expect(routeForCheckoutItem).toBeInTheDocument();
   });
   test("create a snapshot to test the rendering of element", async () => {
-    const domTree = renderer.create(
+    const domTree = renderer
+      .create(
         <BrowserRouter>
           <AllContextProvider>
             <CheckoutItem productData={product} />

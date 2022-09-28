@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Home from "../src/pages/Home";
 import "@testing-library/jest-dom";
+import Footer from "../src/Components/Footer"
 
 
 const MockHome = () => {
@@ -21,5 +22,11 @@ describe("App and navigation", () => {
     expect(routeForHome).toBeInTheDocument();
   });
 });
+
+describe('Footer', () => {
+  test('Should render without crash', async () => {
+     render(<Footer />)
+})
+})
 
 

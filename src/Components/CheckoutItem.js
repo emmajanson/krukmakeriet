@@ -93,14 +93,14 @@ function CheckoutItem({ productData }) {
         <p className={styles.info}>{productData.info}</p>
         <p className={styles.price}>{productData.price}</p>
         <div className={styles.editQuantityWrapper}>
-          <button
+          <button data-testid="decrementBtn"
             onClick={() => decrementAmount(productData)}
             className={styles.quantityBtn}
           >
             -
           </button>
-          <p>{productData.amount}</p>
-          <button
+          <p data-testid="counterText">{productData.amount}</p>
+          <button data-testid="incrementBtn"
             onClick={() => incrementAmount(productData)}
             className={styles.quantityBtn}
           >
