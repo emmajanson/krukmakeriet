@@ -34,7 +34,7 @@ function Profile() {
   ) : (
     <main className={styles.wrapper}>
       <h2>
-        Welcome to your profile {location.state ? location.state.user : ""}!
+        Profile
       </h2>
 
       {/* uppdatera uppgifter sektion */}
