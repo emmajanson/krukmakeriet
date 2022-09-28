@@ -3,9 +3,13 @@ import styles from "./ShopItem.module.css";
 import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
 import Popup from "./Popup.js";
+import Modal from "react-modal";
+import ShopModal from "../Components/ShopModal";
+
+Modal.setAppElement("#root");
 
 function ShopItem({ productData }) {
-  const { productBasket, setProductBasket, setShopProductModalOpen } = useContext(AllContext);
+  const { productBasket, setProductBasket, shopProductModalOpen, setShopProductModalOpen } = useContext(AllContext);
   const [showPopup, setShowPopup] = useState(false);
 
   function addToBasket(product) {
@@ -58,5 +62,6 @@ function ShopItem({ productData }) {
     </article>
   );
 }
+
 
 export default ShopItem;

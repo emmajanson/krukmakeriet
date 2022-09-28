@@ -10,13 +10,13 @@ import { AllContext } from '../context/AllContext';
 
 Modal.setAppElement("#root");
 
-function Shop() {
+function Shop( { productData } ) {
 
  /*Render from db */
  const [products, setProducts] = useState([])
 
  const {shopProductModalOpen, setShopProductModalOpen} = useContext(AllContext);
-  
+
  useEffect(() => {
    const productsCollectionRef = collection(db, "products");
 
@@ -29,19 +29,17 @@ function Shop() {
  }, []);
 
 
-
-
-
   return (
     <main className={styles.wrapper}>
-      <Modal
+       <Modal
         isOpen = {shopProductModalOpen}
         onRequestClose = {() => setShopProductModalOpen(false)}
         className = {styles.shopProductModal}
         overlayClassName = {styles.shopProductModalOverlay}
       >
-        <ShopModal />
-      </Modal>
+        <ShopModal productData = {productData} />
+      </Modal> 
+      
       <h2>Butiken</h2>
       <section className={styles.shopWrapper}>
         {products

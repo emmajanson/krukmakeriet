@@ -5,7 +5,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { AllContext } from "../context/AllContext";
 
 function ShopModal(){
-    const {setShopProductModalOpen} = useContext(AllContext);
+    const {setShopProductModalOpen, productBasket, setProductBasket} = useContext(AllContext);
 
     const closeModal = () => {
         setShopProductModalOpen(false);
@@ -39,7 +39,9 @@ return(
         </section>
 
         <section className={styles.buyButtonContainer}>
-            <button className={styles.button}>Köp</button>
+            <button 
+            className={styles.button}
+            >Köp</button>
         </section>
     </>
 )
