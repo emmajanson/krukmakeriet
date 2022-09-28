@@ -22,7 +22,7 @@ function Courses() {
 
   return (
     <main className={styles.wrapper}>
-      <h2 className={styles.heading}>[kurser]</h2>
+      <h2 className={styles.heading}>Kurser</h2>
       <section className={styles.courseWrapper} data-testid="courses">
         {courses
           .sort((course, nextCourse) =>
