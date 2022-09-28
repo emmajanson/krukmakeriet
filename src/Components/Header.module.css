@@ -115,12 +115,12 @@ a {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #697569;
+  background-color: #414B42;
   color: white; 
 }
 
 .linkWrapperFalse:hover {
-  color: #697569;
+  color: #414B42;
 }
 
 .linkWrapperFalse a {
