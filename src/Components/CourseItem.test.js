@@ -16,8 +16,6 @@ const MockCourseItem = () => {
 };
 const course = { name: "abc", img: "https" };
 
-
-
 describe("CourseItem", () => {
   test("check if props exist as should", async () => {
     render(<MockCourseItem />);
@@ -25,9 +23,6 @@ describe("CourseItem", () => {
     expect(routeForCourseItem).toBeInTheDocument();
   });
 
-<<<<<<< HEAD
-  test("create a snapshot to test the rendering of element", async () => {});
-=======
   test("Matches DOM Snapshot", () => {
     const domTree = renderer
       .create(
@@ -40,5 +35,4 @@ describe("CourseItem", () => {
       .toJSON();
     expect(domTree).toMatchSnapshot();
   });
->>>>>>> main
 });

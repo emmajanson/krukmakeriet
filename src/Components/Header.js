@@ -6,16 +6,9 @@ import { AllContext } from "../context/AllContext";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 // fiUser ska sedan användas som profillogga när man är inloggad
-<<<<<<< HEAD
-import {
-  FaShoppingBag,
-} from "react-icons/fa";
-=======
 import { FaShoppingBag, FaUserAlt,FaUser } from "react-icons/fa";
->>>>>>> main
 import HamburgerButton from "./HamburgerButton";
 // import { doc } from "firebase/firestore";
-
 
 function Header() {
   const [isActiveMobile, setIsActiveMobile] = useState(false);
@@ -61,33 +54,6 @@ function Header() {
       <header className={styles.desktopWrapper}>
 
         <div className={styles.logoWrapper}>
-<<<<<<< HEAD
-          <img className={styles.logoImage} src="../images\headerLogoDesktop.png" alt="" />
-        </div>
-          <nav className={styles.navMiddle}>
-            <Link to="/">Hem</Link>
-            <Link data-testid="toCourses" to="/courses">Kurser</Link>
-            <Link to="/shop">Butik</Link>
-          </nav>
-          <nav className={styles.navRightSide}>
-            <Link to="/signin">Logga in</Link>
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
-            <Link to="#">
-              <FaShoppingBag className={styles.shoppingCart} onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-            <nav
-              data-count={basketAmount}
-              className={
-              basketAmount ? styles.linkWrapper : styles.linkWrapperFalse
-              }
-            >
-            </nav>
-          </nav>
-        
-=======
           <img
             className={styles.logoImage}
             src="../images\headerLogoDesktop.png"
@@ -128,21 +94,15 @@ function Header() {
             }
           ></nav>
         </nav>
->>>>>>> main
       </header>
 
       {/* MOBILMENY */}
       <header className={styles.mobileWrapper}>
-<<<<<<< HEAD
-        <div className={styles.BurgerBtn} onClick={() => toggleMenu(!isActiveMobile)}>
-          <HamburgerButton/>
-=======
         <div
           className={styles.BurgerBtn}
           onClick={() => toggleMenu(!isActiveMobile)}
         >
           <HamburgerButton />
->>>>>>> main
         </div>
         <div className={styles.mobLogoWrapper}>
             <img className={styles.mobLogo}src={"../images/headerLogoMobile.png"} alt="Logo"/>
@@ -171,26 +131,6 @@ function Header() {
               : styles.mobileMenuWrapperHidden
           }
         >
-<<<<<<< HEAD
-            <div className={styles.MobileMenuLinkWrapper}>
-              <Link to="/">
-                Hem
-              </Link>
-              <Link to="/courses">
-                Kurser
-              </Link>
-              <Link to="/shop">
-                Butik
-              </Link>
-              <Link to="/signin">
-                Logga in
-              </Link>
-                {/* profile ska sedan visas när man är inloggad */}
-                {/* <Link to="/profile"><FiUser/></Link> */}
-                {/* admin som sedan ska visas om man är inloggad som admin */}
-                {/* <Link to="/admin"><FiUser/></Link> */}
-            </div>
-=======
           <div className={styles.MobileMenuLinkWrapper}>
             <Link to="/">Hem</Link>
             <Link to="/courses">Kurser</Link>
@@ -198,7 +138,6 @@ function Header() {
             {user == null ? (<Link to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
             )}
           </div>
->>>>>>> main
         </nav>
       </header>
 
