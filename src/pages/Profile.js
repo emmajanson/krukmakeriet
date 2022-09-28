@@ -33,25 +33,58 @@ function Profile() {
     <Navigate to="/signin" />
   ) : (
     <main className={styles.wrapper}>
-      <h1>
+      <h2>
         Welcome to your profile {location.state ? location.state.user : ""}!
-      </h1>
+      </h2>
+
+      {/* uppdatera uppgifter sektion */}
       <section className={styles.userInfoWrapper}>
-        <h2>Dina uppgifter</h2>
+        <h5>Dina uppgifter</h5>
         {/* här renderas datan ut som hämtas från db via .value i inputsen */}
-        {/* gör klart inputsen */}
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
+        <div className={styles.inputWrapper}>
+          <label className={styles.label} htmlFor="name">Namn</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Förnamn Efternamn"
+          />
+        </div>
+        <div className={styles.inputWrapper}>
+          <label className={styles.label} htmlFor="email">E-postadress</label>
+          <input
+            id="email"
+            type="text"
+            name="email"
+            placeholder="exempel@exempel.se"
+          />
+        </div>
+        <button>Uppdatera</button>
       </section>
+
+
+      {/* glömt lösen sektion */}
+      <section>
+        <h5>Glömt lösenord?</h5>
+        <p>Fyll i din e-postadress för återställning av lösenord</p>
+        <p>Fick du ingen e-post? Kolla i skräpposten. </p>
+        <div className={styles.inputWrapper}>
+          <label className={styles.label} htmlFor="email">E-postadress</label>
+          <input
+            id="email"
+            type="text"
+            name="email"
+            placeholder="exempel@exempel.se"
+          />
+        </div>
+        <button>Återställ</button>
+      </section>
+
+
 
       <section className={styles.userOrdersWrapper}>
         <h2>Dina köp och bokningar</h2>
-        {/* här renderas datan från user-orders? ut via komponent */}
         <h3 className={styles.sectionHeader}>Beställningar</h3>
-        {/* table ska bli komponenten sen */}
         <table className={styles.tableWrapper}>
           <tr className={styles.row}>
             <th>Kurs</th>
@@ -59,24 +92,20 @@ function Profile() {
             <th>Belopp</th>
           </tr>
 
+          {/* här renderas datan från user-orders? ut via komponent */}
+          {/* tr nedan ska bli komponenten sen */}
           <tr className={styles.row}>
             <td>00/00/0000</td>
             <td>000000000000</td>
             <td>450 kr</td>
           </tr>
 
-          <tr className={styles.row}>
-            <td>00/00/0000</td>
-            <td>000000000000</td>
-            <td>450 kr</td>
-          </tr>
+
         </table>
       </section>
 
       <section className={styles.userCoursesWrapper}>
-        {/* här renderas datan från user-courses? ut via komponent */}
         <h3 className={styles.sectionHeader}>Kurser</h3>
-        {/* table ska bli komponenten sen */}
         <table className={styles.tableWrapper}>
           <tr className={styles.row}>
             <th>Kurs</th>
@@ -84,20 +113,20 @@ function Profile() {
             <th>Belopp</th>
           </tr>
 
+          {/* här renderas datan från user-courses? ut via komponent */}
+          {/* tr nedan ska bli komponenten sen */}
           <tr className={styles.row}>
             <td>Kursnamn</td>
             <td>00/00/0000 00:00</td>
             <td>450 kr</td>
           </tr>
 
-          <tr className={styles.row}>
-            <td>Kursnamn</td>
-            <td>00/00/0000 00:00</td>
-            <td>450 kr</td>
-          </tr>
+
         </table>
       </section>
 
+
+      {/* adminknapp ska sedan tas bort */}
       { permission === "true" ? (
         <button
           onClick={() => {
