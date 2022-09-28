@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingCourses.module.css";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretRight } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
 
 function ListOfExsitingCourses() {
@@ -64,12 +64,14 @@ function ListOfExsitingCourses() {
   }, []);
 
   return (
-    <div>
-      <h3 className={styles.title}>Kurser</h3>
-      <div className={styles.courses}>
+    <div className={styles.wrapper}>
+      <div className={styles.coursesWrapper}>
+        <h3 className={styles.title}>Kurser</h3>
+        <p className={styles.text}>Lägg till ny kurs eller välj befintlig för att uppdatera/se deltagarlista</p>
         <button className={styles.button} onClick={() => toggleNewCourse()}>
-          Lägg till en ny kurs
+          Lägg till ny kurs +
         </button>
+
         {courses.map((course, index) => {
           return (
             <div
@@ -88,10 +90,10 @@ function ListOfExsitingCourses() {
                 )
               }
             >
-              <p>{course.name}</p>
-              <p>{course.details}</p>
-              <img src={course.img} className={styles.courseImage} />
-              <FaCaretDown className={styles.FaCaretDown} />
+            <p className={styles.name}>{course.name}</p>
+            <p className={styles.date}>{course.details}</p>
+            <img src={course.img} className={styles.courseImage} />
+            <FaCaretRight className={styles.FaCaretRight} />
             </div>
           );
         })}

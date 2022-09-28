@@ -87,6 +87,12 @@
   object-fit: cover;
 }
 
+.linkImageCourses:hover,
+.linkImageShop:hover,
+.linkImageText:hover {
+  cursor: pointer;
+}
+
 .linkImageWrapper {
   width: 100%;
   text-align: center;
