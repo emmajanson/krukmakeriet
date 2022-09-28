@@ -5,6 +5,7 @@ import { auth, db } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
+  updateDoc,
   onAuthStateChanged,
   sendEmailVerification,
   getAuth,
