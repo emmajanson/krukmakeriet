@@ -41,10 +41,14 @@
   padding: 6px;
 }
 .changeAmount{
+
   width: 30%;
   display: flex;
   justify-content: center;
 }
+
+
+
 .input{
   text-align: center;
   width: 20%;
