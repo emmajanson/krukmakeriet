@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import Basket from "./Basket";
@@ -6,7 +6,7 @@ import { AllContext } from "../context/AllContext";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 // fiUser ska sedan användas som profillogga när man är inloggad
-import { FaShoppingBag, FaUserAlt,FaUser } from "react-icons/fa";
+import { FaShoppingBag, FaUserAlt, FaUser } from "react-icons/fa";
 import HamburgerButton from "./HamburgerButton";
 // import { doc } from "firebase/firestore";
 
@@ -16,8 +16,15 @@ function Header() {
   const [user, setUser] = useState({});
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { productBasket, courseBasket, adminPermission } =
-    useContext(AllContext);
+  const articleRef = useRef();
+
+  const {
+    productBasket,
+    courseBasket,
+    adminPermission,
+    showTopBtn,
+    setShowTopBtn,
+  } = useContext(AllContext);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -49,10 +56,25 @@ function Header() {
     setIsActiveBasket(props);
   }
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    });
+  }, [setShowTopBtn]);
+  function ScrollToView() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   return (
     <header className={styles.wrapper}>
       <header className={styles.desktopWrapper}>
-
         <div className={styles.logoWrapper}>
           <img
             className={styles.logoImage}
@@ -62,18 +84,24 @@ function Header() {
         </div>
 
         <nav className={styles.navMiddle}>
-          <Link to="/">Hem</Link>
-          <Link data-testid="toCourses" to="/courses">
+          <Link title="kurser" to="/" onClick={ScrollToView}>
+            Hem
+          </Link>
+          <Link to="/courses" onClick={ScrollToView}>
             Kurser
           </Link>
-          <Link to="/shop">Butik</Link>
+          <Link to="/shop" onClick={ScrollToView}>
+            Butik
+          </Link>
         </nav>
 
         <nav className={styles.navRightSide}>
           {user == null ? (
             <Link to="/signin">Logga in</Link>
           ) : (
-            <Link to={adminPermission ? "/admin" : "/profile"}><FaUser/></Link>
+            <Link to={adminPermission ? "/admin" : "/profile"}>
+              <FaUser />
+            </Link>
           )}
 
           {/* profile ska sedan visas när man är inloggad */}
@@ -105,7 +133,11 @@ function Header() {
           <HamburgerButton />
         </div>
         <div className={styles.mobLogoWrapper}>
-            <img className={styles.mobLogo}src={"../images/headerLogoMobile.png"} alt="Logo"/>
+          <img
+            className={styles.mobLogo}
+            src={"../images/headerLogoMobile.png"}
+            alt="Logo"
+          />
         </div>
 
         <div>

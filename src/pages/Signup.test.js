@@ -4,8 +4,7 @@ import { fireEvent, render, screen, act } from "@testing-library/react";
 import SignUp from "./SignUp";
 import { AllContextProvider } from "../context/AllContext";
 
-const MockLogin = () => {
-  // mock becuse of usenavigate needs to be surrounded by browserRouter
+const MockSignup = () => {
   return (
     <AllContextProvider>
       <BrowserRouter>
@@ -15,33 +14,92 @@ const MockLogin = () => {
   );
 };
 
-describe("testing LogIn component", () => {
-  test("signup form should be in the document", () => {
-    // Check for element with the placeholder text "Enter E-mail"
+describe("testing signup form", () => {
+  test("name-input should be in the document", () => {
+    render(<MockSignup />);
 
-    render(<MockLogin />);
-
-    const inputElement = screen.getByPlaceholderText("Enter your email...");
+    const inputElement = screen.getByPlaceholderText("Förnamn Efternamn");
     expect(inputElement).toBeInTheDocument();
   });
 
-  // test("Check for relation between email-label and email-input", () => {
-  //   // email-input should have a label
+  test("Check for relation between name-label and name-input", () => {
+    render(<MockSignup />);
 
-  //   render(<MockLogin />);
+    const inputElement = screen.getByLabelText("Namn");
+    expect(inputElement.getAttribute("name")).toBe("name");
+  });
 
-  //   const inputElement = screen.getByLabelText(/E-mail/i);
-  //   expect(inputElement.getAttribute("name")).toBe("email");
-  // });
+  test("name-input accept text", () => {
+    render(<MockSignup />);
 
-  // test("email input accept text", () => {
-  //   render(<MockLogin />);
-  //   const emailInput = screen.getByLabelText(/E-mail/i);
-  //   //värdet förväntas vara tomt
-  //   expect(emailInput.value).toMatch("");
-  //   // kör igång event som ändrar input värdet
-  //   fireEvent.change(emailInput, { target: { value: "hanna@email.com" } });
-  //   // värdet förväntas matcha "testing"
-  //   expect(emailInput.value).toMatch("hanna@email.com");
-  // });
+    const emailInput = screen.getByLabelText("Namn");
+    expect(emailInput.value).toMatch("");
+    fireEvent.change(emailInput, { target: { value: "Arne" } });
+    expect(emailInput.value).toMatch("Arne");
+  });
+
+  test("email-input should be in the document", () => {
+    render(<MockSignup />);
+    const inputElement = screen.getByPlaceholderText("exempel@exempel.se");
+    expect(inputElement).toBeInTheDocument();
+  });
+
+  test("Check for relation between email-label and email-input", () => {
+    render(<MockSignup />);
+
+    const inputElement = screen.getByLabelText("E-postadress");
+    expect(inputElement.getAttribute("name")).toBe("email");
+  });
+
+  test("email-input accept text", () => {
+    render(<MockSignup />);
+
+    const emailInput = screen.getByLabelText("E-postadress");
+    expect(emailInput.value).toMatch("");
+    fireEvent.change(emailInput, { target: { value: "hanna@email.com" } });
+    expect(emailInput.value).toMatch("hanna@email.com");
+  });
+
+  test("password-input should be in the document", () => {
+    render(<MockSignup />);
+    const inputElement = screen.getByLabelText("Lösenord");
+    expect(inputElement).toBeInTheDocument();
+  });
+
+  test("Check for relation between password-label and password-input", () => {
+    render(<MockSignup />);
+
+    const inputElement = screen.getByLabelText("Lösenord");
+    expect(inputElement.getAttribute("name")).toBe("password");
+  });
+
+  test("password input accept text", () => {
+    render(<MockSignup />);
+
+    const inputElement = screen.getByLabelText("Lösenord");
+    expect(inputElement.value).toMatch("");
+    fireEvent.change(inputElement, { target: { value: "password" } });
+    expect(inputElement.value).toMatch("password");
+  });
+
+  test("confirm-password-input should be in the document", () => {
+    render(<MockSignup />);
+
+    const inputElement = screen.getByTestId("confirm");
+    expect(inputElement).toBeInTheDocument();
+  });
+
+  test("Check for relation between confirm-password-label and confirm-password-input", () => {
+    render(<MockSignup />);
+    const inputElement = screen.getByLabelText("Upprepa lösenord");
+    expect(inputElement.getAttribute("name")).toBe("confirm-password");
+  });
+
+  test("confirm-password input accept text", () => {
+    render(<MockSignup />);
+    const inputElement = screen.getByTestId("confirm");
+    expect(inputElement.textContent).toMatch("");
+    fireEvent.change(inputElement, { target: { textContent: "password" } });
+    expect(inputElement.textContent).toMatch("password");
+  });
 });

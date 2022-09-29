@@ -6,7 +6,7 @@ import Popup from "./Popup.js";
 import { FaShoppingBag } from "react-icons/fa";
 
 function ShopItem({ productData }) {
-  const { productBasket, setProductBasket } = useContext(AllContext);
+  const { productBasket, setProductBasket, setShopProductModalOpen, setSelectedProduct } = useContext(AllContext);
   const [showPopup, setShowPopup] = useState(false);
 
   function addToBasket(product) {
@@ -42,7 +42,12 @@ function ShopItem({ productData }) {
 
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
-    <article className={styles.shopItemWrapper}>
+    <article className={styles.shopItemWrapper} 
+      onClick={() => {
+        setShopProductModalOpen(true);
+        setSelectedProduct(productData);
+      }}
+    >
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
       </div>
@@ -71,5 +76,6 @@ function ShopItem({ productData }) {
     </article>
   );
 }
+
 
 export default ShopItem;
