@@ -164,19 +164,10 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link to="/" name="home" onClick={ScrollToView}>
-              Hem
-            </Link>
-            <Link to="/courses" name="kurser" onClick={ScrollToView}>
-              Kurser
-            </Link>
-            <Link to="/shop" name="shop" onClick={ScrollToView}>
-              Butik
-            </Link>
-            {user == null ? (
-              <Link to="/signin">Logga in</Link>
-            ) : (
-              <Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/">Hem</Link> 
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">Kurser</Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">Butik</Link>
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
             )}
           </div>
         </nav>
