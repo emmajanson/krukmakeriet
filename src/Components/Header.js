@@ -6,8 +6,9 @@ import { AllContext } from "../context/AllContext";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 // fiUser ska sedan användas som profillogga när man är inloggad
-import { FaShoppingBag, FaUserAlt,FaUser } from "react-icons/fa";
+import { FaShoppingBag, FaUserAlt, FaUser } from "react-icons/fa";
 import HamburgerButton from "./HamburgerButton";
+import { act } from "react-test-renderer";
 // import { doc } from "firebase/firestore";
 
 function Header() {
@@ -21,7 +22,9 @@ function Header() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      act(() => {
+        setUser(currentUser);
+      });
     });
   }, []);
 
@@ -52,7 +55,6 @@ function Header() {
   return (
     <header className={styles.wrapper}>
       <header className={styles.desktopWrapper}>
-
         <div className={styles.logoWrapper}>
           <img
             className={styles.logoImage}
@@ -62,10 +64,10 @@ function Header() {
         </div>
 
         <nav className={styles.navMiddle}>
-          <Link to="/">Hem</Link>
-          <Link data-testid="toCourses" to="/courses">
-            Kurser
+          <Link title="kurser" to="/">
+            Hem
           </Link>
+          <Link to="/courses">Kurser</Link>
           <Link to="/shop">Butik</Link>
         </nav>
 
@@ -73,7 +75,9 @@ function Header() {
           {user == null ? (
             <Link to="/signin">Logga in</Link>
           ) : (
-            <Link to={adminPermission ? "/admin" : "/profile"}><FaUser/></Link>
+            <Link to={adminPermission ? "/admin" : "/profile"}>
+              <FaUser />
+            </Link>
           )}
 
           {/* profile ska sedan visas när man är inloggad */}
@@ -105,7 +109,11 @@ function Header() {
           <HamburgerButton />
         </div>
         <div className={styles.mobLogoWrapper}>
-            <img className={styles.mobLogo}src={"../images/headerLogoMobile.png"} alt="Logo"/>
+          <img
+            className={styles.mobLogo}
+            src={"../images/headerLogoMobile.png"}
+            alt="Logo"
+          />
         </div>
 
         <div>
@@ -135,7 +143,10 @@ function Header() {
             <Link to="/">Hem</Link>
             <Link to="/courses">Kurser</Link>
             <Link to="/shop">Butik</Link>
-            {user == null ? (<Link to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
+            {user == null ? (
+              <Link to="/signin">Logga in</Link>
+            ) : (
+              <Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
             )}
           </div>
         </nav>
