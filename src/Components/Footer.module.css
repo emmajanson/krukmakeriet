@@ -1,6 +1,6 @@
 .wrapper {
   width: 100%;
-  background-color: #414B42;
+  background-color: #414b42;
   display: flex;
   justify-content: center;
   padding: 3rem 0 2.5rem 0;
@@ -19,21 +19,21 @@
   justify-content: flex-start;
   gap: 2rem;
 }
-.textWrapper{
+.textWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.icon{
+.icon {
   display: none;
 }
-.subheader{
+.subheader {
   /*lägg in font-family*/
   font-size: 1.1rem;
   font-weight: 400;
   color: white;
 }
-.text{
+.text {
   /*lägg in font-family*/
   font-size: 1rem;
   color: white;
@@ -41,23 +41,23 @@
   font-weight: 400;
 }
 
-.bottomContWrapper{
+.bottomContWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
 }
-.socialMediaWrapper{
+.socialMediaWrapper {
   display: flex;
   justify-content: flex-end;
   gap: 1.5rem;
   font-size: 1.5rem;
   align-items: center;
 }
-.iconLink{
+.iconLink {
   cursor: pointer;
 }
-.socialIcon{
+.socialIcon {
   font-size: 2.5rem;
   color: white;
 }
@@ -69,37 +69,34 @@
   font-weight: 400;
 }
 
-@media screen and (min-width:800px){
-  .wrapper{
-    padding: 6.5rem 0 6.5rem 0;
-  }
-  .infoWrapper{
+@media screen and (min-width: 800px) {
+  .infoWrapper {
     width: 100%;
     max-width: 954px;
-    gap: 5rem;
+    gap: 4rem;
   }
-  .topContWrapper{
+  .topContWrapper {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     align-items: flex-start;
   }
-  .textWrapper{
+  .textWrapper {
     gap: 1rem;
   }
-  .icon{
+  .icon {
     display: inline;
     color: white;
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
-  .subheader{
-    font-size: 1.5rem; 
+  .subheader {
+    font-size: 1.5rem;
   }
-  .text{
+  .text {
     font-size: 1.1rem;
   }
-  .bottomContWrapper{
+  .bottomContWrapper {
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: flex-end;
@@ -108,7 +105,7 @@
   .copyright {
     font-size: 1.1rem;
   }
-  .socialIcon{
+  .socialIcon {
     font-size: 3rem;
   }
 }
