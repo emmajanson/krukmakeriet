@@ -76,7 +76,7 @@ a {
 
 }
 
-.MobileMenuLinkWrapper {
+.mobileMenuLinkWrapper {
   display: flex;
   align-items:flex-start;
   flex-direction: column;
@@ -104,12 +104,13 @@ a {
 
 .shoppingCart {
   font-size: 23px;
+  color: black;
 }
 .linkWrapper::before {
   content: attr(data-count);
   position: absolute;
-  top: 2.8em;
-  right:3em;
+  top: 2.5em;
+  right:2.2em;
   width: 1.2em;
   height: 1.2em;
   display: flex;
