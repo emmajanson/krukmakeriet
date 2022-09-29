@@ -6,7 +6,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { AllContextProvider } from "../context/AllContext";
 
 const MockLogin = () => {
-  // mock becuse of usenavigate needs to be surrounded by browserRouter
   return (
     <BrowserRouter>
       <AllContextProvider>
@@ -17,28 +16,38 @@ const MockLogin = () => {
 };
 
 describe("testing LogIn component", () => {
-  test("login form should be in the document", async () => {
-    // Check for element with the placeholder text "Enter E-mail"
+  test("email-input should be in the document", () => {
     render(<MockLogin />);
-    const inputElement = await screen.findByPlaceholderText("Enter E-mail...");
+    const inputElement = screen.getByPlaceholderText(/exempel@exempel.se/i);
     expect(inputElement).toBeInTheDocument();
   });
-
   test("Check for relation between email-label and email-input", () => {
-    // email-input should have a label
     render(<MockLogin />);
-    const inputElement = screen.getByLabelText(/E-mail/i);
+    const inputElement = screen.getByLabelText(/E-postadress/i);
     expect(inputElement.getAttribute("name")).toBe("email");
   });
-
   test("email input accept text", async () => {
     render(<MockLogin />);
-    const emailInput = screen.getByLabelText(/E-mail/i);
-    //värdet förväntas vara tomt
+    const emailInput = screen.getByLabelText(/E-postadress/i);
     expect(emailInput.value).toMatch("");
-    // kör igång event som ändrar input värdet
     fireEvent.change(emailInput, { target: { value: "testing" } });
-    // värdet förväntas matcha "testing"
     expect(await emailInput.value).toMatch("testing");
+  });
+  test("passwordinput should be in the document", async () => {
+    render(<MockLogin />);
+    const inputElement = await screen.findByPlaceholderText("********");
+    expect(inputElement).toBeInTheDocument();
+  });
+  test("Check for relation between password-label and password-input", () => {
+    render(<MockLogin />);
+    const inputElement = screen.getByLabelText(/Lösenord/i);
+    expect(inputElement.getAttribute("name")).toBe("password");
+  });
+  test("password input accept text", async () => {
+    render(<MockLogin />);
+    const passwordInput = screen.getByLabelText(/Lösenord/i);
+    expect(passwordInput.value).toMatch("");
+    fireEvent.change(passwordInput, { target: { value: "test123" } });
+    expect(await passwordInput.value).toMatch("test123");
   });
 });

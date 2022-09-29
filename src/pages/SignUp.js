@@ -89,6 +89,7 @@ function SignUp() {
               Namn
             </label>
             <input
+              id="name"
               type="text"
               name="name"
               placeholder="Förnamn Efternamn"
@@ -102,6 +103,7 @@ function SignUp() {
               E-postadress
             </label>
             <input
+              id="email"
               type="text"
               name="email"
               placeholder="exempel@exempel.se"
@@ -127,6 +129,7 @@ function SignUp() {
               Lösenord
             </label>
             <input
+              id="password"
               type="password"
               name="password"
               placeholder="********"
@@ -137,10 +140,15 @@ function SignUp() {
             />
           </div>
           <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="confirm-password">
+            <label
+              className={styles.label}
+              htmlFor="confirm-password"
+              data-testid="confirm"
+            >
               Upprepa lösenord
             </label>
             <input
+              id="confirm-password"
               type="password"
               name="confirm-password"
               placeholder="********"

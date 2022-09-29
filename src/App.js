@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  useLocation,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Admin from "./pages/Admin";
@@ -16,6 +21,15 @@ import PrivateRoutes from "./Components/PrivateRoutes";
 import { AllContextProvider } from "./context/AllContext";
 
 function App() {
+  const LocationDisplay = () => {
+    const location = useLocation();
+
+    return (
+      <div hidden data-testid="location-display">
+        {location.pathname}
+      </div>
+    );
+  };
   return (
     <div className={styles.wrapper}>
       <AllContextProvider>
@@ -37,6 +51,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
+          <LocationDisplay />
         </Router>
       </AllContextProvider>
     </div>
