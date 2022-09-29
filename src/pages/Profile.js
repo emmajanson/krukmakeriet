@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import { signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
+import {
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+  getAuth,
+  updateUser,
+  deleteUser,
+  updatePassword,
+} from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
 import ResetPassword from "./ResetPassword.js";
@@ -14,8 +22,12 @@ function Profile() {
   const [userID, setUserID] = useState("");
   const [showNewUserName, setShowNewUserName] = useState(false);
   const [showNewUserEmail, setShowNewUserEmail] = useState(false);
+  const [firstNewPassword, setFirstNewPassword] = useState("");
+  const [secondNewPassword, setSecondNewPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const deleteUserOnProfile = auth.currentUser;
 
   const permission = localStorage.getItem("admin");
 
@@ -66,7 +78,34 @@ function Profile() {
       updateDoc(nameRef, {
         email: newEmail,
       });
+      /* updateProfile(auth.currentUser, {
+        email: newEmail,
+      }); */
       console.log("email uppdaterad");
+    }
+  }
+
+  function handleDeleteUser() {
+    deleteUser(deleteUserOnProfile)
+      .then(() => {
+        console.log("User deleted");
+      })
+      .catch((error) => {
+        console.log("Error", error.message);
+      });
+  }
+
+  function handleChangePassword() {
+    if (firstNewPassword !== secondNewPassword) {
+      alert("Lösenorden är inte samma");
+    } else {
+      updatePassword(user, firstNewPassword)
+        .then(() => {
+          console.log("lösenordet är bytt");
+        })
+        .catch((error) => {
+          console.log("något gick fel", error.message);
+        });
     }
   }
 
@@ -83,9 +122,7 @@ function Profile() {
     <Navigate to="/signin" />
   ) : (
     <main className={styles.wrapper}>
-      <h2>
-        Profile
-      </h2>
+      <h2>Profile</h2>
 
       {/* uppdatera uppgifter sektion */}
       <section className={styles.userInfoWrapper}>
@@ -119,23 +156,48 @@ function Profile() {
               setNewEmail(e.target.value);
             }}
           />
+          <label className={styles.label} htmlFor="name">
+            Nytt lösenord
+          </label>
+          <input
+            id="name"
+            type="password"
+            name="name"
+            placeholder="Nytt lösenord"
+            onChange={(e) => {
+              setFirstNewPassword(e.target.value);
+            }}
+          />
+          <label className={styles.label} htmlFor="name">
+            Upprepa nytt lösenord
+          </label>
+          <input
+            id="name"
+            type="password"
+            name="name"
+            placeholder="Nytt lösenord"
+            onChange={(e) => {
+              setSecondNewPassword(e.target.value);
+            }}
+          />
           {showNewUserEmail ? (
             <p style={{ color: "red" }}>Email changed</p>
           ) : (
             ""
           )}
         </div>
-        <button onClick={handleChanges}>Uppdatera</button>
+        <button onClick={handleChangePassword}>Uppdatera lösenord</button>
+        <button onClick={handleChanges}>Uppdatera profil</button>
       </section>
 
       {/* glömt lösen sektion */}
-      <section className={styles.forgotPassword}>
+      {/*    <section className={styles.forgotPassword}>
         <h5>Glömt lösenord?</h5>
         <p>Fyll i din e-postadress för återställning av lösenord</p>
         <p>Fick du ingen e-post? Kolla i skräpposten. </p>
         <ResetPassword />
         <div className={styles.inputWrapper}></div>
-      </section>
+      </section> */}
 
       <section className={styles.userOrdersWrapper}>
         <h2>Dina köp och bokningar</h2>
@@ -175,6 +237,8 @@ function Profile() {
           </tr>
         </table>
       </section>
+      <button onClick={handleDeleteUser}>Delete user</button>
+      {/*  <button onClick={handleChangePassword}>Change password</button> */}
 
       {/* adminknapp ska sedan tas bort */}
       {permission === "true" ? (
