@@ -1,13 +1,15 @@
-import React from "react";
 import Events from "../Components/Events";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
+import React, { useRef } from "react";
 
 export default function Home() {
   let navigate = useNavigate();
 
+  const homeRef = useRef();
+
   return (
-    <main data-testid="home" className={styles.wrapper}>
+    <main data-testid="home" className={styles.wrapper} ref={homeRef}>
       <section className={styles.heroWrapper}>
         <div className={styles.heroImgWrapper}>
           <img
