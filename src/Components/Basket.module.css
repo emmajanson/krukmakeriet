@@ -8,10 +8,10 @@
   border: 1px solid lightgrey;
   position: absolute;
   right: 0;
-  top: 20;
+  top: 83px;
   width: 100%;
   z-index: 150;
-  height: 90vh;
+  height: 88vh;
   background-color: white;
   overflow-y: auto;
 }
@@ -52,7 +52,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 5px;
 }
+
 .totalAmountWrapper {
   display: flex;
   justify-content: space-between;
@@ -76,7 +78,7 @@
 
 @media screen and (min-width: 800px) {
   .wrapper {
-    width: 25%;
+    width: 35%;
     right: 0;
     top: 0;
     height: 100vh;
