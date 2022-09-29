@@ -55,7 +55,7 @@ function CourseItem({ courseData }) {
         <div className={styles.iconWrapper}>
           <p className={styles.price}><FaTag />   {courseData.price}:-</p>
           <p className={styles.length}><FaClock />   {courseData.duration}min</p>
-          <p className={styles.spots}><FaUser />   XX/{courseData.spots}</p>
+          {/* <p className={styles.spots}><FaUser />   XX/{courseData.spots}</p> */}
         </div>
         <p className={styles.info}>{courseData.info}</p>
 
