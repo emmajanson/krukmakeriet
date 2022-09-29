@@ -131,7 +131,7 @@ function Header() {
               : styles.mobileMenuWrapperHidden
           }
         >
-          <div className={styles.MobileMenuLinkWrapper}>
+          <div className={styles.mobileMenuLinkWrapper}>
             <Link to="/">Hem</Link>
             <Link to="/courses">Kurser</Link>
             <Link to="/shop">Butik</Link>
