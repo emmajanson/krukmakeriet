@@ -17,6 +17,8 @@ function BasketItem({ productData }) {
   const { productBasket, setProductBasket } = useContext(AllContext);
   const { courseBasket, setCourseBasket } = useContext(AllContext);
 
+  const basketZero = productData.amount === 0;
+
   const isProduct = courseBasket.some((product) => {
     if (product.id === productData.id) {
       return true;
@@ -94,13 +96,23 @@ function BasketItem({ productData }) {
       <div className={styles.textWrapper}>
         <p className={styles.heading}>{productData.name}</p>
         <div className={styles.changeAmountWrapper}>
-          <p
+          {basketZero ?  <p
             className={styles.changeAmount}
             onClick={() => decrementAmount(productData)}
           >
-            {" "}
+
+          </p> :  <p
+            className={styles.changeAmount}
+            onClick={() => decrementAmount(productData)}
+            
+          >
+              {" "}
             -{" "}
           </p>
+
+      }
+            
+
           <p>{productData.amount}</p>
           <p
             className={styles.changeAmount}
