@@ -132,10 +132,10 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link to="/">Hem</Link>
-            <Link to="/courses">Kurser</Link>
-            <Link to="/shop">Butik</Link>
-            {user == null ? (<Link to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/">Hem</Link> 
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">Kurser</Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">Butik</Link>
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
             )}
           </div>
         </nav>
