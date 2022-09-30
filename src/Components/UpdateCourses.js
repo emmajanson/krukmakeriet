@@ -226,7 +226,6 @@ function UpdateCourses({
             required
           />
           <p>Kursens bild: *</p>
-
           <div className={styles.upload_div}>
             <img src={courseImage} className={styles.uploaded_image} />
             <div className={styles.btns}>
@@ -239,11 +238,6 @@ function UpdateCourses({
                 }}
                 accept="image/png, image/jpeg"
               />
-              {/* {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )} */}
               <div className={styles.btn_wrapper}>
                 <button
                   type="button"

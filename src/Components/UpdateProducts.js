@@ -30,7 +30,7 @@ function UpdateProducts({
   setAddNewProductFunction,
   setAddUpdateFunction,
   getProducts,
-  showMessage,
+  desc,
   setShowMessage,
 }) {
   const productsCollectionRef = collection(db, "products");
@@ -39,6 +39,7 @@ function UpdateProducts({
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState("");
+  const [productLongerDesc, setProductLongerDesc] = useState("")
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imageURL, setImageURL] = useState([]);
 
@@ -50,6 +51,7 @@ function UpdateProducts({
       price: Number(productPrice),
       quantity: Number(productQuantity),
       img: productImage,
+      desc: productLongerDesc,
     });
     getProducts();
     onClose(false);
@@ -76,8 +78,9 @@ function UpdateProducts({
     setProductPrice(price);
     setProductDetails(details);
     setProductQuantity(quantity);
+    setProductLongerDesc(desc);
     setProductImage(img);
-  }, [name, price, details, quantity, img]);
+  }, [name, price, details, quantity, img, desc]);
 
   //if the modal is not opened dont do anything
   if (!open) return null;
@@ -113,6 +116,7 @@ function UpdateProducts({
       price: productPrice,
       quantity: productQuantity,
       img: productImage,
+      desc: productLongerDesc,
     };
     await updateDoc(productDoc, newUpdatedProduct);
     console.log("UpdateProduct function");
@@ -140,103 +144,118 @@ function UpdateProducts({
 
   return (
     <div className={styles.overlay}>
-    <div className={styles.wrapper}>
-      <div className={styles.form}>
-        <FaTimes className={styles.icon} onClick={() => closeModal()} />
-        <h4>Produkt</h4>
-        <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <div>
-        <p>Namn: *</p>
-        <input
-        className={styles.product_name}
-          type="text"
-          value={productName}
-          onChange={(e) => {
-            setProductName(e.target.value);
-          }}
-          required
-        />
-        </div>
-        <div>
-        <p>Produkbeskrivning: *</p>
-        <input
-        className={styles.product_desc}
-          type="text"
-          value={productDetails}
-          onChange={(e) => {
-            setProductDetails(e.target.value);
-          }}
-          required
-        />
-        </div>
-        <div className={styles.price_quantity}>
+      <div className={styles.wrapper}>
+        <div className={styles.form}>
+          <FaTimes className={styles.icon} onClick={() => closeModal()} />
+          <h4>Produkt</h4>
+          <p>Alla fält som är markerade med en * är obligatoriska</p>
           <div>
-        <p>Pris: *</p>
-        <input
-        className={styles.product_price}
-          type="number"
-          value={productPrice}
-          onChange={(e) => {
-            setProductPrice(e.target.value);
-          }}
-          required
-        />
-        </div>
-        <div>
-        <p>Lagerantal: *</p>
-        <input
-        className={styles.product_quantity}
-          type="number"
-          value={productQuantity}
-          onChange={(e) => {
-            setProductQuantity(e.target.value);
-          }}
-          required
-        />
-        </div>
-        </div>
-        <p>Bild: *</p>
-        <div className={styles.upload_div}>
-        <img src={productImage} className={styles.uploadedImage} />
-        <div className={styles.btns}>
-        <input
-        className={styles.upload_image}
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={(e) => {
-            setUploadedImage(e.target.files[0]);
-          }}
-        />
-      
-        <button
-          type="button"
-          onClick={uploadImage}
-          className={styles.uploadBtn}
-        >
-          Ladda bild
-        </button>
-        </div>
-        </div>
-        <div className={styles.submiit}>
-        {updateOnly ? (
-          <button
-            type="button"
-            className={styles.showBtn}
-            onClick={() => {
-              deleteProduct(id);
-            }}
-          >
-            Ta bort
-          </button>
-        ) : (
-          ""
-        )}
-         <button type="submit" className={styles.button} onClick={handleSubmit}>
-          Spara
-        </button>
+            <p>Namn: *</p>
+            <input
+              className={styles.product_name}
+              type="text"
+              value={productName}
+              onChange={(e) => {
+                setProductName(e.target.value);
+              }}
+              required
+            />
+          </div>
+          <div>
+            <p>Produkbeskrivning: *</p>
+            <input
+              className={styles.product_desc}
+              type="text"
+              value={productDetails}
+              onChange={(e) => {
+                setProductDetails(e.target.value);
+              }}
+              required
+            />
+          </div>
+          <div className={styles.price_quantity}>
+            <div>
+              <p>Pris: *</p>
+              <input
+                className={styles.product_price}
+                type="number"
+                value={productPrice}
+                onChange={(e) => {
+                  setProductPrice(e.target.value);
+                }}
+                required
+              />
+            </div>
+            <div>
+              <p>Lagerantal: *</p>
+              <input
+                className={styles.product_quantity}
+                type="number"
+                value={productQuantity}
+                onChange={(e) => {
+                  setProductQuantity(e.target.value);
+                }}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <p>Längre beskrivning: *</p>
+            <textarea
+            type="textarea"
+              className={styles.product_longer_desc}
+              value={productLongerDesc}
+              onChange={(e) => {
+                setProductLongerDesc(e.target.value);
+              }}
+              required
+            />
+          </div>
+          <p>Bild: *</p>
+          <div className={styles.upload_div}>
+            <img src={productImage} className={styles.uploadedImage} />
+            <div className={styles.btns}>
+              <input
+                className={styles.upload_image}
+                type="file"
+                accept="image/png, image/jpeg"
+                onChange={(e) => {
+                  setUploadedImage(e.target.files[0]);
+                }}
+              />
+              <button
+                type="button"
+                onClick={uploadImage}
+                className={styles.uploadBtn}
+              >
+                Ladda bild
+              </button>
+            </div>
+          </div>
+          <div className={styles.submiit}>
+            {updateOnly ? (
+              <button
+                type="button"
+                className={styles.showBtn}
+                onClick={() => {
+                  deleteProduct(id);
+                }}
+              >
+                Ta bort
+              </button>
+            ) : (
+              ""
+            )}
+            <button
+              type="submit"
+              className={styles.button}
+              onClick={handleSubmit}
+            >
+              Spara
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
