@@ -73,7 +73,7 @@ a {
   display: flex;
   top: 0px;
   left: 0;
-  width: 80%;
+  width: 75%;
   height: 100%;
   background-color: #697569;
 
@@ -208,4 +208,11 @@ a {
     width: 25%;
   }
 
+}
+
+/* Ipad Mini */
+@media screen and (width: 768px) {
+  .mobileMenuWrapperShow {
+    width: 45%;
+  }
 }
