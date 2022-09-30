@@ -39,7 +39,7 @@ function Shop() {
         <ShopModal />
       </Modal> 
       
-      <h2>Butiken</h2>
+      
       {/* <ShopModal /> */}
       <section className={styles.bannerWrapper}>
         <img className={styles.bannerImage}src="../images/shopBanner.jpg" alt="" />
