@@ -73,6 +73,13 @@
 
 }
 
+.button:hover{
+  cursor: pointer;
+  background-color:#FFFFFF;
+  border: 1px inset #414B42;
+  color: #414B42;
+}
+
 @media screen and (min-width:800px){
   .courseCardWrapper{
     width: 100%;
