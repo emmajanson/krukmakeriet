@@ -23,18 +23,15 @@ import UserCourses from "../Components/UserCourses";
 
 function Profile() {
   const [user, setUser] = useState({});
-  const [newUserName, setNewUserName] = useState(null);
-  const [newEmail, setNewEmail] = useState(null);
   const [userID, setUserID] = useState("");
-  const [showNewUserName, setShowNewUserName] = useState(false);
   const [oldPassword, setOldPassword] = useState(null);
   const [showNewUserEmail, setShowNewUserEmail] = useState(false);
   const [firstNewPassword, setFirstNewPassword] = useState(null);
   const [secondNewPassword, setSecondNewPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState(false);
+  const [confirmDeleteUser, setConfirmDeleteUser] = useState(false);
 
   const navigate = useNavigate();
-
-  const loggedInUser = auth.currentUser;
 
   const permission = localStorage.getItem("admin");
 
@@ -45,94 +42,47 @@ function Profile() {
     navigate("/signin");
   }
 
-  /* async function handleChanges() {
-    if (
-      newUserName !== null &&
-      newUserName.length > 0 &&
-      newEmail !== null &&
-      newEmail.length > 0
-    ) {
-      await updateEmail();
-      await updateName();
-    } else if (newUserName !== null && newUserName.length > 0) {
-      updateName();
-    } else if (newEmail !== null && newEmail.length > 0) {
-      updateEmail();
-    } else {
-      console.log("båda är tomma");
-    }
-  }
- */
-  /* async function updateName() {
-    const nameRef = doc(db, "users", auth.currentUser.uid);
-
-    if (newUserName.length > 0) {
-      setShowNewUserName(true);
-      updateDoc(nameRef, {
-        name: newUserName,
-      });
-      updateProfile(auth.currentUser, {
-        displayName: newUserName,
-      });
-      console.log("namn uppdaterat");
-    }
-  } */
-
-  /* async function reAuth() {
-    const credential = promptForCredentials();
-
-      function promptForCredentials() {
-        prompt("Skriv ditt lösenord?");
-        return;
-      }
-
-
-    await promptForCredentials();
-    reauthenticateWithCredential(loggedInUser, credential)
+  async function handleDeleteUser() {
+    var cred = EmailAuthProvider.credential(user.email, oldPassword);
+    await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reAuth funkade");
+        console.log("reauth funkade");
+        setConfirmDeleteUser(true);
       })
       .catch((error) => {
-        console.log("reAuth funkade inte", error.message);
+        console.log("lösenordet stämmer inte", error.message);
+        setConfirmDeleteUser(false);
       });
-  } */
-
-  /* async function updateEmail() {
-    const nameRef = doc(db, "users", auth.currentUser.uid);
-    if (newEmail.length > 0) {
-      setShowNewUserEmail(true);
-      updateDoc(nameRef, {
-        email: newEmail,
-      });
-      /* updateProfile(auth.currentUser, {
-        email: newEmail,
-      }); */
-  /* console.log("email uppdaterad");
+    if (confirmDeleteUser === true) {
+      deleteUser(user);
+      console.log("konto borttaget");
+    } else {
+      console.log("lösenordet stämde inte");
     }
-  } */
-
-  const reauthenticate = (oldPassword) => {
-    var cred = EmailAuthProvider.credential(user.email, oldPassword);
-    console.log(cred, user);
-
-    user.reauthenticateWithCredential(cred);
-  };
-
-  async function handleDeleteUser() {}
+  }
 
   async function handleChangePassword() {
-    reauthenticate(oldPassword)
+    var cred = EmailAuthProvider.credential(user.email, oldPassword);
+    await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("nice!");
-        if (firstNewPassword !== secondNewPassword) {
-          alert("Lösenorden är inte samma");
-        } else {
-          updatePassword(user, firstNewPassword);
-        }
+        console.log("reauth funkade");
+        setConfirmPassword(true);
       })
-      .catch((err) => {
-        console.log("inte nice");
+      .catch((error) => {
+        console.log("lösenordet stämmer inte", error.message);
+        setConfirmPassword(false);
       });
+    if (confirmPassword === true) {
+      console.log("ditt gamla lösenord stämmer");
+      if (firstNewPassword !== secondNewPassword) {
+        console.log("Lösenorden är inte samma");
+      } else {
+        updatePassword(user, firstNewPassword);
+        console.log("lösenord uppdaterat");
+      }
+    } else {
+      console.log("något stämmer inte");
+    }
   }
 
   // Checking who's logged in and saving the user in a state
@@ -190,35 +140,6 @@ function Profile() {
                 Ta bort
               </button>
             </article>
-            {/* <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="name">
-              Namn
-            </label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Förnamn Efternamn"
-              onChange={(e) => {
-                setNewUserName(e.target.value);
-              }}
-            />
-            {showNewUserName ? <p style={{ color: "red" }}>Name changed</p> : ""}
-          </div>
-          <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="email">
-              E-postadress
-            </label>
-            <input
-              id="email"
-              type="text"
-              name="email"
-              placeholder="exempel@exempel.se"
-              onChange={(e) => {
-                setNewEmail(e.target.value);
-              }}
-            />
-          </div> */}
           </section>
 
           <section className={styles.passwordSection}>
@@ -274,18 +195,8 @@ function Profile() {
             <button className={styles.button} onClick={handleChangePassword}>
               Uppdatera
             </button>
-            {/* <button className={styles.button} onClick={handleChanges}>Uppdatera profil</button> */}
           </section>
         </section>
-
-        {/* glömt lösen sektion */}
-        {/*    <section className={styles.forgotPassword}>
-        <h5>Glömt lösenord?</h5>
-        <p>Fyll i din e-postadress för återställning av lösenord</p>
-        <p>Fick du ingen e-post? Kolla i skräpposten. </p>
-        <ResetPassword />
-        <div className={styles.inputWrapper}></div>
-      </section> */}
 
         <section className={styles.userOrdersWrapper}>
           <h5 className={styles.subheading}>Dina köp och bokningar</h5>
@@ -315,21 +226,6 @@ function Profile() {
             <UserCourses />
           </table>
         </section>
-        {/* <button onClick={handleDeleteUser}>Delete user</button> */}
-        {/*  <button onClick={handleChangePassword}>Change password</button> */}
-
-        {/* adminknapp ska sedan tas bort */}
-        {/* {permission === "true" ? (
-        <button
-          onClick={() => {
-            navigate("/admin");
-          }}
-        >
-          Admin Page
-        </button>
-      ) : null} */}
-
-        {/* <button onClick={logout}>Log Out</button> */}
       </main>
     </div>
   );
