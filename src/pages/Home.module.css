@@ -96,6 +96,7 @@
 .linkImageShop:hover,
 .linkImageText:hover {
   cursor: pointer;
+  
 }
 
 .linkImageWrapper {
@@ -110,6 +111,15 @@
   top: -70%;
   color: rgb(255, 255, 255);
   font-size: 24px;
+}
+
+.linkWrapper:hover 
+.linkImageCourses:hover,
+.linkImageShop:hover,
+.linkImageText {
+  color: #F5D2AD;
+  opacity: 0.8;
+  transition: 0.2s;
 }
 
 @media screen and (min-width: 800px) {
