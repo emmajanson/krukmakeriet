@@ -139,13 +139,16 @@ function UpdateProducts({
   };
 
   return (
+    <div className={styles.overlay}>
     <div className={styles.wrapper}>
       <div className={styles.form}>
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
-        <h4>Lägg till produkt</h4>
+        <h4>Produkt</h4>
         <p>Alla fält som är markerade med en * är obligatoriska</p>
+        <div>
         <p>Namn: *</p>
         <input
+        className={styles.product_name}
           type="text"
           value={productName}
           onChange={(e) => {
@@ -153,8 +156,11 @@ function UpdateProducts({
           }}
           required
         />
-        <p>* Produkbeskrivning:</p>
+        </div>
+        <div>
+        <p>Produkbeskrivning: *</p>
         <input
+        className={styles.product_desc}
           type="text"
           value={productDetails}
           onChange={(e) => {
@@ -162,8 +168,12 @@ function UpdateProducts({
           }}
           required
         />
-        <p>* Pris:</p>
+        </div>
+        <div className={styles.price_quantity}>
+          <div>
+        <p>Pris: *</p>
         <input
+        className={styles.product_price}
           type="number"
           value={productPrice}
           onChange={(e) => {
@@ -171,8 +181,11 @@ function UpdateProducts({
           }}
           required
         />
-        <p>* Antal:</p>
+        </div>
+        <div>
+        <p>Lagerantal: *</p>
         <input
+        className={styles.product_quantity}
           type="number"
           value={productQuantity}
           onChange={(e) => {
@@ -180,30 +193,31 @@ function UpdateProducts({
           }}
           required
         />
-        <p>* Bild:</p>
+        </div>
+        </div>
+        <p>Bild: *</p>
+        <div className={styles.upload_div}>
+        <img src={productImage} className={styles.uploadedImage} />
+        <div className={styles.btns}>
         <input
+        className={styles.upload_image}
           type="file"
           accept="image/png, image/jpeg"
           onChange={(e) => {
             setUploadedImage(e.target.files[0]);
           }}
         />
-        {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )}
+      
         <button
           type="button"
           onClick={uploadImage}
           className={styles.uploadBtn}
         >
-          Ladda upp bilden
+          Ladda bild
         </button>
-        <img src={productImage} className={styles.uploadedImage} />
-        <button type="submit" className={styles.button} onClick={handleSubmit}>
-          Spara
-        </button>
+        </div>
+        </div>
+        <div className={styles.submiit}>
         {updateOnly ? (
           <button
             type="button"
@@ -217,7 +231,12 @@ function UpdateProducts({
         ) : (
           ""
         )}
+         <button type="submit" className={styles.button} onClick={handleSubmit}>
+          Spara
+        </button>
+        </div>
       </div>
+    </div>
     </div>
   );
 }
