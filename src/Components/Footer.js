@@ -1,20 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import styles from "./Footer.module.css";
-import { 
+import {
   FaFacebook,
   FaInstagram,
   FaTwitter,
   FaClock,
   FaMapMarkerAlt,
-  FaMailBulk
-} from 'react-icons/fa';
+  FaMailBulk,
+} from "react-icons/fa";
 
-function Footer () {
+function Footer() {
   return (
     <section className={styles.wrapper}>
       <section className={styles.infoWrapper}>
-
         <div className={styles.topContWrapper}>
           <article className={styles.textWrapper}>
             <FaMapMarkerAlt className={styles.icon} />
@@ -31,7 +30,7 @@ function Footer () {
           </article>
 
           <article className={styles.textWrapper}>
-            <FaClock  className={styles.icon} />
+            <FaClock className={styles.icon} />
             <h5 className={styles.subheader}>Öppettider</h5>
             <p className={styles.text}>Vardagar 09.00-18.00</p>
           </article>
@@ -39,23 +38,22 @@ function Footer () {
 
         <div className={styles.bottomContWrapper}>
           <article className={styles.socialMediaWrapper}>
-            <a className={styles.iconLink}href="#">
-              <FaFacebook className={styles.socialIcon}/>
+            <a className={styles.iconLink} href="#">
+              <FaFacebook className={styles.socialIcon} />
             </a>
             <a className={styles.iconLink} href="#">
-              <FaInstagram className={styles.socialIcon}/>
+              <FaInstagram className={styles.socialIcon} />
             </a>
             <a className={styles.iconLink} href="#">
-              <FaTwitter className={styles.socialIcon}/>
+              <FaTwitter className={styles.socialIcon} />
             </a>
           </article>
 
-          <p className={styles.copyright}>Copyright 2022 Krukmakeriet</p>
+          <p className={styles.copyright}>Copyright © 2022 Krukmakeriet</p>
         </div>
-
       </section>
     </section>
-  )
+  );
 }
 
 export default Footer;

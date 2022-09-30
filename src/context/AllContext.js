@@ -15,6 +15,9 @@ export const AllContextProvider = ({ children }) => {
   const [adminPermission, setAdminPermission] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const usersRef = collection(db, "users");
+  const [shopProductModalOpen, setShopProductModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
   if (courseBasket === null) {
     setCourseBasket([]);
@@ -59,6 +62,12 @@ export const AllContextProvider = ({ children }) => {
         setAdminPermission,
         refresh,
         setRefresh,
+        shopProductModalOpen,
+        setShopProductModalOpen,
+        selectedProduct,
+        setSelectedProduct,
+        showTopBtn,
+        setShowTopBtn,
       }}
     >
       {children}
