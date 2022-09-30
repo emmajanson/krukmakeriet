@@ -8,12 +8,15 @@ import {
   updateUser,
   deleteUser,
   updatePassword,
+  reauthenticateWithCredential,
 } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
 import ResetPassword from "./ResetPassword.js";
 
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
+
+//Fånga upp: Firebase: Error (auth/requires-recent-login).
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -27,7 +30,7 @@ function Profile() {
 
   const navigate = useNavigate();
 
-  const deleteUserOnProfile = auth.currentUser;
+  const loggedInUser = auth.currentUser;
 
   const permission = localStorage.getItem("admin");
 
@@ -71,6 +74,25 @@ function Profile() {
     }
   }
 
+  /* async function reAuth() {
+    const credential = promptForCredentials();
+
+      function promptForCredentials() {
+        prompt("Skriv ditt lösenord?");
+        return;
+      }
+
+
+    await promptForCredentials();
+    reauthenticateWithCredential(loggedInUser, credential)
+      .then(() => {
+        console.log("reAuth funkade");
+      })
+      .catch((error) => {
+        console.log("reAuth funkade inte", error.message);
+      });
+  } */
+
   async function updateEmail() {
     const nameRef = doc(db, "users", auth.currentUser.uid);
     if (newEmail.length > 0) {
@@ -85,8 +107,8 @@ function Profile() {
     }
   }
 
-  function handleDeleteUser() {
-    deleteUser(deleteUserOnProfile)
+  async function handleDeleteUser() {
+    deleteUser(loggedInUser)
       .then(() => {
         console.log("User deleted");
       })
@@ -95,7 +117,7 @@ function Profile() {
       });
   }
 
-  function handleChangePassword() {
+  async function handleChangePassword() {
     if (firstNewPassword !== secondNewPassword) {
       alert("Lösenorden är inte samma");
     } else {
