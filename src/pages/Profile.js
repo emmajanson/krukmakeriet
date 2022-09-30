@@ -14,6 +14,8 @@ import styles from "./Profile.module.css";
 import ResetPassword from "./ResetPassword.js";
 
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
+import UserOrders from "../Components/UserOrders";
+import UserCourses from "../Components/UserCourses";
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -121,73 +123,125 @@ function Profile() {
   return user == null ? (
     <Navigate to="/signin" />
   ) : (
+    <div className={styles.bgWrapper}>
     <main className={styles.wrapper}>
-      <h2>Profile</h2>
+      <h2 className={styles.heading}>Profil</h2>
 
-      {/* uppdatera uppgifter sektion */}
       <section className={styles.userInfoWrapper}>
-        <h5>Dina uppgifter</h5>
-        {/* här renderas datan ut som hämtas från db via .value i inputsen */}
-        <div className={styles.inputWrapper}>
-          <label className={styles.label} htmlFor="name">
-            Namn
-          </label>
-          <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Förnamn Efternamn"
-            onChange={(e) => {
-              setNewUserName(e.target.value);
-            }}
-          />
-          {showNewUserName ? <p style={{ color: "red" }}>Name changed</p> : ""}
-        </div>
-        <div className={styles.inputWrapper}>
-          <label className={styles.label} htmlFor="email">
-            E-postadress
-          </label>
-          <input
-            id="email"
-            type="text"
-            name="email"
-            placeholder="exempel@exempel.se"
-            onChange={(e) => {
-              setNewEmail(e.target.value);
-            }}
-          />
-          <label className={styles.label} htmlFor="name">
-            Nytt lösenord
-          </label>
-          <input
-            id="name"
-            type="password"
-            name="name"
-            placeholder="Nytt lösenord"
-            onChange={(e) => {
-              setFirstNewPassword(e.target.value);
-            }}
-          />
-          <label className={styles.label} htmlFor="name">
-            Upprepa nytt lösenord
-          </label>
-          <input
-            id="name"
-            type="password"
-            name="name"
-            placeholder="Nytt lösenord"
-            onChange={(e) => {
-              setSecondNewPassword(e.target.value);
-            }}
-          />
-          {showNewUserEmail ? (
-            <p style={{ color: "red" }}>Email changed</p>
-          ) : (
-            ""
-          )}
-        </div>
-        <button onClick={handleChangePassword}>Uppdatera lösenord</button>
-        <button onClick={handleChanges}>Uppdatera profil</button>
+        <h5 className={styles.subheading}>Ditt konto</h5>
+
+        <section className={styles.accountSection}>
+          <article className={styles.article}>
+            <h6 className={styles.title}>Dina uppgifter</h6>
+
+
+            {/* !!!rendera ut kunden uppgifter i p-taggarna nedan!!!! */}
+            <p className={styles.text}>Förnamn Efternamn</p>
+            <p className={styles.text}>exempel@exempel.se</p>
+
+
+            <button className={styles.button} onClick={logout}>Logga ut</button>
+          </article>           
+          <article className={styles.article}>
+            <h6 className={styles.title}>Ta bort konto</h6>
+            <p className={styles.text}> För att ta bort ditt konto behöver du fylla i ditt lösenord</p>
+            <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="password">
+              Ditt lösenord
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="***********"
+              onChange={(e) => {
+                setFirstNewPassword(e.target.value);
+              }}
+            />
+          </div>
+            <button className={styles.button} onClick={handleDeleteUser}>Ta bort</button>
+          </article>
+          {/* <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="name">
+              Namn
+            </label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Förnamn Efternamn"
+              onChange={(e) => {
+                setNewUserName(e.target.value);
+              }}
+            />
+            {showNewUserName ? <p style={{ color: "red" }}>Name changed</p> : ""}
+          </div>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="email">
+              E-postadress
+            </label>
+            <input
+              id="email"
+              type="text"
+              name="email"
+              placeholder="exempel@exempel.se"
+              onChange={(e) => {
+                setNewEmail(e.target.value);
+              }}
+            />
+          </div> */}
+        </section>
+        
+        <section className={styles.passwordSection}>
+          <h6 className={styles.title}>Byt lösenord</h6>
+          <p>Här kan du byta ditt lösenord</p>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="old-password">
+              Gammalt lösenord
+            </label>
+            <input
+              id="old-password"
+              type="password"
+              name="old-password"
+              placeholder="***********"
+              onChange={(e) => {
+                setFirstNewPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="password">
+              Nytt lösenord
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="***********"
+              onChange={(e) => {
+                setFirstNewPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="confirm-password">
+              Upprepa nytt lösenord
+            </label>
+            <input
+              id="confirm-password"
+              type="password"
+              name="confirm-password"
+              placeholder="***********"
+              onChange={(e) => {
+                setSecondNewPassword(e.target.value);
+              }}
+            />
+            {showNewUserEmail ? (<p style={{ color: "red" }}>Email changed</p>) : ("")}
+          </div>
+          <button className={styles.button} onClick={handleChangePassword}>Uppdatera</button>
+          {/* <button className={styles.button} onClick={handleChanges}>Uppdatera profil</button> */}
+        </section>
+
       </section>
 
       {/* glömt lösen sektion */}
@@ -200,48 +254,38 @@ function Profile() {
       </section> */}
 
       <section className={styles.userOrdersWrapper}>
-        <h2>Dina köp och bokningar</h2>
-        <h3 className={styles.sectionHeader}>Beställningar</h3>
+        <h5 className={styles.subheading}>Dina köp och bokningar</h5>
+        <h3 className={styles.title}>Beställningar</h3>
         <table className={styles.tableWrapper}>
-          <tr className={styles.row}>
-            <th>Kurs</th>
-            <th>Datum</th>
-            <th>Belopp</th>
+          <tr className={styles.tableRow}>
+            <th className={styles.tableHeader}>Datum</th>
+            <th className={styles.tableHeader}>Ordernr</th>
+            <th className={styles.tableHeader}>Belopp</th>
           </tr>
-
-          {/* här renderas datan från user-orders? ut via komponent */}
-          {/* tr nedan ska bli komponenten sen */}
-          <tr className={styles.row}>
-            <td>00/00/0000</td>
-            <td>000000000000</td>
-            <td>450 kr</td>
-          </tr>
+          <UserOrders />
+          <UserOrders />
+          <UserOrders />
         </table>
       </section>
 
       <section className={styles.userCoursesWrapper}>
-        <h3 className={styles.sectionHeader}>Kurser</h3>
+        <h3 className={styles.title}>Inbokade kurser</h3>
         <table className={styles.tableWrapper}>
-          <tr className={styles.row}>
-            <th>Kurs</th>
-            <th>Datum</th>
-            <th>Belopp</th>
+          <tr className={styles.tableRow}>
+            <th className={styles.tableHeader}>Kurs</th>
+            <th className={styles.tableHeader}>Datum</th>
+            <th className={styles.tableHeader}>Belopp</th>
           </tr>
-
-          {/* här renderas datan från user-courses? ut via komponent */}
-          {/* tr nedan ska bli komponenten sen */}
-          <tr className={styles.row}>
-            <td>Kursnamn</td>
-            <td>00/00/0000 00:00</td>
-            <td>450 kr</td>
-          </tr>
+          <UserCourses />
+          <UserCourses />
+          <UserCourses />
         </table>
       </section>
-      <button onClick={handleDeleteUser}>Delete user</button>
+      {/* <button onClick={handleDeleteUser}>Delete user</button> */}
       {/*  <button onClick={handleChangePassword}>Change password</button> */}
 
       {/* adminknapp ska sedan tas bort */}
-      {permission === "true" ? (
+      {/* {permission === "true" ? (
         <button
           onClick={() => {
             navigate("/admin");
@@ -249,10 +293,11 @@ function Profile() {
         >
           Admin Page
         </button>
-      ) : null}
+      ) : null} */}
 
-      <button onClick={logout}>Log Out</button>
+      {/* <button onClick={logout}>Log Out</button> */}
     </main>
+    </div>
   );
 }
 

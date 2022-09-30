@@ -1,0 +1,28 @@
+.tableRow {
+  display: flex;
+  justify-content: space-between;
+}
+.tableData{
+  font-size: 1rem;
+  font-weight: 400;
+}
+.tableDataDate{
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+}
+.tableDataPrice{
+  font-size: 1rem;
+  font-weight: 400;
+  width: 25%;
+  text-align: right;
+}
+
+@media screen and (min-width: 800px) {
+  .tableData,
+  .tableDataDate,
+  .tableDataPrice{
+    font-size: 1.1rem;
+    width: 30%;
+  }
+}

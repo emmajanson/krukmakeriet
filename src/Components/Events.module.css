@@ -50,6 +50,16 @@
   border: none;
 }
 
+.button:hover {
+  cursor: pointer;
+  color:#414B42;
+  background: #FFFFFF;
+  border: 1px solid #414B42;
+  transition: 0.1s;
+
+
+}
+
 @media screen and (min-width: 800px) {
   .wrapper {
     justify-content: center;
