@@ -72,7 +72,9 @@ function SignIn() {
         <form className={styles.signinOverlay}>
           <h3 className={styles.heading}>Logga in</h3>
           <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="email">E-postadress</label>
+            <label className={styles.label} htmlFor="email">
+              E-postadress
+            </label>
             <input
               id="email"
               type="text"
@@ -83,12 +85,23 @@ function SignIn() {
                 setUserNotFound(false);
               }}
             />
-            {userNotFound ? <p style={{ color: "red" }}>* Användare hittas ej</p> : ""}
-            {invalidEmail ? <p style={{ color: "red" }}>* Felaktigt angiven e-post</p> : ""}
+            {userNotFound ? (
+              <p style={{ color: "red" }}>* Användare hittas ej</p>
+            ) : (
+              ""
+            )}
+            {invalidEmail ? (
+              <p style={{ color: "red" }}>* Felaktigt angiven e-post</p>
+            ) : (
+              ""
+            )}
           </div>
           <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="password">Lösenord</label>
+            <label className={styles.label} htmlFor="password">
+              Lösenord
+            </label>
             <input
+              id="password"
               type="password"
               name="password"
               placeholder="********"
@@ -97,9 +110,17 @@ function SignIn() {
                 setIsPasswordWrong(false);
               }}
             />
-            {isPasswordWrong ? (<p style={{ color: "red" }}>* Felaktigt lösenord</p>) : ("")}
+            {isPasswordWrong ? (
+              <p style={{ color: "red" }}>* Felaktigt lösenord</p>
+            ) : (
+              ""
+            )}
           </div>
-          <button type="button" className={styles.buttonClassWhite} onClick={signin}>
+          <button
+            type="button"
+            className={styles.buttonClassWhite}
+            onClick={signin}
+          >
             Logga in
           </button>
           <button

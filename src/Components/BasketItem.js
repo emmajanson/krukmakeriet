@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./BasketItem.module.css";
 import { AllContext } from "../context/AllContext";
+import { FaTrash } from "react-icons/fa";
 
 function BasketItem({ productData }) {
   /*
@@ -15,6 +16,8 @@ function BasketItem({ productData }) {
 
   const { productBasket, setProductBasket } = useContext(AllContext);
   const { courseBasket, setCourseBasket } = useContext(AllContext);
+
+  const basketZero = productData.amount === 0;
 
   const isProduct = courseBasket.some((product) => {
     if (product.id === productData.id) {
@@ -93,13 +96,23 @@ function BasketItem({ productData }) {
       <div className={styles.textWrapper}>
         <p className={styles.heading}>{productData.name}</p>
         <div className={styles.changeAmountWrapper}>
-          <p
+          {basketZero ?  <p
             className={styles.changeAmount}
             onClick={() => decrementAmount(productData)}
           >
-            {" "}
+
+          </p> :  <p
+            className={styles.changeAmount}
+            onClick={() => decrementAmount(productData)}
+            
+          >
+              {" "}
             -{" "}
           </p>
+
+      }
+            
+
           <p>{productData.amount}</p>
           <p
             className={styles.changeAmount}
@@ -113,14 +126,10 @@ function BasketItem({ productData }) {
 
       <div className={styles.priceDeleteWrapper}>
         <p className={styles.price}>{productData.price}:-</p>
-        {/* ska bytas ut mot papperskorg */}
-        <button
+        <FaTrash 
           className={styles.deleteBtn}
           onClick={() => deleteItem(productData)}
-        >
-          {" "}
-          D{" "}
-        </button>
+        />
       </div>
     </article>
   );

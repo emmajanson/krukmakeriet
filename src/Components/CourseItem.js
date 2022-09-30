@@ -3,6 +3,7 @@ import styles from "./CourseItem.module.css";
 import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
 import Popup from "./Popup.js";
+import { FaTag, FaClock, FaUser } from "react-icons/fa";
 
 function CourseItem({ courseData }) {
   const { courseBasket, setCourseBasket } = useContext(AllContext);
@@ -48,15 +49,16 @@ function CourseItem({ courseData }) {
       <div className={styles.textWrapper}>
         <div className={styles.infoWrapper}>
           <h3 className={styles.name}>{courseData.name}</h3>
-          <p className={styles.date}>[ikon]{courseData.details}</p>
-          <p className={styles.info}>{courseData.info}</p>
+          <p className={styles.date}>{courseData.details}</p>         
         </div>
 
         <div className={styles.iconWrapper}>
-          <p className={styles.price}>[ikon] {courseData.price}:-</p>
-          <p className={styles.length}>[ikon] {courseData.duration}</p>
-          <p className={styles.spots}>[ikon] [10/{courseData.spots}]</p>
+          <p className={styles.price}><FaTag />   {courseData.price}:-</p>
+          <p className={styles.length}><FaClock />   {courseData.duration}min</p>
+          {/* <p className={styles.spots}><FaUser />   XX/{courseData.spots}</p> */}
         </div>
+        <p className={styles.info}>{courseData.info}</p>
+
         <button
           className={styles.button}
           onClick={() => {
@@ -69,7 +71,6 @@ function CourseItem({ courseData }) {
         </button>
       </div>
       <Popup trigger={showPopup} setTrigger={setShowPopup}>
-        <h1>Succé!</h1>
         <p>Din kurs är nu lagd i varukorgen.</p>
       </Popup>
     </article>

@@ -9,10 +9,11 @@
   background-size: cover;
   background-position: center center;
 }
-.signupWrapper{
+.signupWrapper {
   width: 100%;
+  padding-top: 0;
 }
-.signupOverlay{
+.signupOverlay {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,38 +21,41 @@
   gap: 0.6rem;
   background-color: rgba(105, 117, 105, 0.9);
   width: 100%;
-  padding: 2.5rem 0 ;
+  padding: 2.5rem 0;
 }
-.heading{
+.heading {
   color: white;
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 1rem;
 }
-.inputWrapper{
+.inputWrapper {
   display: flex;
   flex-direction: column;
-  width:80%;
+  width: 80%;
 }
-.label{
+.label {
   display: inline;
   color: white;
-  font-size: 1rem; 
+  font-size: 1rem;
   font-weight: 400;
   margin-left: 0.8rem;
 }
-.inputWrapper input{
+.inputWrapper input {
   border: none;
   height: 3rem;
   border-radius: 1rem;
 }
-.inputWrapper input::placeholder{
-  color: #A19B9B;
+.inputWrapper input:focus {
+  outline: none;
+}
+.inputWrapper input::placeholder {
+  color: #a19b9b;
   font-size: 1rem;
   font-weight: 300;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-.buttonClass{
+.buttonClass {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,57 +67,73 @@
   height: 3rem;
 }
 
+.resetPasswordButton {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: auto;
+  margin-top: 1rem;
+  border-radius: 50px;
+  color: #F4F0F1;
+  border-width: 0;
+  background-color: #414B42;
+  width: 35%;
+}
+
 @media screen and (min-width: 800px) {
-  .wrapper{
+  .wrapper {
     background-image: none;
     flex-direction: row;
   }
-  .bgWrapperDesk{
+  .bgWrapperDesk {
     background-image: url(/public/images/signUpBackground.jpg);
-    background-size: cover ;
+    background-size: cover;
     background-position: center center;
     width: 50%;
     height: 100%;
   }
-  .signupWrapper{
+  .signupWrapper {
     width: 50%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:rgba(218, 225, 217, 0.8) ;
+    background-color: rgba(218, 225, 217, 0.8);
   }
-  .signupOverlay{
+  .signupOverlay {
     width: 60%;
     background-color: transparent;
   }
-  .inputWrapper{
+  .inputWrapper {
     max-width: 350px;
-  } 
-  .heading{
+  }
+  .heading {
     color: black;
     font-size: 2rem;
   }
-  .label{
+  .label {
     color: black;
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
   }
-  .inputWrapper input{
-    border: 0.2px solid rgba(0, 0, 0, 0.3)
+  .inputWrapper input {
+    border: 0.2px solid rgba(0, 0, 0, 0.3);
   }
-  .inputWrapper input::placeholder{
+  .inputWrapper input:focus {
+    outline: none;
+  }
+  .inputWrapper input::placeholder {
     font-size: 1.1rem;
   }
   .buttonClass {
     font-size: 1.5rem;
     width: 11.25rem;
-    background-color: #414B42;
+    background-color: #414b42;
     color: white;
     margin-top: 2rem;
   }
-  .buttonClass:hover{
+  .buttonClass:hover {
     background-color: white;
-    color: #414B42;
+    color: #414b42;
     border: 0.5px solid#414B42;
     transition: 0.3s;
   }

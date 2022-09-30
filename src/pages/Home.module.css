@@ -14,12 +14,14 @@
   background-image: url("../../public/images/homeHero.jpg");
   background-position: center center;
   background-size: cover;
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
 }
 
-.heroTextContainer {
-  align-items: center;
-  background-repeat: no-repeat;
+.heroImgWrapper{
+  width: 80%;
+}
+.heroLogo{
+  width: 100%;
 }
 
 .infoWrapper {
@@ -38,7 +40,7 @@
   display: flex;
   flex-direction: column;
 }
-.test {
+.left {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -55,8 +57,10 @@
   height: 100%;
   object-fit: cover;
 }
-
-.imgTextWrapper {
+.text{
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
 }
 
 .imgText {
@@ -73,6 +77,7 @@
   width: 100%;
   margin-top: 2rem;
   text-align: center;
+  margin-bottom: 5rem;
 }
 
 .linkImageShop {
@@ -91,6 +96,7 @@
 .linkImageShop:hover,
 .linkImageText:hover {
   cursor: pointer;
+  
 }
 
 .linkImageWrapper {
@@ -107,7 +113,19 @@
   font-size: 24px;
 }
 
+.linkWrapper:hover 
+.linkImageCourses:hover,
+.linkImageShop:hover,
+.linkImageText {
+  color: #F5D2AD;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
 @media screen and (min-width: 800px) {
+  .heroImgWrapper{
+    width: 25%;
+  }
   .infoWrapper {
     flex-direction: row;
     width: 954px;
@@ -122,6 +140,11 @@
   }
   .heading {
     display: inline;
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+  .text{
+    font-size: 1.1rem;
   }
   .imgTextWrapper {
     display: inline;

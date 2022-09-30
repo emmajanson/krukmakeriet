@@ -78,7 +78,7 @@
   .popupContent {
     position: relative;
     display: flex;
-    height: 512px;
+    height: 312px;
     padding: 32px;
     width: 100%;
     max-width: 600px;

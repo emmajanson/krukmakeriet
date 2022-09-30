@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from "react";
+import Modal from "react-modal";
 import ShopItem from '../Components/ShopItem';
-// import ShopModal from "../Components/ShopModal";
+import ShopModal from "../Components/ShopModal";
 import styles from "./Shop.module.css";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
+import { AllContext } from '../context/AllContext';
 
 
 function Shop() {
 
  /*Render from db */
  const [products, setProducts] = useState([])
-  
+
+ const {shopProductModalOpen, setShopProductModalOpen} = useContext(AllContext);
+
  useEffect(() => {
    const productsCollectionRef = collection(db, "products");
 
@@ -24,11 +28,18 @@ function Shop() {
  }, []);
 
 
-
-
-
   return (
     <main className={styles.wrapper}>
+       <Modal
+        isOpen = {shopProductModalOpen}
+        onRequestClose = {() => setShopProductModalOpen(false)}
+        className = {styles.shopProductModal}
+        overlayClassName = {styles.shopProductModalOverlay}
+      >
+        <ShopModal />
+      </Modal> 
+      
+      
       {/* <ShopModal /> */}
       <section className={styles.bannerWrapper}>
         <img className={styles.bannerImage}src="../images/shopBanner.jpg" alt="" />

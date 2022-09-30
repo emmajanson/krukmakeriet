@@ -2,40 +2,82 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   border:1px solid lightgrey;
-  width: 90%;
-
+  width: 100%;
 }
 .imgWrapper{
   width: 100%;
-  height: 200px;
+  height: 225px;
 }
 .courseImage{
-  background-color: lightgrey; 
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .textWrapper{
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 90%;
   gap: 1rem;
 }
 .infoWrapper{
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 0.5rem;
 }
-.infoWrapper{
-  display: flex;
-  justify-content: space-between;
+.name{
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 1.5rem;
 }
+.details{
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+
 .iconWrapper{
   display: flex;
-  justify-content: space-around;
+  width: 100%;
+  gap: 4rem;
 }
-button{
+
+.price,
+.length,
+.spots{
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+.info{
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+.button{
   padding: 1rem;
+  background-color: #414B42;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: 1.5rem 0;
+
+}
+
+.button:hover{
+  cursor: pointer;
+  background-color:#FFFFFF;
+  border: 1px inset #414B42;
+  color: #414B42;
 }
 
 @media screen and (min-width:800px){
@@ -44,14 +86,31 @@ button{
     max-width: 1000px;
     flex-direction: row;
     align-items: flex-start;
-    gap: 3rem;
-
-  }
-  .textWrapper{
-    flex-direction: column;
-    border: 1px solid red;
+    
+    gap: 2rem;
   }
   .imgWrapper{
     height: 400px;
+  }
+  .textWrapper{
+    flex-direction: column;
+    padding-right: 2rem;
+  }
+  .name{
+    font-size: 2rem;
+  }
+  .details{
+    font-size: 1.1rem;
+  }
+  .price,
+  .length,
+  .spots{
+    font-size: 1.1rem;
+  }
+  .info{
+    font-size: 1.1rem;
+  }
+  .button{
+    font-size: 1.5rem;
   }
 }

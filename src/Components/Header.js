@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import Basket from "./Basket";
@@ -6,7 +6,7 @@ import { AllContext } from "../context/AllContext";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 // fiUser ska sedan användas som profillogga när man är inloggad
-import { FaShoppingBag, FaUserAlt,FaUser } from "react-icons/fa";
+import { FaShoppingBag, FaUserAlt, FaUser } from "react-icons/fa";
 import HamburgerButton from "./HamburgerButton";
 // import { doc } from "firebase/firestore";
 
@@ -16,8 +16,15 @@ function Header() {
   const [user, setUser] = useState({});
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { productBasket, courseBasket, adminPermission } =
-    useContext(AllContext);
+  const articleRef = useRef();
+
+  const {
+    productBasket,
+    courseBasket,
+    adminPermission,
+    showTopBtn,
+    setShowTopBtn,
+  } = useContext(AllContext);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -49,6 +56,22 @@ function Header() {
     setIsActiveBasket(props);
   }
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    });
+  }, [setShowTopBtn]);
+  function ScrollToView() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   return (
     <header className={styles.wrapper}>
       <header className={styles.desktopWrapper}>
@@ -59,27 +82,37 @@ function Header() {
             alt=""
           />
         </div>
+
         <nav className={styles.navMiddle}>
-          <Link to="/">Hem</Link>
-          <Link data-testid="toCourses" to="/courses">
+          <Link title="kurser" to="/" onClick={ScrollToView}>
+            Hem
+          </Link>
+          <Link to="/courses" onClick={ScrollToView}>
             Kurser
           </Link>
-          <Link to="/shop">Butik</Link>
+          <Link to="/shop" onClick={ScrollToView}>
+            Butik
+          </Link>
         </nav>
+
         <nav className={styles.navRightSide}>
           {user == null ? (
-            <Link to="/signin">Logga in</Link>
+            <Link to="/signin">
+              <FaUser 
+              className={styles.desktopIcons}
+              />
+            </Link>
           ) : (
-            <Link to={adminPermission ? "/admin" : "/profile"}><FaUser/></Link>
+            <Link to={adminPermission ? "/admin" : "/profile"}>
+              <FaUser 
+              className={styles.desktopIconsLoggedIn}
+              />
+            </Link>
           )}
 
-          {/* profile ska sedan visas när man är inloggad */}
-          {/* <Link to="/profile"><FiUser/></Link> */}
-          {/* admin som sedan ska visas om man är inloggad som admin */}
-          {/* <Link to="/admin"><FiUser/></Link> */}
           <Link to="#">
             <FaShoppingBag
-              className={styles.shoppingCart}
+              className={styles.desktopIcons}
               onClick={() => toggleBasket(!isActiveBasket)}
             />
           </Link>
@@ -100,19 +133,29 @@ function Header() {
         >
           <HamburgerButton />
         </div>
-        {basketAmount ? (
-          <nav data-count={basketAmount} className={styles.mobileIcons}>
-            <Link to="#">
-              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        ) : (
-          <nav id={styles.mobileIcons}>
-            <Link to="#">
-              <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
-            </Link>
-          </nav>
-        )}
+        <div className={styles.mobLogoWrapper}>
+          <img
+            className={styles.mobLogo}
+            src={"../images/headerLogoMobile.png"}
+            alt="Logo"
+          />
+        </div>
+
+        <div>
+          {basketAmount ? (
+            <nav data-count={basketAmount} className={styles.mobileIcons}>
+              <Link to="#">
+                <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
+              </Link>
+            </nav>
+          ) : (
+            <nav id={styles.mobileIcons}>
+              <Link to="#">
+                <FaShoppingBag onClick={() => toggleBasket(!isActiveBasket)} />
+              </Link>
+            </nav>
+          )}
+        </div>
 
         <nav
           className={
@@ -121,16 +164,13 @@ function Header() {
               : styles.mobileMenuWrapperHidden
           }
         >
-          <div className={styles.MobileMenuLinkWrapper}>
-            <Link to="/">Hem</Link>
-            <Link to="/courses">Kurser</Link>
-            <Link to="/shop">Butik</Link>
-            {user == null ? (<Link to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
-          )}
-            {/* profile ska sedan visas när man är inloggad */}
-            {/* <Link to="/profile"><FiUser/></Link> */}
-            {/* admin som sedan ska visas om man är inloggad som admin */}
-            {/* <Link to="/admin"><FiUser/></Link> */}
+          <div className={styles.mobileMenuLinkWrapper}>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/">Hem</Link> 
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">Kurser</Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">Butik</Link>
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link onClick={styles.mobileMenuWrapperHidden} to={adminPermission ? "/admin" : "/profile"}>{adminPermission ? "Admin" : "Profil"}</Link>
+            )}
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signup">Registrera dig</Link>) : (<Link to=""></Link>)}
           </div>
         </nav>
       </header>

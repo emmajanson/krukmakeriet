@@ -2,13 +2,14 @@
   width: 100%;
   background-color: hsla(134, 20%, 75%, 0.301);
   display: flex;
+  margin-bottom: 5rem;
+  padding: 6.5rem 0;
 }
 .contentWrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
   gap: 2rem;
 }
 .imgWrapper {
@@ -26,6 +27,15 @@
   flex-direction: column;
   gap: 2rem;
 }
+.heading{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.info{
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem; ;
+}
 .button {
   width: 14.188rem;
   height: 3.403rem;
@@ -35,8 +45,19 @@
   background-color: #414b42;
   color: #fff;
   margin-top: 3rem;
-  margin-bottom: 3rem;
-  font-size: 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+  color:#414B42;
+  background: #FFFFFF;
+  border: 1px solid #414B42;
+  transition: 0.1s;
+
+
 }
 
 @media screen and (min-width: 800px) {
@@ -47,5 +68,14 @@
     max-width: 954px;
     flex-direction: row;
     align-items: flex-start;
+  }
+  .heading{
+    font-size: 2rem;
+  }
+  .info{
+    font-size: 1.1rem;
+  }
+  .button{
+    font-size: 1.4rem;
   }
 }
