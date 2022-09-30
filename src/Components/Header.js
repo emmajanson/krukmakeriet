@@ -168,7 +168,7 @@ function Header() {
             <Link onClick={styles.mobileMenuWrapperHidden} to="/">Hem</Link> 
             <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">Kurser</Link>
             <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">Butik</Link>
-            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link onClick={styles.mobileMenuWrapperHidden} to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link onClick={styles.mobileMenuWrapperHidden} to={adminPermission ? "/admin" : "/profile"}>{adminPermission ? "Admin" : "Profil"}</Link>
             )}
             {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signup">Registrera dig</Link>) : (<Link to=""></Link>)}
           </div>
