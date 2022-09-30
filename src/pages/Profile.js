@@ -9,6 +9,7 @@ import {
   deleteUser,
   updatePassword,
   reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
@@ -24,9 +25,10 @@ function Profile() {
   const [newEmail, setNewEmail] = useState(null);
   const [userID, setUserID] = useState("");
   const [showNewUserName, setShowNewUserName] = useState(false);
+  const [oldPassword, setOldPassword] = useState(null);
   const [showNewUserEmail, setShowNewUserEmail] = useState(false);
-  const [firstNewPassword, setFirstNewPassword] = useState("");
-  const [secondNewPassword, setSecondNewPassword] = useState("");
+  const [firstNewPassword, setFirstNewPassword] = useState(null);
+  const [secondNewPassword, setSecondNewPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ function Profile() {
     navigate("/signin");
   }
 
-  async function handleChanges() {
+  /* async function handleChanges() {
     if (
       newUserName !== null &&
       newUserName.length > 0 &&
@@ -58,8 +60,8 @@ function Profile() {
       console.log("båda är tomma");
     }
   }
-
-  async function updateName() {
+ */
+  /* async function updateName() {
     const nameRef = doc(db, "users", auth.currentUser.uid);
 
     if (newUserName.length > 0) {
@@ -72,7 +74,7 @@ function Profile() {
       });
       console.log("namn uppdaterat");
     }
-  }
+  } */
 
   /* async function reAuth() {
     const credential = promptForCredentials();
@@ -107,17 +109,23 @@ function Profile() {
     }
   }
 
-  async function handleDeleteUser() {
-    deleteUser(loggedInUser)
-      .then(() => {
-        console.log("User deleted");
-      })
-      .catch((error) => {
-        console.log("Error", error.message);
-      });
+  async function reauthenticate(oldPassword) {
+    var user = auth.currentUser.email;
+    var cred = EmailAuthProvider.credential(user, oldPassword);
+
+    console.log(cred, user);
+
+    return user.reauthenticateWithCredential(cred);
   }
+  async function handleDeleteUser() {}
 
   async function handleChangePassword() {
+    await reauthenticate(oldPassword)
+      .then(() => {})
+      .catch((error) => {
+        alert(error.message);
+        console.log(error.message);
+      });
     if (firstNewPassword !== secondNewPassword) {
       alert("Lösenorden är inte samma");
     } else {
@@ -148,10 +156,11 @@ function Profile() {
 
       {/* uppdatera uppgifter sektion */}
       <section className={styles.userInfoWrapper}>
-        <h5>Dina uppgifter</h5>
+        <h4>Välkommen {loggedInUser.displayName}</h4>
+        <h4>Din mail: {loggedInUser.email}</h4>
         {/* här renderas datan ut som hämtas från db via .value i inputsen */}
         <div className={styles.inputWrapper}>
-          <label className={styles.label} htmlFor="name">
+          {/* <label className={styles.label} htmlFor="name">
             Namn
           </label>
           <input
@@ -176,6 +185,18 @@ function Profile() {
             placeholder="exempel@exempel.se"
             onChange={(e) => {
               setNewEmail(e.target.value);
+            }}
+          /> */}
+          <label className={styles.label} htmlFor="name">
+            Ditt tidigare lösenord
+          </label>
+          <input
+            id="name"
+            type="password"
+            name="name"
+            placeholder="Nytt lösenord"
+            onChange={(e) => {
+              setOldPassword(e.target.value);
             }}
           />
           <label className={styles.label} htmlFor="name">
@@ -209,7 +230,8 @@ function Profile() {
           )}
         </div>
         <button onClick={handleChangePassword}>Uppdatera lösenord</button>
-        <button onClick={handleChanges}>Uppdatera profil</button>
+        {/*         <button onClick={handleChanges}>Uppdatera profil</button>
+         */}{" "}
       </section>
 
       {/* glömt lösen sektion */}
