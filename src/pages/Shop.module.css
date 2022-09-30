@@ -43,7 +43,8 @@
 
 .shopProductModal{
   position: fixed;
-  top: 50%;
+  width: 100%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 
