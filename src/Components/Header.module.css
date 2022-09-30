@@ -11,6 +11,9 @@
 
 a {
   font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: #000;
+  text-decoration: none;
 }
 
 .desktopWrapper {
@@ -32,8 +35,8 @@ a {
 .mobileIcons::before {
   content: attr(data-count);
   position: absolute;
-  top: 1em;
-  right: 1.8em;
+  top: 1.1em;
+  right: 0.9em;
   width: 1em;
   height: 1em;
   display: flex;
@@ -70,7 +73,7 @@ a {
   display: flex;
   top: 0px;
   left: 0;
-  width: 85%;
+  width: 80%;
   height: 100%;
   background-color: #697569;
 
@@ -102,15 +105,11 @@ a {
   display: flex;
 }
 
-.shoppingCart {
-  font-size: 23px;
-  color: black;
-}
 .linkWrapper::before {
   content: attr(data-count);
   position: absolute;
-  top: 2.5em;
-  right:2.2em;
+  top: 1.5em;
+  right: 2.8em;
   width: 1.2em;
   height: 1.2em;
   display: flex;
@@ -120,7 +119,7 @@ a {
   background-color: #414B42;
   color: white; 
   padding:0.2rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .linkWrapperFalse:hover {
@@ -140,12 +139,13 @@ a {
     position: fixed;
     display: flex;
     width: 100%;
+    height: 12vh;
     left: 0;
     justify-content: space-between;
     align-items: flex-end;
     background-color: white;
-    padding: 1rem 3rem 1rem 3rem;
-    border-bottom: 1px solid rgba(218, 225, 217, 0.2)
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    border-bottom: 2px solid rgba(218, 225, 217, 0.2)
   }
 
   .mobileWrapper {
@@ -153,8 +153,7 @@ a {
   }
 
   a {
-    font-size: 24px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
     color: #000;
     text-decoration: none;
     /* margin: 10px; */
@@ -163,15 +162,36 @@ a {
   a:hover {
    color: #697569;
   }
+
+  .desktopIcons:hover {
+    color: #697569;
+  }
+
+  .desktopIcons {
+    font-size: 22px;
+  }
+  
+  .desktopIconsLoggedIn {
+    font-size: 22px;
+    color: #697569;
+  }
+
+  .desktopIconsLoggedIn:hover {
+    color: #000;
+  }
+
   .logoWrapper{
     display: flex;
     align-items: flex-end;
     width: 25%;
   }
+
   .logoImage{
-    width: 140px;
+    width: 105px;
     height: auto;
+    padding-top: 5px;
   }
+
   .navMiddle{
     display: flex;
     justify-content: center;
@@ -179,6 +199,7 @@ a {
     gap: 1.5rem;
     width: 25%;
   }
+
   .navRightSide{
     display:flex;
     justify-content: flex-end;
