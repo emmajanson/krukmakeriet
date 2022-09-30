@@ -46,6 +46,9 @@
   height: 3rem;
   border-radius: 1rem;
 }
+.inputWrapper input:focus {
+  outline: none;
+}
 .inputWrapper input::placeholder {
   color: #a19b9b;
   font-size: 1rem;
@@ -114,6 +117,9 @@
   }
   .inputWrapper input {
     border: 0.2px solid rgba(0, 0, 0, 0.3);
+  }
+  .inputWrapper input:focus {
+    outline: none;
   }
   .inputWrapper input::placeholder {
     font-size: 1.1rem;

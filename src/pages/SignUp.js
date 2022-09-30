@@ -20,6 +20,7 @@ function SignUp() {
   const [signinPassword, setSigninPassword] = useState("");
   const [signinPassword2, setSigninPassword2] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordTooShort, setPasswordTooShort] = useState(false);
   const [userInUse, setUserInUse] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [user, setUser] = useState({});
@@ -37,6 +38,10 @@ function SignUp() {
   }, []);
 
   async function register() {
+    if (signinPassword.length < 6) {
+      setPasswordTooShort(true);
+      return;
+    }
     if (signinPassword === signinPassword2) {
       try {
         const user = await createUserWithEmailAndPassword(
@@ -138,6 +143,11 @@ function SignUp() {
                 setPasswordMatch(true);
               }}
             />
+            {passwordTooShort ? (
+              <p style={{ color: "red" }}>* Lösenordet måste vara minst sex tecken</p>
+            ) : (
+              ""
+            )}
           </div>
           <div className={styles.inputWrapper}>
             <label
