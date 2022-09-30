@@ -10,7 +10,7 @@ p{
     position: fixed;
     background-color:white;
     left: 0;
-    top: 7%;
+    top: 5%;
     display: flex;
     border: .5px solid rgb(125, 125, 125)
     
@@ -39,7 +39,8 @@ p{
     position: absolute;
     right: 0;
     top: 0;
-    margin: 1rem;
+    margin-top: 4rem;
+    margin-right: 1rem;
     font-size: x-large;
   }
   .uploadBtn {
