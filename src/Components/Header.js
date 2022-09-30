@@ -97,21 +97,22 @@ function Header() {
 
         <nav className={styles.navRightSide}>
           {user == null ? (
-            <Link to="/signin">Logga in</Link>
+            <Link to="/signin">
+              <FaUser 
+              className={styles.desktopIcons}
+              />
+            </Link>
           ) : (
             <Link to={adminPermission ? "/admin" : "/profile"}>
-              <FaUser />
+              <FaUser 
+              className={styles.desktopIconsLoggedIn}
+              />
             </Link>
           )}
 
-          {/* profile ska sedan visas när man är inloggad */}
-          {/* <Link to="/profile"><FiUser/></Link> */}
-          {/* admin som sedan ska visas om man är inloggad som admin */}
-          {/* <Link to="/admin"><FiUser/></Link> */}
-
           <Link to="#">
             <FaShoppingBag
-              className={styles.shoppingCart}
+              className={styles.desktopIcons}
               onClick={() => toggleBasket(!isActiveBasket)}
             />
           </Link>
@@ -167,8 +168,9 @@ function Header() {
             <Link onClick={styles.mobileMenuWrapperHidden} to="/">Hem</Link> 
             <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">Kurser</Link>
             <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">Butik</Link>
-            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link onClick={styles.mobileMenuWrapperHidden} to={adminPermission ? "/admin" : "/profile"}>Profil</Link>
             )}
+            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signup">Registrera dig</Link>) : (<Link to=""></Link>)}
           </div>
         </nav>
       </header>
