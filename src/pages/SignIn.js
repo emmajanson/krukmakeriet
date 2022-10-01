@@ -15,9 +15,16 @@ function SignIn() {
 
   const navigate = useNavigate();
 
+  const [passwordTooShort, setPasswordTooShort] = useState(false);
+
   // Signing in the user and navigates to Profile-page
 
-  async function signin() {
+  const signin = async (event) => {
+    event.preventDefault();
+    if (userPassword.length < 6) {
+      setPasswordTooShort(true);
+      return;
+    }
     try {
       const user = await signInWithEmailAndPassword(
         auth,
@@ -69,7 +76,7 @@ function SignIn() {
       </section>
 
       <section className={styles.signinWrapper}>
-        <form className={styles.signinOverlay}>
+        <form className={styles.signinOverlay} onSubmit={signin}>
           <h3 className={styles.heading}>Logga in</h3>
           <div className={styles.inputWrapper}>
             <label className={styles.label} htmlFor="email">
@@ -85,6 +92,7 @@ function SignIn() {
                 setUserNotFound(false);
               }}
             />
+      
             {userNotFound ? (
               <p style={{ color: "red" }}>* Användare hittas ej</p>
             ) : (
@@ -110,6 +118,11 @@ function SignIn() {
                 setIsPasswordWrong(false);
               }}
             />
+            {passwordTooShort ? (
+              <p style={{ color: "red" }}>* Lösenordet måste vara minst sex tecken</p>
+            ) : (
+              ""
+            )}
             {isPasswordWrong ? (
               <p style={{ color: "red" }}>* Felaktigt lösenord</p>
             ) : (
@@ -117,9 +130,8 @@ function SignIn() {
             )}
           </div>
           <button
-            type="button"
+            type="submit"
             className={styles.buttonClassWhite}
-            onClick={signin}
           >
             Logga in
           </button>
