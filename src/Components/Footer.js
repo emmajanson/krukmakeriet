@@ -12,7 +12,7 @@ import {
 
 function Footer() {
   return (
-    <section className={styles.wrapper}>
+    <section className={styles.wrapper} data-testid="footer">
       <section className={styles.infoWrapper}>
         <div className={styles.topContWrapper}>
           <article className={styles.textWrapper}>

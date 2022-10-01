@@ -43,7 +43,7 @@ function UpdateCourses({
   const [courseSpots, setCourseSpots] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
-  const [courseEmails, setCourseEmails] = useState([])
+  const [courseEmails, setCourseEmails] = useState([]);
   const [imageURL, setImageURL] = useState([]);
 
   //create a new course
@@ -56,7 +56,7 @@ function UpdateCourses({
       info: courseDescription,
       spots: Number(courseSpots),
       img: courseImage,
-      emails: courseEmails
+      emails: courseEmails,
     });
     getCourses();
     onClose(false);
@@ -121,14 +121,14 @@ function UpdateCourses({
       info: courseDescription,
       spots: courseSpots,
       img: courseImage,
-      emails: courseEmails
+      emails: courseEmails,
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
     onClose(false);
     getCourses();
   };
-//submit the form
+  //submit the form
   function handleSubmit() {
     if (updateOnly) {
       updateCourse();
@@ -137,7 +137,7 @@ function UpdateCourses({
       onClose(true);
     }
   }
-//delete the course
+  //delete the course
   const deleteCourse = async (id) => {
     const courseDoc = doc(db, "courses", id);
     await deleteDoc(courseDoc);
@@ -147,103 +147,131 @@ function UpdateCourses({
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.form}>
-        <FaTimes className={styles.icon} onClick={() => closeModal()} />
-        <h4>Lägg till kurs</h4>
-        <p>Alla fält som är markerade med en * är obligatoriska</p>
-        <p>Kursens namn: *</p>
-        <input
-          value={courseName}
-          type="text"
-          onChange={(e) => {
-            setCourseName(e.target.value);
-          }}
-          required
-        />
-        <p>Kursens pris: *</p>
-        <input
-          value={coursePrice}
-          type="number"
-          onChange={(e) => {
-            setCoursePrice(e.target.value);
-          }}
-          required
-        />
-        <p>Kursens datum: *</p>
-        <input
-          value={courseDate}
-          type="datetime-local"
-          onChange={(e) => {
-            setCourseDate(e.target.value);
-          }}
-          required
-        />
-        <p>Kursens längd: *</p>
-        <input
-          value={courseDuration}
-          type="number"
-          onChange={(e) => {
-            setCourseDuration(e.target.value);
-          }}
-          required
-        />
-        <p>Antal platser: *</p>
-        <input
-          value={courseSpots}
-          type="number"
-          onChange={(e) => {
-            setCourseSpots(e.target.value);
-          }}
-          required
-        />
-        <p>Kursens beskrivning: *</p>
-        <input
-          value={courseDescription}
-          type="textarea"
-          onChange={(e) => {
-            setCourseDescription(e.target.value);
-          }}
-          required
-        />
-
-        <p>Produktens bild: *</p>
-        <input
-          type="file"
-          onChange={(e) => {
-            setUploadedImage(e.target.files[0]);
-          }}
-          accept="image/png, image/jpeg"
-        />
-        {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )}
-        <button
-          type="button"
-          className={styles.uploadBtn}
-          onClick={uploadImage}
-        >
-          Ladda upp bilden
-        </button>
-        <img src={courseImage} className={styles.uploaded_image}/>
-        <button type="submit" className={styles.button} onClick={handleSubmit}>
-          Submit
-        </button>
-        {updateOnly ? (
-          <button
-            type="button"
-            className={styles.showBtn}
-            onClick={() => {
-              deleteCourse(id);
+    <div className={styles.overlay}>
+      <div className={styles.wrapper}>
+        <div className={styles.form}>
+          <FaTimes className={styles.icon} onClick={() => closeModal()} />
+          <h4>Kurs</h4>
+          <p>Alla fält som är markerade med en * är obligatoriska</p>
+          <p>Kursens namn: *</p>
+          <input
+            className={styles.course_name}
+            value={courseName}
+            type="text"
+            onChange={(e) => {
+              setCourseName(e.target.value);
             }}
-          >
-            Ta bort
-          </button>
-        ) : (
-          ""
-        )}
+            required
+          />
+          <div className={styles.price_duration}>
+            <div>
+              <p>Pris: *</p>
+              <input
+                className={styles.course_price}
+                value={coursePrice}
+                type="number"
+                onChange={(e) => {
+                  setCoursePrice(e.target.value);
+                }}
+                required
+              />
+            </div>
+            <div>
+              <p>Längd:(min) *</p>
+              <input
+                className={styles.course_duration}
+                value={courseDuration}
+                type="number"
+                onChange={(e) => {
+                  setCourseDuration(e.target.value);
+                }}
+                required
+              />
+            </div>
+          </div>
+          <div className={styles.date_spots}>
+            <div>
+              <p>Kursens datum: *</p>
+              <input
+                className={styles.course_date}
+                value={courseDate}
+                type="datetime-local"
+                onChange={(e) => {
+                  setCourseDate(e.target.value);
+                }}
+                required
+              />
+            </div>
+            <div>
+              <p className={styles.spots}>Antal platser: *</p>
+              <input
+                className={styles.course_spots}
+                value={courseSpots}
+                type="number"
+                onChange={(e) => {
+                  setCourseSpots(e.target.value);
+                }}
+                required
+              />
+            </div>
+          </div>
+          <p>Kursens beskrivning: *</p>
+          <textarea
+            className={styles.course_desc}
+            value={courseDescription}
+            type="textarea"
+            onChange={(e) => {
+              setCourseDescription(e.target.value);
+            }}
+            required
+          />
+          <p>Kursens bild: *</p>
+          <div className={styles.upload_div}>
+            <img src={courseImage} className={styles.uploaded_image} />
+            <div className={styles.btns}>
+              <input
+                className={styles.upload_image}
+                type="file"
+                title=" "
+                onChange={(e) => {
+                  setUploadedImage(e.target.files[0]);
+                }}
+                accept="image/png, image/jpeg"
+              />
+              <div className={styles.btn_wrapper}>
+                <button
+                  type="button"
+                  className={styles.uploadBtn}
+                  onClick={uploadImage}
+                >
+                  Ladda bild
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.submiit}>
+            {updateOnly ? (
+              <button
+                className={styles.showBtn}
+                onClick={() => {
+                  deleteCourse(id);
+                }}
+              >
+                Ta bort
+              </button>
+            ) : (
+              ""
+            )}
+            <button
+              type="submit"
+              className={styles.button}
+              onClick={handleSubmit}
+            >
+              Spara
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
