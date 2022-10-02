@@ -8,18 +8,9 @@ import userEvent from "@testing-library/user-event";
 
 const mockProductData = [
   {
-    name: "Testitem",
+    name: "skål",
     id: "test123",
-    img: "https://en.wikipedia.org/wiki/Pottery#/media/File:Potter_making_Pottery.jpg",
-    price: 100,
-  },
-  {
-    description: "second item",
-    completed: false,
-  },
-  {
-    description: "third item",
-    completed: false,
+    img: "https",
   },
 ];
 const MockCheckoutItem = () => {

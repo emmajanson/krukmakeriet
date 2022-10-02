@@ -27,13 +27,13 @@ const mockProductData = [
   },
 ];
 
-describe("CheckoutItem", () => {
+describe("ShopItem", () => {
   test("check if props exist as should", async () => {
     render(
       <>
         <BrowserRouter>
           <AllContextProvider>
-            <ShopItem key="1" productData={mockProductData} />{" "}
+            <ShopItem key="1" productData={mockProductData} />
           </AllContextProvider>
         </BrowserRouter>
       </>
