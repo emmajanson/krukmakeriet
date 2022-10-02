@@ -33,26 +33,16 @@ exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
     >
       <button
         className="quantityBtn"
-<<<<<<< HEAD
-=======
-        data-testid="decrementBtn"
->>>>>>> main
         onClick={[Function]}
       >
         -
       </button>
-<<<<<<< HEAD
-      <p />
-      <button
-        className="quantityBtn"
-=======
       <p
         data-testid="counterText"
       />
       <button
         className="quantityBtn"
         data-testid="incrementBtn"
->>>>>>> main
         onClick={[Function]}
       >
         +

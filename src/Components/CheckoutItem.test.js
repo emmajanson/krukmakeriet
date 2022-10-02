@@ -6,16 +6,31 @@ import { BrowserRouter } from "react-router-dom";
 import renderer from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
 
+const mockProductData = [
+  {
+    name: "Testitem",
+    id: "test123",
+    img: "https://en.wikipedia.org/wiki/Pottery#/media/File:Potter_making_Pottery.jpg",
+    price: 100,
+  },
+  {
+    description: "second item",
+    completed: false,
+  },
+  {
+    description: "third item",
+    completed: false,
+  },
+];
 const MockCheckoutItem = () => {
   return (
     <BrowserRouter>
       <AllContextProvider>
-        <CheckoutItem productData={product} />
+        <CheckoutItem productData={mockProductData} />
       </AllContextProvider>
     </BrowserRouter>
   );
 };
-const product = { name: "skål", img: "https" };
 
 describe("CheckoutItem", () => {
   test("check if props exist as should", async () => {
@@ -28,7 +43,7 @@ describe("CheckoutItem", () => {
       .create(
         <BrowserRouter>
           <AllContextProvider>
-            <CheckoutItem productData={product} />
+            <CheckoutItem productData={mockProductData} />
           </AllContextProvider>
         </BrowserRouter>
       )
