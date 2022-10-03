@@ -144,7 +144,9 @@ function SignUp() {
               }}
             />
             {passwordTooShort ? (
-              <p style={{ color: "red" }}>* Lösenordet måste vara minst sex tecken</p>
+              <p style={{ color: "red" }}>
+                * Lösenordet måste vara minst sex tecken
+              </p>
             ) : (
               ""
             )}
@@ -185,7 +187,7 @@ function SignUp() {
             <Popup
               trigger={showPopup}
               setTrigger={setShowPopup}
-              navigation={"/profile"}
+              navigation={"/signin"}
             >
               <h1>Välkommen till Krukmakeriet</h1>
               <p>Ett veriferingsmail har nu skickats till din epostadress</p>
