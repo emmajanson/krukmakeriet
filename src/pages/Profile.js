@@ -37,6 +37,9 @@ function Profile() {
   const [secondNewPassword, setSecondNewPassword] = useState(false);
   const [userProducts, setUserProducts] = useState([]);
   const [userCourses, setUserCourses] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [showErrorMessage1, setShowErrorMessage1] = useState(false);
+  const [showErrorMessage2, setShowErrorMessage2] = useState(false);
 
   const navigate = useNavigate();
 
@@ -114,10 +117,24 @@ function Profile() {
       });
     if (passwordChecker === true) {
       if (firstNewPassword !== secondNewPassword) {
+        console.log("inte samma pass");
+        setShowErrorMessage1(true);
+        setTimeout(() => {
+          setShowErrorMessage1(false);
+        }, 5000);
       } else {
         updatePassword(user, firstNewPassword);
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false);
+        }, 5000);
+        console.log("lösenord bytt");
       }
     } else {
+      setShowErrorMessage2(true);
+      setTimeout(() => {
+        setShowErrorMessage2(false);
+      }, 5000);
       console.log("lösenordet stämmer inte");
     }
   }
@@ -137,8 +154,8 @@ function Profile() {
               <h6 className={styles.title}>Dina uppgifter</h6>
 
               {/* !!!rendera ut kunden uppgifter i p-taggarna nedan!!!! */}
-              <p className={styles.text}></p>
-              <p className={styles.text}></p>
+              <p className={styles.text}>{user.displayName}</p>
+              <p className={styles.text}>{user.email}</p>
 
               <button className={styles.button} onClick={logout}>
                 Logga ut
@@ -214,8 +231,18 @@ function Profile() {
                   setSecondNewPassword(e.target.value);
                 }}
               />
-              {showNewUserEmail ? (
-                <p style={{ color: "red" }}>Email changed</p>
+              {showMessage ? (
+                <p style={{ color: "green" }}>Lösenord ändrat</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage1 ? (
+                <p style={{ color: "red" }}>Lösenorden är inte samma</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage2 ? (
+                <p style={{ color: "red" }}>Fel lösenord</p>
               ) : (
                 ""
               )}
