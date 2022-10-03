@@ -69,11 +69,7 @@ function ShopModal(){
             </section>
 
             <section className={styles.productDescriptionContainer}>
-                <h4>
-                    lorem ipsumlorem ipsumlorem ipsum
-                    lorem ipsumlorem ipsumlorem ipsum
-                    lorem ipsumlorem ipsumlorem ipsum
-                </h4>
+                <h4>{selectedProduct && selectedProduct.desc}</h4>
             </section>
 
             <section className={styles.buyButtonContainer}>
