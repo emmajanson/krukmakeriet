@@ -1,55 +1,53 @@
-.wrapper{
+.wrapper {
   display: flex;
   width: 100%;
   gap: 2rem;
 }
 
-.imgWrapper{
+.imgWrapper {
   width: 75px;
   height: 75px;
 }
 
-.basketImage{
+.basketImage {
   height: 100%;
   width: 100%;
   object-fit: fill;
 }
 
-.textWrapper{
+.textWrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
-  flex-grow:1;
+  flex-grow: 1;
   padding-bottom: 25px;
 }
 
-.heading{
+.heading {
   font-size: 18px;
   margin-top: px;
 }
 
-.changeAmountWrapper{
+.changeAmountWrapper {
   display: flex;
   width: 95px;
   gap: 9px;
-  background-color: #414B42;
+  background-color: #414b42;
   border-radius: 20px;
   color: white;
   justify-content: center;
   padding: 6px;
 }
-.changeAmount{
-
+.changeAmount {
+  cursor: pointer;
   width: 30%;
   display: flex;
   justify-content: center;
 }
 
-
-
-.input{
+.input {
   text-align: center;
   width: 20%;
   outline: none;
@@ -57,19 +55,18 @@
   border: 0.5px solid grey;
 }
 
-.priceDeleteWrapper{
+.priceDeleteWrapper {
   display: flex;
   flex-direction: column;
 }
-.price{
+.price {
   font-size: 18px;
 }
-.deleteBtn{
+.deleteBtn {
   font-size: 24px;
   margin-top: 22px;
   margin-left: 7px;
 }
 
-@media screen and (min-width:800px){
-
+@media screen and (min-width: 800px) {
 }
