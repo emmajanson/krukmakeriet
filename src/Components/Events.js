@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Events.module.css";
 
 function Events() {
+  
   return (
     <section className={styles.wrapper}>
       <div className={styles.contentWrapper}>
@@ -26,7 +27,7 @@ function Events() {
             Det ingår lera och ett glasyrbränt föremål samt tillgång till verktyg och ugn.
             Våga prova något nytt och skapa tillsammans. Skicka ett mail så skapar vi ett minnesvärt event efter era önskemål.
           </p>
-          <button className={styles.button}>Kontakta oss</button>
+          <button className={styles.button} onClick={() => window.location = 'mailto:info@krukmakeriet.se'}>Kontakta oss</button>
         </div>
       </div>
     </section>

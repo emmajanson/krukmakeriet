@@ -11,12 +11,18 @@
   align-items: center;
   width: 100%;
 }
+
+.totalSumBasket {
+  padding-top: 2vh;
+}
+
 .productsWrapper, 
 .coursesWrapper{
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   width: 90%;
+  padding-top: 3vh;
 }
 
 .userInfoWrapper{

@@ -5,12 +5,12 @@ import { AllContext } from "../context/AllContext";
 import { FaShoppingBag } from "react-icons/fa";
 
 function ShopItem({ productData }) {
-  const { 
-    productBasket, 
-    setProductBasket, 
-    setShopProductModalOpen, 
+  const {
+    productBasket,
+    setProductBasket,
+    setShopProductModalOpen,
     setSelectedProduct,
-    setAddedToBasketPopupOpen
+    setAddedToBasketPopupOpen,
   } = useContext(AllContext);
 
   function addToBasket(product) {
@@ -50,18 +50,16 @@ function ShopItem({ productData }) {
     setAddedToBasketPopupOpen(true);
     removeModal();
     event.stopPropagation();
-  }
+  };
 
   const shopItemClicked = () => {
     setShopProductModalOpen(true);
     setSelectedProduct(productData);
-  }
+  };
 
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
-    <article className={styles.shopItemWrapper} 
-      onClick={shopItemClicked}
-    >
+    <article className={styles.shopItemWrapper} onClick={shopItemClicked}>
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
       </div>
@@ -71,10 +69,7 @@ function ShopItem({ productData }) {
 
         <div className={styles.priceBtnWrapper}>
           <h4 className={styles.price}>{productData.price}:-</h4>
-          <button
-            className={styles.button}
-            onClick={addToBasketButtonClicked}
-          >
+          <button className={styles.button} onClick={addToBasketButtonClicked}>
             <FaShoppingBag className={styles.icon} />
           </button>
         </div>
@@ -82,6 +77,5 @@ function ShopItem({ productData }) {
     </article>
   );
 }
-
 
 export default ShopItem;

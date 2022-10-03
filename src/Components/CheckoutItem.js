@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./CheckoutItem.module.css";
 import { AllContext } from "../context/AllContext";
+import { FaTrash } from "react-icons/fa";
 
 function CheckoutItem({ productData }) {
   /*
@@ -110,12 +111,10 @@ function CheckoutItem({ productData }) {
           </button>
         </div>
       </div>
-      <button
-        onClick={() => deleteItem(productData)}
-        className={styles.removeBtn}
-      >
-        Delete
-      </button>
+      <FaTrash 
+          onClick={() => deleteItem(productData)}
+          className={styles.removeBtn}
+        />
     </article>
   );
 }
