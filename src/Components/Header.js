@@ -5,8 +5,7 @@ import Basket from "./Basket";
 import { AllContext } from "../context/AllContext";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-// fiUser ska sedan användas som profillogga när man är inloggad
-import { FaShoppingBag, FaUserAlt, FaUser } from "react-icons/fa";
+import { FaShoppingBag, FaUser } from "react-icons/fa";
 import HamburgerButton from "./HamburgerButton";
 // import { doc } from "firebase/firestore";
 

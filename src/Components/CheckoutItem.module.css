@@ -1,32 +1,49 @@
 .productItemWrapper{
-  border: 1px solid lightgrey;
+  border-bottom: 1px solid #A19B9B;
   display: flex;
 }
-.imgWrapper{
-  width: 20%;
-  height: 90px;
 
+.imgWrapper{
+  width: 25%;
+  height: 90px;
 }
+
 .itemImage{
-  background-color: lightgrey;
-  width: 100%;
-  height: 100%;
+  height: 105px;
+  width: 105px;
 }
+
 .infoWrapper{
+  width: 25%;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   gap: 0.5rem;
 }
+
 .editQuantityWrapper{
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  width: 95px;
+  gap: 9px;
+  background-color: #414B42;
+  border-radius: 20px;
+  color: white;
+  justify-content: center;
+  padding: 6px;
 }
-.quantityBtn{
-  padding: 5px;
-}
-.removeBtn{
-  align-self: flex-end;
 
+.quantityBtn{
+  background-color: #414B42;
+  color: white;
+  border: none;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.removeBtn {
+  align-self: flex-end;
+  font-size: 24px;
+  margin-top: 22px;
+  margin-left: 7px;
 }

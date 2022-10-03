@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingProducts.module.css";
 import { FaChevronRight, FaPlus } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
+import Popup from "./Popup"
 
 function ListOfExsitingProducts() {
   const productsCollectionRef = collection(db, "products");
@@ -13,6 +14,7 @@ function ListOfExsitingProducts() {
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewProductFunction, setAddNewProductFunction] = useState(false);
+  const [showPopup, setShowPopup] = useState(false)
   const [showMessage, setShowMessage] = useState(false);
   const [productData, setProductData] = useState({
     name: "",
@@ -58,6 +60,9 @@ function ListOfExsitingProducts() {
 
   return (
     <div className={styles.wrapper}>
+      <Popup trigger={showPopup} setTrigger={setShowPopup}>
+        <p>Din produkt är nu uppdaterad!</p>
+      </Popup>
       <div className={styles.productsWrapper}>
       <h3 className={styles.title}>Butik</h3>
       <p className={styles.text}>Lägg till ny produkt eller välj befintlig för att uppdatera</p>
@@ -112,8 +117,8 @@ function ListOfExsitingProducts() {
           img={productData.img}
           getProducts={getProducts}
           setAddUpdateFunction={setAddUpdateFunction}
-          showMessage={showMessage}
-          setShowMessage={setShowMessage}
+          setShowPopup={setShowPopup}
+
         />
       )}
       <div className={styles.modal}>
@@ -125,7 +130,6 @@ function ListOfExsitingProducts() {
             setProductData={setProductData}
             setAddNewProductFunction={setAddNewProductFunction}
             getProducts={getProducts}
-       
             showMessage={showMessage}
             setShowMessage={setShowMessage}
             setAddUpdateFunction={setAddUpdateFunction}
