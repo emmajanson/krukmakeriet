@@ -5,8 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingCourses.module.css";
 import { FaChevronRight, FaPlus } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
-import Popup from "./Popup"
-
+import Popup from "./Popup";
 
 function ListOfExsitingCourses() {
   const courseCollectionRef = collection(db, "courses");
@@ -16,7 +15,7 @@ function ListOfExsitingCourses() {
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewCourseFunction, setAddNewCourseFunction] = useState(false);
-  const [showPopup, setShowPopup] = useState(false)
+  const [showPopup, setShowPopup] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [courseData, setCourseData] = useState({
     name: "",
@@ -27,7 +26,7 @@ function ListOfExsitingCourses() {
     desc: "",
     img: "",
   });
-//if the props are avaiable set them to the course state and display a modal with already filled input fields
+  //if the props are avaiable set them to the course state and display a modal with already filled input fields
   const toggleUpdate = (id, name, date, length, price, slots, desc, img) => {
     setCourseData({});
     setAddUpdateFunction(true);
@@ -46,7 +45,7 @@ function ListOfExsitingCourses() {
     setOpenModal(true);
     setShowMessage(false);
   };
-//empty the course state and display an empty modal for the new course
+  //empty the course state and display an empty modal for the new course
   const toggleNewCourse = () => {
     setAddUpdateFunction(() => false);
     setAddNewCourseFunction(true);
@@ -56,12 +55,12 @@ function ListOfExsitingCourses() {
     setShowMessage(false);
   };
 
-//get the courses from db
+  //get the courses from db
   async function getCourses() {
     const data = await getDocs(courseCollectionRef);
     setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
-//render the courses when refreshed
+  //render the courses when refreshed
   useEffect(() => {
     getCourses();
   }, []);
@@ -73,11 +72,14 @@ function ListOfExsitingCourses() {
       </Popup>
       <div className={styles.coursesWrapper}>
         <h3 className={styles.title}>Kurser</h3>
-        <p className={styles.text}>Lägg till ny kurs eller välj befintlig för att uppdatera/se deltagarlista</p>
+        <p className={styles.text}>
+          Lägg till ny kurs eller välj befintlig för att uppdatera/se
+          deltagarlista
+        </p>
         <button className={styles.button} onClick={() => toggleNewCourse()}>
           <p className={styles.btnText}>Lägg till ny kurs</p>
           <div className={styles.iconWrapper}>
-            <FaPlus className={styles.plusIcon}/>
+            <FaPlus className={styles.plusIcon} />
           </div>
         </button>
 
@@ -99,10 +101,10 @@ function ListOfExsitingCourses() {
                 )
               }
             >
-            <p className={styles.name}>{course.name}</p>
-            <p className={styles.date}>{course.details}</p>
-            <img src={course.img} className={styles.courseImage} />
-            <FaChevronRight className={styles.FaChevronRight} />
+              <p className={styles.name}>{course.name}</p>
+              <p className={styles.date}>{course.details.replace("T", " ")}</p>
+              <img src={course.img} className={styles.courseImage} />
+              <FaChevronRight className={styles.FaChevronRight} />
             </div>
           );
         })}

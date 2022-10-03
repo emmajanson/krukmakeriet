@@ -60,6 +60,23 @@
   font-size: 1rem;
   font-weight: 400;
 }
+.label{
+  padding-left: 0.4rem;
+  display: inline;
+}
+.inputWrapper input{
+  height: 3rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+}
+.inputWrapper input::placeholder{
+  color: #A19B9B;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+}
 .button{
   display: flex;
   justify-content: center;
@@ -130,6 +147,10 @@
   .text{
     font-size: 1.1rem;
   }
+  .inputWrapper input{
+    font-size: 1.1rem;
+  }
+
   .passwordSection{
     width: 45%;
   }
