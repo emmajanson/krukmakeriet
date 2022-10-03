@@ -25,9 +25,10 @@ describe("App and navigation", () => {
   });
 });
 
-describe("Footer", () => {
-  test("Should render without crash", async () => {
-    render(<Footer />);
-    // behöver göra ett expect för test
-  });
-});
+describe('Footer', () => {
+  test('Should render without crash', async () => {
+     render(<Footer />)
+     const routeForFooter = screen.getByTestId("footer");
+     expect(routeForFooter).toBeInTheDocument()
+})
+})

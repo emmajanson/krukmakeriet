@@ -8,6 +8,7 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -72,6 +73,7 @@ function Checkout() {
   // 3. Lägga till användarens E-mail i en array på den kurs som är bokad (för admin).
 
   const [currUID, setCurrUID] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -80,6 +82,7 @@ function Checkout() {
   }, []);
 
   async function updateProducts() {
+    // Creates a string-name with the date for the purchase.
     const currDate = new Date().getDate();
     const currMonth = () => {
       if (new Date().getMonth() + 1 < 10) {
@@ -99,22 +102,69 @@ function Checkout() {
       }
     };
 
-    const currentDate = `${currDate}-${currMonth()}-${currYear} ${currHour}:${currMinute}:${currSecond()}`;
+    const orderNumber = Math.floor(100000000 + Math.random() * 900000000);
+
+    const currentDate = `${currYear}-${currMonth()}-${currDate} ${currHour}:${currMinute}:${currSecond()}`;
 
     // Adding the purchased Products and Courses to users DB
     const userDoc = doc(db, "users", currUID);
+
     if (productBasket || courseBasket) {
       await updateDoc(userDoc, {
         [`purchases.${currentDate}`]: arrayUnion({
           purchasedProducts: {
-            name: productBasket.map((item) => item.name),
-            amount: productBasket.map((item) => item.amount),
+            product: productBasket.map((item) => {
+              return {
+                name: item.name,
+                amount: item.amount,
+                price: item.price,
+                orderNumber: orderNumber ? orderNumber : null,
+                date: `${currYear}-${currMonth()}-${currDate}`,
+              };
+            }),
           },
-          bookedCourses: courseBasket.map((item) => item.name),
+          bookedCourses: {
+            courses: courseBasket.map((course) => {
+              return {
+                name: course.name,
+                date: course.details,
+                price: course.price,
+              };
+            }),
+          },
         }),
       });
+
+      const idArray = productBasket.map((item) => {
+        return {
+          amount: item.amount,
+          id: item.id,
+        };
+      });
+
+      // idArray.map(async (item) => {
+      //   const currentAmount = await getDoc(db, "products", item.id);
+      //   const productRef = doc(db, "products", item.id);
+      //   await updateDoc(productRef, {
+      //     amount: currentAmount - item.amount,
+      //   });
+      // });
+
+      // for (let i = 0; i < idArray.length; i++) {
+      //   const currentAmount = await getDoc(db, "products", idArray[i].id);
+      //   const productRef = doc(db, "products", idArray[i].id);
+      //   await updateDoc(productRef, {
+      //     amount: currentAmount - idArray[i].amount,
+      //   });
+      // }
     } else {
       return;
+    }
+
+    if (courseBasket) {
+      const courseIDs = courseBasket.map((course) => {
+        return course.id;
+      });
     }
 
     // Removes items from shoppingcart

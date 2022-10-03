@@ -15,7 +15,14 @@ import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
 import ResetPassword from "./ResetPassword.js";
 
-import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 import UserOrders from "../Components/UserOrders";
 import UserCourses from "../Components/UserCourses";
 
@@ -30,6 +37,8 @@ function Profile() {
   const [secondNewPassword, setSecondNewPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const [confirmDeleteUser, setConfirmDeleteUser] = useState(false);
+  const [userProducts, setUserProducts] = useState([]);
+  const [userCourses, setUserCourses] = useState([]);
 
   const navigate = useNavigate();
 
@@ -40,6 +49,41 @@ function Profile() {
     await signOut(auth);
     localStorage.removeItem("admin");
     navigate("/signin");
+  }
+
+  // Checking who's logged in and saving the user in a state
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setUserID(currentUser.uid);
+    });
+  }, []);
+
+  useEffect(() => {
+    getProducts();
+  }, [userID]);
+
+  async function getProducts() {
+    const userRef = doc(db, "users", userID);
+    const userCollection = await getDoc(userRef);
+    const products = userCollection.data().purchases;
+
+    const objKeys = [Object.keys(products)];
+    const objValues = [Object.values(products)];
+
+    const productArray = [];
+    const courseArray = [];
+
+    objKeys[0].forEach((item, index) => {
+      if (objValues[0][index][0].bookedCourses.courses.length < 1) {
+        productArray.push({ [item]: objValues[0][index] });
+      } else {
+        courseArray.push({ [item]: objValues[0][index] });
+      }
+    });
+
+    setUserProducts(productArray);
+    setUserCourses(courseArray);
   }
 
   async function handleDeleteUser() {
@@ -84,15 +128,6 @@ function Profile() {
       console.log("något stämmer inte");
     }
   }
-
-  // Checking who's logged in and saving the user in a state
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setUserID(currentUser.uid);
-      console.log(currentUser);
-    });
-  }, []);
 
   return user == null ? (
     <Navigate to="/signin" />
@@ -207,9 +242,9 @@ function Profile() {
               <th className={styles.tableHeader}>Ordernr</th>
               <th className={styles.tableHeader}>Belopp</th>
             </tr>
-            <UserOrders />
-            <UserOrders />
-            <UserOrders />
+            {userProducts.map((item, index) => {
+              return <UserOrders purchase={item} key={index} />;
+            })}
           </table>
         </section>
 
@@ -221,9 +256,9 @@ function Profile() {
               <th className={styles.tableHeader}>Datum</th>
               <th className={styles.tableHeader}>Belopp</th>
             </tr>
-            <UserCourses />
-            <UserCourses />
-            <UserCourses />
+            {userCourses.map((item, index) => {
+              return <UserCourses purchase={item} key={index} />;
+            })}
           </table>
         </section>
       </main>
