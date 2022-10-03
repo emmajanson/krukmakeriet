@@ -17,6 +17,8 @@ function CheckoutItem({ productData }) {
   const { productBasket, setProductBasket, courseBasket, setCourseBasket } =
     useContext(AllContext);
 
+  const basketZero = productData.amount === 0;
+
   const isProduct = courseBasket.some((product) => {
     if (product.id === productData.id) {
       return true;
@@ -85,36 +87,49 @@ function CheckoutItem({ productData }) {
   }
 
   return (
-    <article className={styles.productItemWrapper} data-testid="checkoutItem">
+    <article className={styles.wrapper}>
       <div className={styles.imgWrapper}>
-        <img className={styles.itemImage} src={productData.img} alt="" />
+        <img src={productData.img} alt="" className={styles.basketImage} />
       </div>
-      <div className={styles.infoWrapper}>
-        <h3 className={styles.name}>{productData.name}</h3>
-        <p className={styles.info}>{productData.info}</p>
-        <p className={styles.price}>{productData.price}</p>
-        <div className={styles.editQuantityWrapper}>
-          <button
-            data-testid="decrementBtn"
+
+      <div className={styles.textWrapper}>
+        <p className={styles.heading}>{productData.name}</p>
+        <div className={styles.changeAmountWrapper}>
+          {basketZero ?  <p
+            className={styles.changeAmount}
             onClick={() => decrementAmount(productData)}
-            className={styles.quantityBtn}
           >
-            -
-          </button>
-          <p data-testid="counterText">{productData.amount}</p>
-          <button
-            data-testid="incrementBtn"
+
+          </p> :  <p
+            className={styles.changeAmount}
+            onClick={() => decrementAmount(productData)}
+            
+          >
+              {" "}
+            -{" "}
+          </p>
+
+      }
+            
+
+          <p>{productData.amount}</p>
+          <p
+            className={styles.changeAmount}
             onClick={() => incrementAmount(productData)}
-            className={styles.quantityBtn}
           >
-            +
-          </button>
+            {" "}
+            +{" "}
+          </p>
         </div>
       </div>
-      <FaTrash 
+
+      <div className={styles.priceDeleteWrapper}>
+        <p className={styles.price}>{productData.price}:-</p>
+        <FaTrash 
+          className={styles.deleteBtn}
           onClick={() => deleteItem(productData)}
-          className={styles.removeBtn}
         />
+      </div>
     </article>
   );
 }
