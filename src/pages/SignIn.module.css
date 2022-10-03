@@ -45,6 +45,11 @@
   height: 3rem;
   border-radius: 1rem;
 }
+
+.inputWrapper input:focus {
+  outline: none;
+}
+
 .inputWrapper input::placeholder{
   color: #A19B9B;
   font-size: 1rem;
@@ -115,6 +120,9 @@
   }
   .inputWrapper input::placeholder{
     font-size: 1.1rem;
+  }
+  .inputWrapper input:focus {
+    outline: none;
   }
   .buttonClassWhite {
     margin-top: 2rem;

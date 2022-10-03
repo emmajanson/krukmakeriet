@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingCourses.module.css";
 import { FaCaretRight } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
+import Popup from "./Popup"
 
 
 function ListOfExsitingCourses() {
@@ -15,7 +16,7 @@ function ListOfExsitingCourses() {
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewCourseFunction, setAddNewCourseFunction] = useState(false);
-  const [showBro, setShowBro] = useState(false);
+  const [showPopup, setShowPopup] = useState(false)
   const [showMessage, setShowMessage] = useState(false);
   const [courseData, setCourseData] = useState({
     name: "",
@@ -54,6 +55,7 @@ function ListOfExsitingCourses() {
     setOpenModal(() => true);
     setShowMessage(false);
   };
+
 //get the courses from db
   async function getCourses() {
     const data = await getDocs(courseCollectionRef);
@@ -66,6 +68,9 @@ function ListOfExsitingCourses() {
 
   return (
     <div className={styles.wrapper}>
+      <Popup trigger={showPopup} setTrigger={setShowPopup}>
+        <p>Din kurs är nu uppdaterad!</p>
+      </Popup>
       <div className={styles.coursesWrapper}>
         <h3 className={styles.title}>Kurser</h3>
         <p className={styles.text}>Lägg till ny kurs eller välj befintlig för att uppdatera/se deltagarlista</p>
@@ -117,9 +122,7 @@ function ListOfExsitingCourses() {
           img={courseData.img}
           getCourses={getCourses}
           setAddUpdateFunction={setAddUpdateFunction}
-        
-          showMessage={showMessage}
-          setShowMessage={setShowMessage}
+          setShowPopup={setShowPopup}
         />
       )}
       <div className={styles.modal}>

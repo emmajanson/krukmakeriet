@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingProducts.module.css";
 import { FaCaretRight } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
+import Popup from "./Popup"
 
 function ListOfExsitingProducts() {
   const productsCollectionRef = collection(db, "products");
@@ -13,6 +14,7 @@ function ListOfExsitingProducts() {
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewProductFunction, setAddNewProductFunction] = useState(false);
+  const [showPopup, setShowPopup] = useState(false)
   const [showMessage, setShowMessage] = useState(false);
   const [productData, setProductData] = useState({
     name: "",
@@ -20,9 +22,10 @@ function ListOfExsitingProducts() {
     price: "",
     quantity: "",
     img: "",
+    desc:""
   });
 //if the props are available set them to the product state and fill the input fields 
-  const toggleUpdate = (id, name, details, price, quantity, img) => {
+  const toggleUpdate = (id, name, details, price, quantity, img, desc) => {
     setAddUpdateFunction(true);
     setProductData({
       ...productData,
@@ -31,6 +34,7 @@ function ListOfExsitingProducts() {
       price,
       quantity,
       img,
+      desc
     });
     setProductID(id);
     setOpenModal(() => true);
@@ -56,6 +60,9 @@ function ListOfExsitingProducts() {
 
   return (
     <div className={styles.wrapper}>
+      <Popup trigger={showPopup} setTrigger={setShowPopup}>
+        <p>Din produkt är nu uppdaterad!</p>
+      </Popup>
       <div className={styles.productsWrapper}>
       <h3 className={styles.title}>Butik</h3>
       <p className={styles.text}>Lägg till ny produkt eller välj befintlig för att uppdatera</p>
@@ -74,7 +81,8 @@ function ListOfExsitingProducts() {
                   product.details,
                   product.price,
                   product.quantity,
-                  product.img
+                  product.img,
+                  product.desc
                 )
               }
             >
@@ -98,6 +106,7 @@ function ListOfExsitingProducts() {
           details={productData.details}
           price={productData.price}
           quantity={productData.quantity}
+          desc={productData.desc}
           open={openModal}
           onClose={setOpenModal}
           setProductData={setProductData}
@@ -105,9 +114,8 @@ function ListOfExsitingProducts() {
           img={productData.img}
           getProducts={getProducts}
           setAddUpdateFunction={setAddUpdateFunction}
-    
-          showMessage={showMessage}
-          setShowMessage={setShowMessage}
+          setShowPopup={setShowPopup}
+
         />
       )}
       <div className={styles.modal}>
@@ -119,7 +127,6 @@ function ListOfExsitingProducts() {
             setProductData={setProductData}
             setAddNewProductFunction={setAddNewProductFunction}
             getProducts={getProducts}
-       
             showMessage={showMessage}
             setShowMessage={setShowMessage}
             setAddUpdateFunction={setAddUpdateFunction}

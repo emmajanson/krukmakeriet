@@ -13,7 +13,7 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { v4 } from "uuid";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import Popup from "./Popup"
+
 
 function UpdateCourses({
   id,
@@ -32,8 +32,8 @@ function UpdateCourses({
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  showMessage,
   setShowMessage,
+  setShowPopup
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -44,7 +44,6 @@ function UpdateCourses({
   const [courseSpots, setCourseSpots] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
-  const [showPopup, setShowPopup] = useState(false)
   const [courseEmails, setCourseEmails] = useState([]);
   const [imageURL, setImageURL] = useState([]);
 
@@ -78,6 +77,7 @@ function UpdateCourses({
     });
   }, []);
 
+
   //everytime a change is made in the input fields display the latest changes in the modal
   useEffect(() => {
     setCourseName(name);
@@ -101,11 +101,6 @@ function UpdateCourses({
       closeNewModal(false);
     }
   }
-  const timeout = setTimeout(trigger, 2000);
-  
-  function trigger() {
-    setShowPopup(false);
-  }
   //upload the selected image to the firebase storage
   const uploadImage = () => {
     if (uploadedImage == null) return;
@@ -113,7 +108,6 @@ function UpdateCourses({
     uploadBytes(imageRef, uploadedImage).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setCourseImage((prev) => (prev, url));
-        setShowMessage(true);
       });
     });
   };
@@ -132,8 +126,11 @@ function UpdateCourses({
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
+    setShowPopup(true)
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 3000);
     onClose(false);
-    setShowPopup(true);
     getCourses();
   };
   //submit the form
@@ -234,7 +231,6 @@ function UpdateCourses({
             required
           />
           <p>Kursens bild: *</p>
-
           <div className={styles.upload_div}>
             <img src={courseImage} className={styles.uploaded_image} />
             <div className={styles.btns}>
@@ -247,11 +243,6 @@ function UpdateCourses({
                 }}
                 accept="image/png, image/jpeg"
               />
-              {/* {showMessage ? (
-          <p className={styles.message}>Successfully uploaded</p>
-        ) : (
-          ""
-        )} */}
               <div className={styles.btn_wrapper}>
                 <button
                   type="button"
