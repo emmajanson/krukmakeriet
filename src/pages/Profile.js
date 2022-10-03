@@ -75,10 +75,17 @@ function Profile() {
     const courseArray = [];
 
     objKeys[0].forEach((item, index) => {
-      if (objValues[0][index][0].bookedCourses.courses.length < 1) {
+      const courseLength = objValues[0][index][0].bookedCourses.courses.length;
+      const productLength =
+        objValues[0][index][0].purchasedProducts.product.length;
+
+      if (courseLength > 0 && productLength > 0) {
         productArray.push({ [item]: objValues[0][index] });
-      } else {
         courseArray.push({ [item]: objValues[0][index] });
+      } else if (courseLength > 0 && productLength <= 0) {
+        courseArray.push({ [item]: objValues[0][index] });
+      } else if (courseLength <= 0 && productLength > 0) {
+        productArray.push({ [item]: objValues[0][index] });
       }
     });
 
