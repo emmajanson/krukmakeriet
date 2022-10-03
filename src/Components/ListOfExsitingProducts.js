@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingProducts.module.css";
-import { FaCaretRight } from "react-icons/fa";
+import { FaChevronRight, FaPlus } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
 
 function ListOfExsitingProducts() {
@@ -62,7 +62,10 @@ function ListOfExsitingProducts() {
       <h3 className={styles.title}>Butik</h3>
       <p className={styles.text}>Lägg till ny produkt eller välj befintlig för att uppdatera</p>
         <button className={styles.button} onClick={() => toggleNewProduct()}>
-          Lägg till ny produkt +
+          <p className={styles.btnText}>Lägg till ny kurs</p>
+          <div className={styles.iconWrapper}>
+            <FaPlus className={styles.plusIcon}/>
+          </div>
         </button>
         {products.map((product, index) => {
           return (
@@ -87,7 +90,7 @@ function ListOfExsitingProducts() {
               <div className={styles.nameWrapper}>
                 <p className={styles.name}>{product.name}</p>
               </div>
-              <FaCaretRight className={styles.FaCaretRight} />
+              <FaChevronRight className={styles.FaCaretRight} />
             </div>
           );
         })}
