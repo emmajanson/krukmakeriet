@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Events.module.css";
 
 function Events() {
+  
   return (
     <section className={styles.wrapper}>
       <div className={styles.contentWrapper}>
@@ -28,7 +29,7 @@ function Events() {
             aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
             consectetur adipiscing elit.
           </p>
-          <button className={styles.button}>Kontakta oss</button>
+          <button className={styles.button} onClick={() => window.location = 'mailto:info@krukmakeriet.se'}>Kontakta oss</button>
         </div>
       </div>
     </section>
