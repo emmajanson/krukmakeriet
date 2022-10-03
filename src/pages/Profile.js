@@ -35,14 +35,15 @@ function Profile() {
   const [showNewUserEmail, setShowNewUserEmail] = useState(false);
   const [firstNewPassword, setFirstNewPassword] = useState(null);
   const [secondNewPassword, setSecondNewPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState(false);
-  const [confirmDeleteUser, setConfirmDeleteUser] = useState(false);
   const [userProducts, setUserProducts] = useState([]);
   const [userCourses, setUserCourses] = useState([]);
 
   const navigate = useNavigate();
 
   const permission = localStorage.getItem("admin");
+
+  var passwordChecker = false;
+  var deleteChecker = false;
 
   // Signs out the user, and navigates to signin-page
   async function logout() {
@@ -90,16 +91,13 @@ function Profile() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reauth funkade");
-        setConfirmDeleteUser(true);
+        deleteChecker = true;
       })
       .catch((error) => {
-        console.log("lösenordet stämmer inte", error.message);
-        setConfirmDeleteUser(false);
+        deleteChecker = false;
       });
-    if (confirmDeleteUser === true) {
+    if (deleteChecker === true) {
       deleteUser(user);
-      console.log("konto borttaget");
     } else {
       console.log("lösenordet stämde inte");
     }
@@ -109,23 +107,18 @@ function Profile() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reauth funkade");
-        setConfirmPassword(true);
+        passwordChecker = true;
       })
       .catch((error) => {
-        console.log("lösenordet stämmer inte", error.message);
-        setConfirmPassword(false);
+        passwordChecker = false;
       });
-    if (confirmPassword === true) {
-      console.log("ditt gamla lösenord stämmer");
+    if (passwordChecker === true) {
       if (firstNewPassword !== secondNewPassword) {
-        console.log("Lösenorden är inte samma");
       } else {
         updatePassword(user, firstNewPassword);
-        console.log("lösenord uppdaterat");
       }
     } else {
-      console.log("något stämmer inte");
+      console.log("lösenordet stämmer inte");
     }
   }
 
