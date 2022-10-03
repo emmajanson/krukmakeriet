@@ -125,6 +125,10 @@ function Header() {
       </header>
 
       {/* MOBILMENY */}
+      <div 
+        className={isActiveMobile ? styles.overlayOn : styles.overlayOff}  
+        onClick={() => toggleMenu(isActiveMobile, isOpen)}>
+      </div>
       <header className={styles.mobileWrapper}>
         <div
           className={styles.BurgerBtn}
@@ -155,6 +159,7 @@ function Header() {
             </nav>
           )}
         </div>
+        
 
         <nav
           className={
@@ -163,6 +168,7 @@ function Header() {
               : styles.mobileMenuWrapperHidden
           }
         >
+          
           <div className={styles.mobileMenuLinkWrapper}>
             <Link onClick={() => toggleMenu(isActiveMobile, isOpen)} to="/">
               Hem
@@ -202,7 +208,9 @@ function Header() {
               <Link to=""></Link>
             )}
           </div>
+          
         </nav>
+        
       </header>
 
       <section
