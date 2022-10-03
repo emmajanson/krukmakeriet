@@ -35,14 +35,18 @@ function Profile() {
   const [showNewUserEmail, setShowNewUserEmail] = useState(false);
   const [firstNewPassword, setFirstNewPassword] = useState(null);
   const [secondNewPassword, setSecondNewPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState(false);
-  const [confirmDeleteUser, setConfirmDeleteUser] = useState(false);
   const [userProducts, setUserProducts] = useState([]);
   const [userCourses, setUserCourses] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [showErrorMessage1, setShowErrorMessage1] = useState(false);
+  const [showErrorMessage2, setShowErrorMessage2] = useState(false);
 
   const navigate = useNavigate();
 
   const permission = localStorage.getItem("admin");
+
+  var passwordChecker = false;
+  var deleteChecker = false;
 
   // Signs out the user, and navigates to signin-page
   async function logout() {
@@ -97,16 +101,13 @@ function Profile() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reauth funkade");
-        setConfirmDeleteUser(true);
+        deleteChecker = true;
       })
       .catch((error) => {
-        console.log("lösenordet stämmer inte", error.message);
-        setConfirmDeleteUser(false);
+        deleteChecker = false;
       });
-    if (confirmDeleteUser === true) {
+    if (deleteChecker === true) {
       deleteUser(user);
-      console.log("konto borttaget");
     } else {
       console.log("lösenordet stämde inte");
     }
@@ -116,23 +117,32 @@ function Profile() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reauth funkade");
-        setConfirmPassword(true);
+        passwordChecker = true;
       })
       .catch((error) => {
-        console.log("lösenordet stämmer inte", error.message);
-        setConfirmPassword(false);
+        passwordChecker = false;
       });
-    if (confirmPassword === true) {
-      console.log("ditt gamla lösenord stämmer");
+    if (passwordChecker === true) {
       if (firstNewPassword !== secondNewPassword) {
-        console.log("Lösenorden är inte samma");
+        console.log("inte samma pass");
+        setShowErrorMessage1(true);
+        setTimeout(() => {
+          setShowErrorMessage1(false);
+        }, 5000);
       } else {
         updatePassword(user, firstNewPassword);
-        console.log("lösenord uppdaterat");
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false);
+        }, 5000);
+        console.log("lösenord bytt");
       }
     } else {
-      console.log("något stämmer inte");
+      setShowErrorMessage2(true);
+      setTimeout(() => {
+        setShowErrorMessage2(false);
+      }, 5000);
+      console.log("lösenordet stämmer inte");
     }
   }
 
@@ -151,8 +161,8 @@ function Profile() {
               <h6 className={styles.title}>Dina uppgifter</h6>
 
               {/* !!!rendera ut kunden uppgifter i p-taggarna nedan!!!! */}
-              <p className={styles.text}></p>
-              <p className={styles.text}></p>
+              <p className={styles.text}>{user.displayName}</p>
+              <p className={styles.text}>{user.email}</p>
 
               <button className={styles.button} onClick={logout}>
                 Logga ut
@@ -228,8 +238,18 @@ function Profile() {
                   setSecondNewPassword(e.target.value);
                 }}
               />
-              {showNewUserEmail ? (
-                <p style={{ color: "red" }}>Email changed</p>
+              {showMessage ? (
+                <p style={{ color: "green" }}>Lösenord ändrat</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage1 ? (
+                <p style={{ color: "red" }}>Lösenorden är inte samma</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage2 ? (
+                <p style={{ color: "red" }}>Fel lösenord</p>
               ) : (
                 ""
               )}
