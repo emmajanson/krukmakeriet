@@ -5,23 +5,13 @@ import { AllContext } from "../context/AllContext";
 import { FaShoppingBag } from "react-icons/fa";
 
 function ShopItem({ productData }) {
-<<<<<<< HEAD
   const {
     productBasket,
     setProductBasket,
     setShopProductModalOpen,
     setSelectedProduct,
+    setAddedToBasketPopupOpen,
   } = useContext(AllContext);
-  const [showPopup, setShowPopup] = useState(false);
-=======
-  const { 
-    productBasket, 
-    setProductBasket, 
-    setShopProductModalOpen, 
-    setSelectedProduct,
-    setAddedToBasketPopupOpen
-  } = useContext(AllContext);
->>>>>>> main
 
   function addToBasket(product) {
     if (productBasket === null) {
@@ -59,28 +49,16 @@ function ShopItem({ productData }) {
     setAddedToBasketPopupOpen(true);
     removeModal();
     event.stopPropagation();
-  }
+  };
 
   const shopItemClicked = () => {
     setShopProductModalOpen(true);
     setSelectedProduct(productData);
-  }
+  };
 
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
-<<<<<<< HEAD
-    <article
-      title="productItem"
-      className={styles.shopItemWrapper}
-      onClick={() => {
-        setShopProductModalOpen(true);
-        setSelectedProduct(productData);
-      }}
-=======
-    <article className={styles.shopItemWrapper} 
-      onClick={shopItemClicked}
->>>>>>> main
-    >
+    <article className={styles.shopItemWrapper} onClick={shopItemClicked}>
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
       </div>
@@ -90,10 +68,7 @@ function ShopItem({ productData }) {
 
         <div className={styles.priceBtnWrapper}>
           <h4 className={styles.price}>{productData.price}:-</h4>
-          <button
-            className={styles.button}
-            onClick={addToBasketButtonClicked}
-          >
+          <button className={styles.button} onClick={addToBasketButtonClicked}>
             <FaShoppingBag className={styles.icon} />
           </button>
         </div>
