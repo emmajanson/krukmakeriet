@@ -20,9 +20,10 @@ function ListOfExsitingProducts() {
     price: "",
     quantity: "",
     img: "",
+    desc:""
   });
 //if the props are available set them to the product state and fill the input fields 
-  const toggleUpdate = (id, name, details, price, quantity, img) => {
+  const toggleUpdate = (id, name, details, price, quantity, img, desc) => {
     setAddUpdateFunction(true);
     setProductData({
       ...productData,
@@ -31,6 +32,7 @@ function ListOfExsitingProducts() {
       price,
       quantity,
       img,
+      desc
     });
     setProductID(id);
     setOpenModal(() => true);
@@ -77,7 +79,8 @@ function ListOfExsitingProducts() {
                   product.details,
                   product.price,
                   product.quantity,
-                  product.img
+                  product.img,
+                  product.desc
                 )
               }
             >
@@ -101,6 +104,7 @@ function ListOfExsitingProducts() {
           details={productData.details}
           price={productData.price}
           quantity={productData.quantity}
+          desc={productData.desc}
           open={openModal}
           onClose={setOpenModal}
           setProductData={setProductData}
@@ -108,7 +112,6 @@ function ListOfExsitingProducts() {
           img={productData.img}
           getProducts={getProducts}
           setAddUpdateFunction={setAddUpdateFunction}
-    
           showMessage={showMessage}
           setShowMessage={setShowMessage}
         />

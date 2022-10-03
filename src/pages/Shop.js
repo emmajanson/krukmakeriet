@@ -7,26 +7,26 @@ import styles from "./Shop.module.css";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { AllContext } from '../context/AllContext';
+import Popup from '../Components/Popup';
 
 
 function Shop() {
 
- /*Render from db */
- const [products, setProducts] = useState([])
+  /*Render from db */
+  const [products, setProducts] = useState([])
 
- const {shopProductModalOpen, setShopProductModalOpen} = useContext(AllContext);
+  const {shopProductModalOpen, setShopProductModalOpen, addedToBasketPopupOpen, setAddedToBasketPopupOpen} = useContext(AllContext);
 
- useEffect(() => {
-   const productsCollectionRef = collection(db, "products");
+  useEffect(() => {
+    const productsCollectionRef = collection(db, "products");
 
-   const getProducts = async () => {
-     const data = await getDocs(productsCollectionRef);
-     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-     };
-   getProducts();
+    const getProducts = async () => {
+      const data = await getDocs(productsCollectionRef);
+      setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      };
+    getProducts();
 
- }, []);
-
+  }, []);
 
   return (
     <main className={styles.wrapper}>
@@ -53,6 +53,9 @@ function Shop() {
           .map((product) => (<ShopItem key={product.id} productData={product} />))
         }
       </section>
+      <Popup trigger={addedToBasketPopupOpen} setTrigger={setAddedToBasketPopupOpen}>
+          <p>Din vara är nu lagd i varukorgen.</p>
+      </Popup>
     </main>
   )
 }
