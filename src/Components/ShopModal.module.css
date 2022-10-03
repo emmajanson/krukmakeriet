@@ -29,17 +29,25 @@
 .buyButtonContainer{
     display: flex;
     justify-content: flex-end;
-    cursor: pointer;
 }
 
 .button{
     padding: 10px 30px 10px 30px;
     background-color: #414B42;
-    border: none;
+    border: 1px solid white;
     color: white;
     font-weight: bold;
     font-size: 18px;
     border-radius: 20px;
+    cursor: pointer;
 }
+
+.button:hover {
+    cursor: pointer;
+    color:#414B42;
+    background: #FFFFFF;
+    border: 1px solid #414B42;
+    transition: 0.1s;
+  }
 
 
