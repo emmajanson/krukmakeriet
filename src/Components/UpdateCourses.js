@@ -14,6 +14,7 @@ import { FaTimes } from "react-icons/fa";
 import { v4 } from "uuid";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 
+
 function UpdateCourses({
   id,
   name,
@@ -31,8 +32,8 @@ function UpdateCourses({
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  showMessage,
   setShowMessage,
+  setShowPopup
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -76,6 +77,7 @@ function UpdateCourses({
     });
   }, []);
 
+
   //everytime a change is made in the input fields display the latest changes in the modal
   useEffect(() => {
     setCourseName(name);
@@ -106,7 +108,6 @@ function UpdateCourses({
     uploadBytes(imageRef, uploadedImage).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setCourseImage((prev) => (prev, url));
-        setShowMessage(true);
       });
     });
   };
@@ -125,6 +126,10 @@ function UpdateCourses({
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
+    setShowPopup(true)
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 3000);
     onClose(false);
     getCourses();
   };

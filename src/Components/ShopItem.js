@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ShopItem.module.css";
 import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
-import Popup from "./Popup.js";
 import { FaShoppingBag } from "react-icons/fa";
 
 function ShopItem({ productData }) {
+<<<<<<< HEAD
   const {
     productBasket,
     setProductBasket,
@@ -13,6 +13,15 @@ function ShopItem({ productData }) {
     setSelectedProduct,
   } = useContext(AllContext);
   const [showPopup, setShowPopup] = useState(false);
+=======
+  const { 
+    productBasket, 
+    setProductBasket, 
+    setShopProductModalOpen, 
+    setSelectedProduct,
+    setAddedToBasketPopupOpen
+  } = useContext(AllContext);
+>>>>>>> main
 
   function addToBasket(product) {
     if (productBasket === null) {
@@ -35,18 +44,31 @@ function ShopItem({ productData }) {
     console.log("Added to basket " + productData.name);
   }
 
-  const timeout = setTimeout(trigger, 2000);
+  //const timeout = setTimeout(trigger, 2000);
 
   function trigger() {
-    setShowPopup(false);
+    setAddedToBasketPopupOpen(false);
   }
 
   function removeModal() {
-    clearTimeout(timeout);
+    setTimeout(trigger, 2000);
+  }
+
+  const addToBasketButtonClicked = (event) => {
+    addToBasket(productData);
+    setAddedToBasketPopupOpen(true);
+    removeModal();
+    event.stopPropagation();
+  }
+
+  const shopItemClicked = () => {
+    setShopProductModalOpen(true);
+    setSelectedProduct(productData);
   }
 
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
+<<<<<<< HEAD
     <article
       title="productItem"
       className={styles.shopItemWrapper}
@@ -54,6 +76,10 @@ function ShopItem({ productData }) {
         setShopProductModalOpen(true);
         setSelectedProduct(productData);
       }}
+=======
+    <article className={styles.shopItemWrapper} 
+      onClick={shopItemClicked}
+>>>>>>> main
     >
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
@@ -66,20 +92,12 @@ function ShopItem({ productData }) {
           <h4 className={styles.price}>{productData.price}:-</h4>
           <button
             className={styles.button}
-            onClick={() => {
-              addToBasket(productData);
-              setShowPopup(true);
-              removeModal();
-            }}
+            onClick={addToBasketButtonClicked}
           >
             <FaShoppingBag className={styles.icon} />
           </button>
         </div>
       </div>
-
-      <Popup trigger={showPopup} setTrigger={setShowPopup}>
-        <p>Din vara är nu lagd i varukorgen.</p>
-      </Popup>
     </article>
   );
 }

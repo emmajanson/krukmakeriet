@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 .wrapper {
   display: flex;
@@ -64,16 +64,24 @@
 }
 
 .checkoutBtn {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 18px;
   font-weight: 500;
   width: 160px;
   padding: 10px;
-  background-color: #414B42;
+  background-color: #414b42;
   color: white;
   border-radius: 40px;
   border: none;
   margin-top: 32px;
+}
+
+.checkoutBtn:hover {
+  cursor: pointer;
+  color: #414b42;
+  background: #ffffff;
+  border: 1px solid #414b42;
+  transition: 0.1s;
 }
 
 @media screen and (min-width: 800px) {
