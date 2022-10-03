@@ -174,166 +174,182 @@ function Checkout() {
   }
 
   return (
-    <main className={styles.wrapper}>
-      <section className={styles.basketWrapper}>
-        <h2>Varukorg</h2>
-        <section className={styles.productsWrapper}>
-          <h3>{productsInBasket}</h3>
-          {productBasket && (
-            <section className={styles.basketItemWrapper}>
-              <h4 className={styles.subHeading}></h4>
-              {productBasket.map((product) => (
-                <CheckoutItem key={product.id} productData={product} />
-              ))}
-            </section>
-          )}
+    <main className={styles.siteWrapper}>
+      <div className={styles.wrapperAll}>
+        <section className={styles.basketWrapper}>
+          <h1>Din beställning</h1>
+          <h2>Varukorg</h2>
+          <section className={styles.productsWrapper}>
+            <h3>{productsInBasket}</h3>
+            {productBasket && (
+              <section className={styles.basketItemWrapper}>
+                <h4 className={styles.subHeading}></h4>
+                {productBasket.map((product) => (
+                  <CheckoutItem key={product.id} productData={product} />
+                ))}
+              </section>
+            )}
+          </section>
+          <section className={styles.coursesWrapper}>
+            <h3>{coursesInBasket}</h3>
+            {courseBasket && (
+              <section className={styles.basketItemWrapper}>
+                <h4 className={styles.subHeading}></h4>
+                {courseBasket.map((product) => (
+                  <CheckoutItem key={product.id} productData={product} />
+                ))}
+              </section>
+            )}
+          </section>
+          <div className={styles.totalAmountWrapper}>
+            <p className={styles.totalAmountText}>Totalsumma</p>
+            <p className={styles.totalAmountPrice}>{totalSumBasket}:-</p>
+          </div>
         </section>
-        <section className={styles.coursesWrapper}>
-          <h3>{coursesInBasket}</h3>
-          {courseBasket && (
-            <section className={styles.basketItemWrapper}>
-              <h4 className={styles.subHeading}></h4>
-              {courseBasket.map((product) => (
-                <CheckoutItem key={product.id} productData={product} />
-              ))}
-            </section>
-          )}
-        </section>
-        <h3 className={styles.totalSumBasket}>Total summa {totalSumBasket}:-</h3>
-      </section>
 
-      <form className={styles.userInfoWrapper}>
-        <h2>Leveransuppgifter</h2>
-        <div className={styles.userFirstInputsWrapper}>
-          <label name="firstName">Förnamn</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="firstName"
-            placeholder="Förnamn"
-          ></input>
-
-          <label name="lastName">Efternamn</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="lastName"
-            placeholder="Efternamn"
-            required
-          ></input>
-
-          <label name="email">E-post</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="email"
-            placeholder="E-post"
-            required
-          ></input>
-
-          <label name="phoneNumber">Telefonnummer</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="phoneNumber"
-            placeholder="Telefonnummer"
-            required
-          ></input>
-
-          <label name="address">Adress</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="address"
-            placeholder="Adress"
-            required
-          ></input>
-        </div>
-
-        <div className={styles.userSecondInputsWrapper}>
-          <div className={styles.inputSmall}>
-            <label name="zipCode">Postnummer</label>
+        <form className={styles.userInfoWrapper}>
+          <h2>Leveransuppgifter</h2>
+          <div className={styles.userFirstInputsWrapper}>
+            <label name="firstName">Förnamn*</label>
             <input
+              className={styles.inputLarge}
               type="text"
-              name="zipcode"
-              placeholder="Postnummer"
+              name="firstName"
+              placeholder="Ex. Anna"
+            ></input>
+
+            <label name="lastName">Efternamn*</label>
+            <input
+              className={styles.inputLarge}
+              type="text"
+              name="lastName"
+              placeholder="Ex. Andersson"
+              required
+            ></input>
+
+            <label name="email">E-post*</label>
+            <input
+              className={styles.inputLarge}
+              type="text"
+              name="email"
+              placeholder="exempel@exempel.se"
+              required
+            ></input>
+
+            <label name="phoneNumber">Telefonnummer*</label>
+            <input
+              className={styles.inputLarge}
+              type="text"
+              name="phoneNumber"
+              placeholder="+46 xxxxxxxx"
+              required
+            ></input>
+
+            <label name="address">Adress*</label>
+            <input
+              className={styles.inputLarge}
+              type="text"
+              name="address"
+              placeholder="Gatunamn 0"
               required
             ></input>
           </div>
-          <div className={styles.inputMedium}>
-            <label name="city">Stad</label>
-            <input type="text" name="city" placeholder="Stad" required></input>
+
+          <div className={styles.userSecondInputsWrapper}>
+            <div className={styles.inputSmall}>
+              <label name="zipCode">Postnummer*</label>
+              <input
+                type="text"
+                name="zipcode"
+                placeholder="xxx xx"
+                required
+              ></input>
+            </div>
+            <div className={styles.inputMedium}>
+              <label name="city">Stad*</label>
+              <input 
+                type="text" 
+                name="city" 
+                placeholder="Ex. Stockholm" 
+                required
+              ></input>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
 
-      <section className={styles.paymentWrapper}>
-        <h2>Betalningsalternativ</h2>
-        <div className={styles.payFirstInputsWrapper}>
-          <label name="cardName">Kortinnehavarens namn</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="cardName"
-            placeholder="Kortinnehavarens namn"
-            required
-          ></input>
-
-          <label name="cardNumber">Kortnummer</label>
-          <input
-            className={styles.inputLarge}
-            type="text"
-            name="cardNumber"
-            placeholder="Kortnummer"
-            required
-          ></input>
-        </div>
-
-        <div className={styles.paySecondInputsWrapper}>
-          <div className={styles.inputSmall}>
-            <label name="expDate">Datum</label>
+        <section className={styles.paymentWrapper}>
+          <h2>Betalningsalternativ</h2>
+          <div className={styles.payFirstInputsWrapper}>
+            <label name="cardName">Kortinnehavarens namn*</label>
             <input
+              className={styles.inputLarge}
               type="text"
-              name="expDate"
-              placeholder="Datum"
+              name="cardName"
+              placeholder="Ex. Anna Andersson"
+              required
+            ></input>
+
+            <label name="cardNumber">Kortnummer*</label>
+            <input
+              className={styles.inputLarge}
+              type="text"
+              name="cardNumber"
+              placeholder="xxxxxxxxxxxxxxx"
               required
             ></input>
           </div>
-          <div className={styles.inputSmall}>
-            <label name="cvc">CVC</label>
-            <input type="text" name="cvc" placeholder="Cvc" required></input>
-          </div>
-        </div>
-      </section>
 
-      <section className={styles.btnWrapper}>
-        <button
-          className={styles.checkoutBtn}
-          onClick={() => {
-            navigate("/Shop");
-          }}
-        >
-          Fortsätt handla
-        </button>
-        <button
-          onClick={() => {
-            setShowPopup(true);
-            updateProducts();
-          }}
-          className={styles.checkoutBtn}
-        >
-          Bekräfta köp
-        </button>
-        <Popup
-          trigger={showPopup}
-          setTrigger={setShowPopup}
-          navigation={"/shop"}
-        >
-          <h1>Tack för ditt köp</h1>
-          <p>En beställningsbekräftelse har skickats till din epostadress</p>
-          <p>Ingen e-post? Kolla i skräpposten.</p>
-        </Popup>
-      </section>
+          <div className={styles.paySecondInputsWrapper}>
+            <div className={styles.inputSmall}>
+              <label name="expDate">Datum*</label>
+              <input
+                type="text"
+                name="expDate"
+                placeholder="xx/xx"
+                required
+              ></input>
+            </div>
+            <div className={styles.inputSmall}>
+              <label name="cvc">CVC*</label>
+              <input 
+                type="text" 
+                name="cvc" 
+                placeholder="xxx" 
+                required
+                ></input>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.btnWrapper}>
+          <button
+            className={styles.checkoutBtn}
+            onClick={() => {
+              navigate("/Shop");
+            }}
+          >
+            Fortsätt handla
+          </button>
+          <button
+            onClick={() => {
+              setShowPopup(true);
+              updateProducts();
+            }}
+            className={styles.checkoutBtn}
+          >
+            Bekräfta köp
+          </button>
+          <Popup
+            trigger={showPopup}
+            setTrigger={setShowPopup}
+            navigation={"/shop"}
+          >
+            <h1>Tack för ditt köp</h1>
+            <p>En beställningsbekräftelse har skickats till din epostadress</p>
+            <p>Ingen e-post? Kolla i skräpposten.</p>
+          </Popup>
+        </section>
+      </div>
     </main>
   );
 }
