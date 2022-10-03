@@ -39,6 +39,10 @@ function Checkout() {
     courseBasket,
     setCourseBasket,
     setRefresh,
+    setBasketAmount,
+    basketAmount,
+    setTotalAmountinCourse,
+    setTotalAmountinProduct,
   } = useContext(AllContext);
 
   const totalSum = (basket) => {
@@ -74,103 +78,111 @@ function Checkout() {
 
   const [currUID, setCurrUID] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      setUser(user);
       setCurrUID(user.uid);
     });
   }, []);
 
+  console.log(user);
+
   async function updateProducts() {
-    // Creates a string-name with the date for the purchase.
-    const currDate = new Date().getDate();
-    const currMonth = () => {
-      if (new Date().getMonth() + 1 < 10) {
-        return `0${new Date().getMonth() + 1}`;
+    if (user === null) {
+      navigate("/signin");
+    } else {
+      // Creates a string-name with the date for the purchase.
+      const currDate = new Date().getDate();
+      const currMonth = () => {
+        if (new Date().getMonth() + 1 < 10) {
+          return `0${new Date().getMonth() + 1}`;
+        } else {
+          return `${new Date().getMonth() + 1}`;
+        }
+      };
+      const currYear = new Date().getFullYear();
+      const currHour = new Date().getHours();
+      const currMinute = new Date().getMinutes();
+      const currSecond = () => {
+        if (new Date().getSeconds() + 1 < 10) {
+          return `0${new Date().getSeconds() + 1}`;
+        } else {
+          return `${new Date().getSeconds() + 1}`;
+        }
+      };
+
+      const orderNumber = Math.floor(100000000 + Math.random() * 900000000);
+
+      const currentDate = `${currYear}-${currMonth()}-${currDate} ${currHour}:${currMinute}:${currSecond()}`;
+
+      // Adding the purchased Products and Courses to users DB
+      const userDoc = doc(db, "users", currUID);
+
+      if (productBasket || courseBasket) {
+        await updateDoc(userDoc, {
+          [`purchases.${currentDate}`]: arrayUnion({
+            purchasedProducts: {
+              product: productBasket.map((item) => {
+                return {
+                  name: item.name,
+                  amount: item.amount,
+                  price: item.price,
+                  orderNumber: orderNumber ? orderNumber : null,
+                  date: `${currYear}-${currMonth()}-${currDate}`,
+                };
+              }),
+            },
+            bookedCourses: {
+              courses: courseBasket.map((course) => {
+                return {
+                  name: course.name,
+                  date: course.details,
+                  price: course.price,
+                };
+              }),
+            },
+          }),
+        });
+
+        // const idArray = productBasket.map((item) => {
+        //   return {
+        //     amount: item.amount,
+        //     id: item.id,
+        //   };
+        // });
+
+        // idArray.map(async (item) => {
+        //   const currentAmount = await getDoc(db, "products", item.id);
+        //   const productRef = doc(db, "products", item.id);
+        //   await updateDoc(productRef, {
+        //     amount: currentAmount - item.amount,
+        //   });
+        // });
+
+        // for (let i = 0; i < idArray.length; i++) {
+        //   const currentAmount = await getDoc(db, "products", idArray[i].id);
+        //   const productRef = doc(db, "products", idArray[i].id);
+        //   await updateDoc(productRef, {
+        //     amount: currentAmount - idArray[i].amount,
+        //   });
+        // }
+
+        // Removes items from shoppingcart
+        localStorage.setItem("productBasket", "[]");
+        localStorage.setItem("courseBasket", "[]");
+        setRefresh((curr) => !curr);
       } else {
-        return `${new Date().getMonth() + 1}`;
+        return;
       }
-    };
-    const currYear = new Date().getFullYear();
-    const currHour = new Date().getHours();
-    const currMinute = new Date().getMinutes();
-    const currSecond = () => {
-      if (new Date().getSeconds() + 1 < 10) {
-        return `0${new Date().getSeconds() + 1}`;
-      } else {
-        return `${new Date().getSeconds() + 1}`;
-      }
-    };
 
-    const orderNumber = Math.floor(100000000 + Math.random() * 900000000);
-
-    const currentDate = `${currYear}-${currMonth()}-${currDate} ${currHour}:${currMinute}:${currSecond()}`;
-
-    // Adding the purchased Products and Courses to users DB
-    const userDoc = doc(db, "users", currUID);
-
-    if (productBasket || courseBasket) {
-      await updateDoc(userDoc, {
-        [`purchases.${currentDate}`]: arrayUnion({
-          purchasedProducts: {
-            product: productBasket.map((item) => {
-              return {
-                name: item.name,
-                amount: item.amount,
-                price: item.price,
-                orderNumber: orderNumber ? orderNumber : null,
-                date: `${currYear}-${currMonth()}-${currDate}`,
-              };
-            }),
-          },
-          bookedCourses: {
-            courses: courseBasket.map((course) => {
-              return {
-                name: course.name,
-                date: course.details,
-                price: course.price,
-              };
-            }),
-          },
-        }),
-      });
-
-      const idArray = productBasket.map((item) => {
-        return {
-          amount: item.amount,
-          id: item.id,
-        };
-      });
-
-      // idArray.map(async (item) => {
-      //   const currentAmount = await getDoc(db, "products", item.id);
-      //   const productRef = doc(db, "products", item.id);
-      //   await updateDoc(productRef, {
-      //     amount: currentAmount - item.amount,
-      //   });
-      // });
-
-      // for (let i = 0; i < idArray.length; i++) {
-      //   const currentAmount = await getDoc(db, "products", idArray[i].id);
-      //   const productRef = doc(db, "products", idArray[i].id);
-      //   await updateDoc(productRef, {
-      //     amount: currentAmount - idArray[i].amount,
+      // if (courseBasket) {
+      //   const courseIDs = courseBasket.map((course) => {
+      //     return course.id;
       //   });
       // }
-    } else {
-      return;
     }
-
-    if (courseBasket) {
-      const courseIDs = courseBasket.map((course) => {
-        return course.id;
-      });
-    }
-
-    // Removes items from shoppingcart
-    localStorage.setItem("productBasket", "[]");
-    localStorage.setItem("courseBasket", "[]");
-    setRefresh((curr) => !curr);
   }
 
   return (
@@ -199,7 +211,9 @@ function Checkout() {
             </section>
           )}
         </section>
-        <h3 className={styles.totalSumBasket}>Total summa {totalSumBasket}:-</h3>
+        <h3 className={styles.totalSumBasket}>
+          Total summa {totalSumBasket}:-
+        </h3>
       </section>
 
       <form className={styles.userInfoWrapper}>

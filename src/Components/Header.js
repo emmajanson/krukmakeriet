@@ -24,6 +24,8 @@ function Header() {
     adminPermission,
     showTopBtn,
     setShowTopBtn,
+    basketAmount,
+    setBasketAmount,
   } = useContext(AllContext);
 
   useEffect(() => {
@@ -48,7 +50,8 @@ function Header() {
     });
   }
 
-  let basketAmount = totalAmountinProduct + totalAmountinCourse;
+  // let basketAmount = totalAmountinProduct + totalAmountinCourse;
+  setBasketAmount(totalAmountinProduct + totalAmountinCourse);
 
   function toggleMenu(props) {
     setIsActiveMobile(props);
@@ -117,7 +120,7 @@ function Header() {
           <nav
             data-count={basketAmount}
             className={
-              basketAmount ? styles.linkWrapper : styles.linkWrapperFalse
+              basketAmount > 0 ? styles.linkWrapper : styles.linkWrapperFalse
             }
           ></nav>
         </nav>
