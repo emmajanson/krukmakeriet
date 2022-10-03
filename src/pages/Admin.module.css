@@ -1,22 +1,129 @@
-.wrapper{
+.wrapper {
   padding-top: 12vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  border:1px solid red;
+  padding-bottom: 4rem;
 }
-.heading{
+.heading {
   font-size: 2rem;
   font-weight: 400;
   margin-bottom: 3rem;
 }
 
-@media only screen and (min-width: 800px){
-  .wrapper{
+.userInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  gap: 2rem;
+}
+.subheading {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.accountSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+}
+.passwordSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  border-bottom: 0.5px solid black;
+  width: 100%;
+}
+.text {
+  font-size: 1rem;
+  font-weight: 400;
+}
+.label {
+  padding-left: 0.4rem;
+  display: inline;
+}
+.inputWrapper input {
+  height: 3rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+}
+.inputWrapper input::placeholder {
+  color: #a19b9b;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 3rem;
+  width: 10rem;
+  height: 2.5rem;
+  background-color: #414b42;
+  color: white;
+  margin-top: 1rem;
+}
+
+@media only screen and (min-width: 800px) {
+  .wrapper {
     padding-top: 20vh;
-  } 
-  .heading{
-    font-size: 2.5rem;
+  }
+  .userInfoWrapper {
+    width: 100%;
+    max-width: 954px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .heading {
+    font-size: 2rem;
+  }
+  .subheading {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  .accountSection {
+    width: 45%;
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+  .text {
+    font-size: 1.1rem;
+  }
+  .inputWrapper input {
+    font-size: 1.1rem;
+  }
+  .passwordSection {
+    width: 45%;
+  }
+  .button:hover {
+    background-color: white;
+    border: 1px solid #414b42;
+    transition: 0.5s;
+    color: #414b42;
   }
 }

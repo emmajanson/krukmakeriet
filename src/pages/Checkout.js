@@ -199,7 +199,7 @@ function Checkout() {
             </section>
           )}
         </section>
-        <h3>Total summa {totalSumBasket}:-</h3>
+        <h3 className={styles.totalSumBasket}>Total summa {totalSumBasket}:-</h3>
       </section>
 
       <form className={styles.userInfoWrapper}>

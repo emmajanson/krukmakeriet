@@ -22,7 +22,6 @@ function UpdateProducts({
   quantity,
   updateOnly,
   open,
-  product,
   onClose,
   setProductData,
   img,
@@ -32,6 +31,7 @@ function UpdateProducts({
   getProducts,
   desc,
   setShowMessage,
+  setShowPopup
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
@@ -103,7 +103,6 @@ function UpdateProducts({
     uploadBytes(imageRef, uploadedImage).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setProductImage((prev) => (prev, url));
-        setShowMessage(true);
       });
     });
   };
@@ -120,6 +119,10 @@ function UpdateProducts({
     };
     await updateDoc(productDoc, newUpdatedProduct);
     console.log("UpdateProduct function");
+    setShowPopup(true)
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 3000);
     onClose(false);
     getProducts();
   };

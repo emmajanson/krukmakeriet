@@ -11,7 +11,6 @@ exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
     <img
       alt=""
       className="itemImage"
-      src="https"
     />
   </div>
   <div
@@ -19,9 +18,7 @@ exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
   >
     <h3
       className="name"
-    >
-      skål
-    </h3>
+    />
     <p
       className="info"
     />
@@ -33,26 +30,17 @@ exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
     >
       <button
         className="quantityBtn"
-<<<<<<< HEAD
-=======
         data-testid="decrementBtn"
->>>>>>> main
         onClick={[Function]}
       >
         -
       </button>
-<<<<<<< HEAD
-      <p />
-      <button
-        className="quantityBtn"
-=======
       <p
         data-testid="counterText"
       />
       <button
         className="quantityBtn"
         data-testid="incrementBtn"
->>>>>>> main
         onClick={[Function]}
       >
         +
