@@ -1,16 +1,29 @@
 import styles from "./ShopModal.module.css";
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { AllContext } from "../context/AllContext";
-import Popup from "./Popup.js";
 
 function ShopModal(){
-    const {setShopProductModalOpen, selectedProduct, productBasket, setProductBasket} = useContext(AllContext);
-    const [showPopup, setShowPopup] = useState(false);
+    const {
+        setShopProductModalOpen, 
+        selectedProduct, 
+        productBasket, 
+        setProductBasket,
+        setAddedToBasketPopupOpen
+    } = useContext(AllContext);
 
     const closeModal = () => {
         setShopProductModalOpen(false);
+    }
+
+    function trigger() {
+        setAddedToBasketPopupOpen(false);
+        setShopProductModalOpen(false);
+    }
+
+    function removeModal() {
+        setTimeout(trigger, 2000);
     }
 
     function addToBasket() {
@@ -34,18 +47,10 @@ function ShopModal(){
         console.log("Added to basket " + selectedProduct.name);
     }
 
-    const timeout = setTimeout(trigger, 2000);
-
-    function trigger() {
-        setShowPopup(false);
-    }
-
-    function removeModal() {
-        clearTimeout(timeout);
-    }
+    //const timeout = setTimeout(trigger, 2000);
 
     return(
-        <>
+        <article>
             <section className={styles.iconXContainer}>
                 <section className={styles.iconXWrapper} onClick={closeModal}>
                     <FontAwesomeIcon icon={faTimes} />
@@ -76,17 +81,14 @@ function ShopModal(){
                 className={styles.button}
                 onClick={() => {
                     addToBasket();
-                    setShowPopup(true);
+                    setAddedToBasketPopupOpen(true);
                     removeModal();
                 }}
                 >
                     Köp
                 </button>
             </section>
-            <Popup trigger={showPopup} setTrigger={setShowPopup}>
-                    <p>Din vara är nu lagd i varukorgen.</p>
-                </Popup>
-        </>
+        </article>
     )
 
 }

@@ -29,6 +29,7 @@
 .buyButtonContainer{
     display: flex;
     justify-content: flex-end;
+    cursor: pointer;
 }
 
 .button{

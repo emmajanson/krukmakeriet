@@ -18,6 +18,7 @@ export const AllContextProvider = ({ children }) => {
   const [shopProductModalOpen, setShopProductModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showTopBtn, setShowTopBtn] = useState(false);
+  const [addedToBasketPopupOpen, setAddedToBasketPopupOpen] = useState(false);
 
   if (courseBasket === null) {
     setCourseBasket([]);
@@ -68,6 +69,8 @@ export const AllContextProvider = ({ children }) => {
         setSelectedProduct,
         showTopBtn,
         setShowTopBtn,
+        addedToBasketPopupOpen,
+        setAddedToBasketPopupOpen
       }}
     >
       {children}
