@@ -53,12 +53,15 @@
   font-weight: 400;
 }
 .label{
+  padding-left: 0.4rem;
   display: inline;
 }
 .inputWrapper input{
   height: 3rem;
   border: 1px solid black;
   border-radius: 1rem;
+  padding-left: 1rem;
+  font-size: 1rem;
 }
 .inputWrapper input::placeholder{
   color: #A19B9B;
@@ -111,6 +114,9 @@
     font-size: 1.2rem;
   }
   .text{
+    font-size: 1.1rem;
+  }
+  .inputWrapper input{
     font-size: 1.1rem;
   }
   .passwordSection{
