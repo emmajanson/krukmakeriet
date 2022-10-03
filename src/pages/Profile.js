@@ -146,7 +146,7 @@ function Profile() {
     }
   }
 
-  return user == null ? (
+  return user == null || user.emailVerified === false ? (
     <Navigate to="/signin" />
   ) : (
     <div className={styles.bgWrapper}>
