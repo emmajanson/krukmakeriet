@@ -44,6 +44,7 @@
   border: none;
   height: 3rem;
   border-radius: 1rem;
+  padding-left: 1rem;
 }
 
 .inputWrapper input:focus {
@@ -67,6 +68,8 @@
   border-radius: 3rem;
   width: 11.25rem;
   height: 3rem;
+  background-color: white;
+  color: #414B42;
 }
 .resetPassword{
   padding: 0.3rem;
