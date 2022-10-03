@@ -13,6 +13,7 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { v4 } from "uuid";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import Popup from "./Popup"
 
 function UpdateCourses({
   id,
@@ -43,6 +44,7 @@ function UpdateCourses({
   const [courseSpots, setCourseSpots] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [courseImage, setCourseImage] = useState("");
+  const [showPopup, setShowPopup] = useState(false)
   const [courseEmails, setCourseEmails] = useState([]);
   const [imageURL, setImageURL] = useState([]);
 
@@ -99,6 +101,11 @@ function UpdateCourses({
       closeNewModal(false);
     }
   }
+  const timeout = setTimeout(trigger, 2000);
+  
+  function trigger() {
+    setShowPopup(false);
+  }
   //upload the selected image to the firebase storage
   const uploadImage = () => {
     if (uploadedImage == null) return;
@@ -126,6 +133,7 @@ function UpdateCourses({
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
     onClose(false);
+    setShowPopup(true);
     getCourses();
   };
   //submit the form

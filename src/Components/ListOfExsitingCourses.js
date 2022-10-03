@@ -6,6 +6,7 @@ import styles from "./ListOfExistingCourses.module.css";
 import { FaCaretRight } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
 
+
 function ListOfExsitingCourses() {
   const courseCollectionRef = collection(db, "courses");
   const [courses, setCourses] = useState([]);
