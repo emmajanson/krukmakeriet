@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
   padding-top: 12vh;
   display: flex;
   flex-direction: column;
@@ -6,37 +6,37 @@
   width: 100%;
   padding-bottom: 4rem;
 }
-.heading{
+.heading {
   font-size: 2rem;
   font-weight: 400;
   margin-bottom: 3rem;
 }
 
-.userInfoWrapper{
+.userInfoWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90%;
   gap: 2rem;
 }
-.subheading{
+.subheading {
   font-size: 1.5rem;
   font-weight: 400;
 }
-.accountSection{
+.accountSection {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   width: 100%;
 }
-.passwordSection{
+.passwordSection {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 0.5rem;
   width: 100%;
-} 
-.article{
+}
+.article {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -48,28 +48,28 @@
   border-bottom: 0.5px solid black;
   width: 100%;
 }
-.text{
+.text {
   font-size: 1rem;
   font-weight: 400;
 }
-.label{
+.label {
   padding-left: 0.4rem;
   display: inline;
 }
-.inputWrapper input{
+.inputWrapper input {
   height: 3rem;
   border: 1px solid black;
   border-radius: 1rem;
   padding-left: 1rem;
   font-size: 1rem;
 }
-.inputWrapper input::placeholder{
-  color: #A19B9B;
+.inputWrapper input::placeholder {
+  color: #a19b9b;
   font-size: 1rem;
   font-weight: 300;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-.button{
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,13 +85,11 @@
   margin-top: 1rem;
 }
 
-
-
-@media only screen and (min-width: 800px){
-  .wrapper{
+@media only screen and (min-width: 800px) {
+  .wrapper {
     padding-top: 20vh;
-  } 
-  .userInfoWrapper{
+  }
+  .userInfoWrapper {
     width: 100%;
     max-width: 954px;
     flex-direction: row;
@@ -99,32 +97,32 @@
     justify-content: space-between;
     align-items: flex-start;
   }
-  .heading{
+  .heading {
     font-size: 2rem;
   }
-  .subheading{
+  .subheading {
     width: 100%;
     text-align: center;
     font-size: 1.5rem;
   }
-  .accountSection{
+  .accountSection {
     width: 45%;
   }
-  .title{
+  .title {
     font-size: 1.2rem;
   }
-  .text{
+  .text {
     font-size: 1.1rem;
   }
-  .inputWrapper input{
+  .inputWrapper input {
     font-size: 1.1rem;
   }
-  .passwordSection{
+  .passwordSection {
     width: 45%;
   }
-  .button:hover{
+  .button:hover {
     background-color: white;
-    border:1px solid #414b42;
+    border: 1px solid #414b42;
     transition: 0.5s;
     color: #414b42;
   }

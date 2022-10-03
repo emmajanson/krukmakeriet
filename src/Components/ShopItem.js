@@ -5,6 +5,15 @@ import { AllContext } from "../context/AllContext";
 import { FaShoppingBag } from "react-icons/fa";
 
 function ShopItem({ productData }) {
+<<<<<<< HEAD
+  const {
+    productBasket,
+    setProductBasket,
+    setShopProductModalOpen,
+    setSelectedProduct,
+  } = useContext(AllContext);
+  const [showPopup, setShowPopup] = useState(false);
+=======
   const { 
     productBasket, 
     setProductBasket, 
@@ -12,6 +21,7 @@ function ShopItem({ productData }) {
     setSelectedProduct,
     setAddedToBasketPopupOpen
   } = useContext(AllContext);
+>>>>>>> main
 
   function addToBasket(product) {
     if (productBasket === null) {
@@ -58,8 +68,18 @@ function ShopItem({ productData }) {
 
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
+<<<<<<< HEAD
+    <article
+      title="productItem"
+      className={styles.shopItemWrapper}
+      onClick={() => {
+        setShopProductModalOpen(true);
+        setSelectedProduct(productData);
+      }}
+=======
     <article className={styles.shopItemWrapper} 
       onClick={shopItemClicked}
+>>>>>>> main
     >
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
@@ -81,6 +101,5 @@ function ShopItem({ productData }) {
     </article>
   );
 }
-
 
 export default ShopItem;

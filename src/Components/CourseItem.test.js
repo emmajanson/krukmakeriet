@@ -5,16 +5,31 @@ import { AllContextProvider } from "../context/AllContext";
 import { BrowserRouter } from "react-router-dom";
 import renderer from "react-test-renderer";
 
+const mockCourseData = [
+  {
+    name: "Testitem",
+    id: "test123",
+    img: "https://en.wikipedia.org/wiki/Pottery#/media/File:Potter_making_Pottery.jpg",
+    price: 100,
+  },
+  {
+    description: "second item",
+    completed: false,
+  },
+  {
+    description: "third item",
+    completed: false,
+  },
+];
 const MockCourseItem = () => {
   return (
     <BrowserRouter>
       <AllContextProvider>
-        <CourseItem courseData={course} />
+        <CourseItem courseData={mockCourseData} />
       </AllContextProvider>
     </BrowserRouter>
   );
 };
-const course = { name: "abc", img: "https" };
 
 describe("CourseItem", () => {
   test("check if props exist as should", async () => {
@@ -28,7 +43,7 @@ describe("CourseItem", () => {
       .create(
         <BrowserRouter>
           <AllContextProvider>
-            <CourseItem courseData={course} />
+            <CourseItem courseData={mockCourseData} />
           </AllContextProvider>
         </BrowserRouter>
       )

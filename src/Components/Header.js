@@ -7,6 +7,7 @@ import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { FaShoppingBag, FaUser } from "react-icons/fa";
 import HamburgerButton from "./HamburgerButton";
+import { act } from "react-test-renderer";
 // import { doc } from "firebase/firestore";
 
 function Header() {
@@ -27,7 +28,9 @@ function Header() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      act(() => {
+        setUser(currentUser);
+      });
     });
   }, []);
 
@@ -97,15 +100,11 @@ function Header() {
         <nav className={styles.navRightSide}>
           {user == null ? (
             <Link to="/signin">
-              <FaUser 
-              className={styles.desktopIcons}
-              />
+              <FaUser className={styles.desktopIcons} />
             </Link>
           ) : (
             <Link to={adminPermission ? "/admin" : "/profile"}>
-              <FaUser 
-              className={styles.desktopIconsLoggedIn}
-              />
+              <FaUser className={styles.desktopIconsLoggedIn} />
             </Link>
           )}
 
@@ -164,12 +163,34 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/">Hem</Link> 
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">Kurser</Link>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">Butik</Link>
-            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signin">Logga in</Link>) : (<Link onClick={styles.mobileMenuWrapperHidden} to={adminPermission ? "/admin" : "/profile"}>{adminPermission ? "Admin" : "Profil"}</Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/">
+              Hem
+            </Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">
+              Kurser
+            </Link>
+            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">
+              Butik
+            </Link>
+            {user == null ? (
+              <Link onClick={styles.mobileMenuWrapperHidden} to="/signin">
+                Logga in
+              </Link>
+            ) : (
+              <Link
+                onClick={styles.mobileMenuWrapperHidden}
+                to={adminPermission ? "/admin" : "/profile"}
+              >
+                {adminPermission ? "Admin" : "Profil"}
+              </Link>
             )}
-            {user == null ? (<Link onClick={styles.mobileMenuWrapperHidden} to="/signup">Registrera dig</Link>) : (<Link to=""></Link>)}
+            {user == null ? (
+              <Link onClick={styles.mobileMenuWrapperHidden} to="/signup">
+                Registrera dig
+              </Link>
+            ) : (
+              <Link to=""></Link>
+            )}
           </div>
         </nav>
       </header>
