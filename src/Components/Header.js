@@ -163,29 +163,29 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/">
+            <Link onClick={() => setIsActiveMobile(curr => !curr)} to="/">
               Hem
             </Link>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">
+            <Link onClick={() => setIsActiveMobile(curr => !curr)} to="/courses">
               Kurser
             </Link>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">
+            <Link onClick={() => setIsActiveMobile(curr => !curr)} to="/shop">
               Butik
             </Link>
             {user == null ? (
-              <Link onClick={styles.mobileMenuWrapperHidden} to="/signin">
+              <Link onClick={() => setIsActiveMobile(curr => !curr)} to="/signin">
                 Logga in
               </Link>
             ) : (
               <Link
-                onClick={styles.mobileMenuWrapperHidden}
+              onClick={() => setIsActiveMobile(curr => !curr)}
                 to={adminPermission ? "/admin" : "/profile"}
               >
                 {adminPermission ? "Admin" : "Profil"}
               </Link>
             )}
             {user == null ? (
-              <Link onClick={styles.mobileMenuWrapperHidden} to="/signup">
+              <Link onClick={() => setIsActiveMobile(curr => !curr)} to="/signup">
                 Registrera dig
               </Link>
             ) : (
