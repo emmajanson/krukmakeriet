@@ -172,7 +172,7 @@ function Profile() {
 
           <section className={styles.passwordSection}>
             <h6 className={styles.title}>Byt lösenord</h6>
-            <p>Här kan du byta ditt lösenord</p>
+            <p className={styles.text}>Här kan du byta ditt lösenord</p>
             <div className={styles.inputWrapper}>
               <label className={styles.label} htmlFor="old-password">
                 Gammalt lösenord
