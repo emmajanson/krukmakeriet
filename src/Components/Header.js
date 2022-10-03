@@ -9,8 +9,8 @@ import { FaShoppingBag, FaUser } from "react-icons/fa";
 import HamburgerButton from "./HamburgerButton";
 import { act } from "react-test-renderer";
 // import { doc } from "firebase/firestore";
-
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isActiveMobile, setIsActiveMobile] = useState(false);
   const [isActiveBasket, setIsActiveBasket] = useState(false);
   const [user, setUser] = useState({});
@@ -50,8 +50,9 @@ function Header() {
 
   let basketAmount = totalAmountinProduct + totalAmountinCourse;
 
-  function toggleMenu(props) {
-    setIsActiveMobile(props);
+  function toggleMenu(isActiveMobile, isOpen) {
+    setIsActiveMobile(!isActiveMobile);
+    setIsOpen(!isOpen);
   }
 
   function toggleBasket(props) {
@@ -127,9 +128,9 @@ function Header() {
       <header className={styles.mobileWrapper}>
         <div
           className={styles.BurgerBtn}
-          onClick={() => toggleMenu(!isActiveMobile)}
+          onClick={() => toggleMenu(isActiveMobile, isOpen)}
         >
-          <HamburgerButton />
+          <HamburgerButton isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
         <div className={styles.mobLogoWrapper}>
           <img
@@ -163,29 +164,38 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/">
+            <Link onClick={() => toggleMenu(isActiveMobile, isOpen)} to="/">
               Hem
             </Link>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/courses">
+            <Link
+              onClick={() => toggleMenu(isActiveMobile, isOpen)}
+              to="/courses"
+            >
               Kurser
             </Link>
-            <Link onClick={styles.mobileMenuWrapperHidden} to="/shop">
+            <Link onClick={() => toggleMenu(isActiveMobile, isOpen)} to="/shop">
               Butik
             </Link>
             {user == null ? (
-              <Link onClick={styles.mobileMenuWrapperHidden} to="/signin">
+              <Link
+                onClick={() => toggleMenu(isActiveMobile, isOpen)}
+                to="/signin"
+              >
                 Logga in
               </Link>
             ) : (
               <Link
-                onClick={styles.mobileMenuWrapperHidden}
+                onClick={() => toggleMenu(isActiveMobile, isOpen)}
                 to={adminPermission ? "/admin" : "/profile"}
               >
                 {adminPermission ? "Admin" : "Profil"}
               </Link>
             )}
             {user == null ? (
-              <Link onClick={styles.mobileMenuWrapperHidden} to="/signup">
+              <Link
+                onClick={() => toggleMenu(isActiveMobile, isOpen)}
+                to="/signup"
+              >
                 Registrera dig
               </Link>
             ) : (
