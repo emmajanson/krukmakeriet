@@ -22,6 +22,8 @@ function Checkout() {
   const [showPopup, setShowPopup] = useState(false);
 
   const usersRef = collection(db, "users");
+  
+  
 
   /*
   let { productBasket} = useContext(AppContext)
@@ -73,12 +75,15 @@ function Checkout() {
   // 2. Uppdatera "spots" i den kursen som är bokad.
   // 3. Lägga till användarens E-mail i en array på den kurs som är bokad (för admin).
 
+  const [userName, setUserName] = useState("");
   const [currUID, setCurrUID] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setCurrUID(user.uid);
+      setUserName(user.displayName);
+      setUserEmail(user.email);
     });
   }, []);
 
@@ -238,20 +243,13 @@ function Checkout() {
         <form className={styles.userInfoWrapper}>
           <h2>Leveransuppgifter</h2>
           <div className={styles.userFirstInputsWrapper}>
-            <label name="firstName">Förnamn*</label>
+            <label name="firstName">Förnamn och Efternamn*</label>
             <input
               className={styles.inputLarge}
               type="text"
-              name="firstName"
-              placeholder="Ex. Anna"
-            ></input>
-
-            <label name="lastName">Efternamn*</label>
-            <input
-              className={styles.inputLarge}
-              type="text"
-              name="lastName"
-              placeholder="Ex. Andersson"
+              name="name"
+              value={userName}
+              placeholder="Ex. Anna Andersson"
               required
             ></input>
 
@@ -260,7 +258,8 @@ function Checkout() {
               className={styles.inputLarge}
               type="text"
               name="email"
-              placeholder="exempel@exempel.se"
+              value={userEmail}
+              placeholder="Ex. anna@andersson.se"
               required
             ></input>
 
@@ -315,7 +314,7 @@ function Checkout() {
                   id="paymentMethod1"
                   name="payment"
                   value="paydirectly"
-                  checked />
+                />
                 <label for="paymentMethod1">Betala direkt</label>
               </div>
               <div className={styles.paymentImgWrapper}>
@@ -333,7 +332,8 @@ function Checkout() {
                   type="radio"
                   id="paymentMethod2"
                   name="payment"
-                  value="paylater"/>
+                  value="paylater"
+                />
                 <label for="paymentMethod2">Betala senare</label>
               </div>
               <div className={styles.paymentImgWrapper}>
@@ -352,7 +352,7 @@ function Checkout() {
                   id="paymentMethod3"
                   name="payment"
                   value="swish"
-                  checked />
+                />
                 <label for="paymentMethod3">Swish</label>
               </div>
               <div className={styles.paymentImgWrapper}>

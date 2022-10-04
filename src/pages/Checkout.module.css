@@ -97,6 +97,7 @@ h2 {
   transition: 0.2s all linear;
   position: relative;
   top: 7px;
+  cursor: pointer;
 }
 
 .paymentOptions input:checked {
