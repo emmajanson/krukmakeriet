@@ -5,7 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingProducts.module.css";
 import { FaChevronRight, FaPlus } from "react-icons/fa";
 import UpdateProducts from "./UpdateProducts";
-import Popup from "./Popup"
+import PopupTemplate from "./PopUpTemplate"
 
 function ListOfExsitingProducts() {
   const productsCollectionRef = collection(db, "products");
@@ -60,9 +60,9 @@ function ListOfExsitingProducts() {
 
   return (
     <div className={styles.wrapper}>
-      <Popup trigger={showPopup} setTrigger={setShowPopup}>
+      <PopupTemplate trigger={showPopup} setTrigger={setShowPopup}>
         <p>Din produkt är nu uppdaterad!</p>
-      </Popup>
+      </PopupTemplate>
       <div className={styles.productsWrapper}>
       <h3 className={styles.title}>Butik</h3>
       <p className={styles.text}>Lägg till ny produkt eller välj befintlig för att uppdatera</p>

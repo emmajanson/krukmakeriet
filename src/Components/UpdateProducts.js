@@ -122,7 +122,7 @@ function UpdateProducts({
     setShowPopup(true)
     setTimeout(() => {
       setShowPopup(false)
-    }, 3000);
+    }, 2000);
     onClose(false);
     getProducts();
   };

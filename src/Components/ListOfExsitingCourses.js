@@ -5,7 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import styles from "./ListOfExistingCourses.module.css";
 import { FaChevronRight, FaPlus } from "react-icons/fa";
 import UpdateCourses from "./UpdateCourses";
-import Popup from "./Popup";
+import PopupTemplate from "./PopUpTemplate";
 
 function ListOfExsitingCourses() {
   const courseCollectionRef = collection(db, "courses");
@@ -67,9 +67,9 @@ function ListOfExsitingCourses() {
 
   return (
     <div className={styles.wrapper}>
-      <Popup trigger={showPopup} setTrigger={setShowPopup}>
+      <PopupTemplate trigger={showPopup} setTrigger={setShowPopup}>
         <p>Din kurs är nu uppdaterad!</p>
-      </Popup>
+      </PopupTemplate>
       <div className={styles.coursesWrapper}>
         <h3 className={styles.title}>Kurser</h3>
         <p className={styles.text}>
