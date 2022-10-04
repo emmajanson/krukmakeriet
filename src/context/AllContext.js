@@ -19,6 +19,7 @@ export const AllContextProvider = ({ children }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [addedToBasketPopupOpen, setAddedToBasketPopupOpen] = useState(false);
+  const [basketAmount, setBasketAmount] = useState(0);
 
   if (courseBasket === null) {
     setCourseBasket([]);
@@ -70,7 +71,9 @@ export const AllContextProvider = ({ children }) => {
         showTopBtn,
         setShowTopBtn,
         addedToBasketPopupOpen,
-        setAddedToBasketPopupOpen
+        setAddedToBasketPopupOpen,
+        basketAmount,
+        setBasketAmount,
       }}
     >
       {children}
