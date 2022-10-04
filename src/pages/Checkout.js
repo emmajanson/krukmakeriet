@@ -22,6 +22,8 @@ function Checkout() {
   const [showPopup, setShowPopup] = useState(false);
 
   const usersRef = collection(db, "users");
+  
+  
 
   /*
   let { productBasket} = useContext(AppContext)
@@ -73,12 +75,15 @@ function Checkout() {
   // 2. Uppdatera "spots" i den kursen som är bokad.
   // 3. Lägga till användarens E-mail i en array på den kurs som är bokad (för admin).
 
+  const [userName, setUserName] = useState("");
   const [currUID, setCurrUID] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setCurrUID(user.uid);
+      setUserName(user.displayName);
+      setUserEmail(user.email);
     });
   }, []);
 
@@ -243,6 +248,7 @@ function Checkout() {
               className={styles.inputLarge}
               type="text"
               name="name"
+              value={userName}
               placeholder="Ex. Anna Andersson"
               required
             ></input>
@@ -252,7 +258,8 @@ function Checkout() {
               className={styles.inputLarge}
               type="text"
               name="email"
-              placeholder="exempel@exempel.se"
+              value={userEmail}
+              placeholder="Ex. anna@andersson.se"
               required
             ></input>
 
@@ -307,7 +314,6 @@ function Checkout() {
                   id="paymentMethod1"
                   name="payment"
                   value="paydirectly"
-                  checked 
                 />
                 <label for="paymentMethod1">Betala direkt</label>
               </div>
