@@ -58,7 +58,11 @@ function ListOfExsitingCourses() {
   //get the courses from db
   async function getCourses() {
     const data = await getDocs(courseCollectionRef);
-    setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setCourses(data.docs
+      .sort((doc, b) =>
+            doc.details > b.details ? 1 : -1
+          )
+      .map((doc) => ({ ...doc.data(), id: doc.id })));
   }
   //render the courses when refreshed
   useEffect(() => {
