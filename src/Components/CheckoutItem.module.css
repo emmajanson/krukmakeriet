@@ -2,6 +2,8 @@
   display: flex;
   width: 100%;
   gap: 1rem;
+  border-bottom: 1px solid lightgrey;
+  margin-top: 1rem;
 }
 
 .imgWrapper {
@@ -19,13 +21,12 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding-bottom: 25px;
-  width: 30%;
+  padding-bottom: 1rem;
+  width: 50%;
 }
 
 .heading {
   font-size: 18px;
-  display: flex;
 }
 
 .changeAmountWrapper {
@@ -37,6 +38,7 @@
   color: white;
   justify-content: center;
   padding: 4px;
+  margin-top: 7px;
 }
 
 .changeAmount {
@@ -48,7 +50,7 @@
 .priceDeleteWrapper {
   display: flex;
   flex-direction: column;
-  width: 15%;
+  width: 10%;
 }
 
 .price {
@@ -57,9 +59,13 @@
 
 .deleteBtn {
   font-size: 18px;
-  margin-top: 22px;
-  margin-left: 7px;
+  margin-top: 20px;
+  margin-left: 25px;
 }
 
 @media screen and (min-width: 800px) {
+  .deleteBtn:hover {
+    color: #697569;
+    cursor: pointer;
+  }
 }

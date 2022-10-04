@@ -177,8 +177,7 @@ function Checkout() {
     <main className={styles.siteWrapper}>
       <div className={styles.wrapperAll}>
         <section className={styles.basketWrapper}>
-          <h1>Din beställning</h1>
-          <h2>Varukorg</h2>
+          <h2>Din varukorg</h2>
           <section className={styles.productsWrapper}>
             <h3>{productsInBasket}</h3>
             {productBasket && (
@@ -279,44 +278,61 @@ function Checkout() {
 
         <section className={styles.paymentWrapper}>
           <h2>Betalningsalternativ</h2>
-          <div className={styles.payFirstInputsWrapper}>
-            <label name="cardName">Kortinnehavarens namn*</label>
-            <input
-              className={styles.inputLarge}
-              type="text"
-              name="cardName"
-              placeholder="Ex. Anna Andersson"
-              required
-            ></input>
-
-            <label name="cardNumber">Kortnummer*</label>
-            <input
-              className={styles.inputLarge}
-              type="text"
-              name="cardNumber"
-              placeholder="xxxxxxxxxxxxxxx"
-              required
-            ></input>
-          </div>
-
-          <div className={styles.paySecondInputsWrapper}>
-            <div className={styles.inputSmall}>
-              <label name="expDate">Datum*</label>
-              <input
-                type="text"
-                name="expDate"
-                placeholder="xx/xx"
-                required
-              ></input>
+          <div className={styles.paymentOptions}>
+            <div className={styles.paymentSection}>
+              <div className={styles.choosePayment}>
+                <input
+                  type="radio"
+                  id="paymentMethod1"
+                  name="payment"
+                  value="paydirectly"
+                  checked />
+                <label for="paymentMethod1">Betala direkt</label>
+              </div>
+              <div className={styles.paymentImgWrapper}>
+                <img
+                  className={styles.klarnaImg}
+                  src={"../images/klarnaLogo.png"}
+                  alt="Klarna"
+                />
+              </div>
             </div>
-            <div className={styles.inputSmall}>
-              <label name="cvc">CVC*</label>
-              <input 
-                type="text" 
-                name="cvc" 
-                placeholder="xxx" 
-                required
-                ></input>
+
+            <div className={styles.paymentSection}>
+              <div className={styles.choosePayment}>
+                <input
+                  type="radio"
+                  id="paymentMethod2"
+                  name="payment"
+                  value="paylater"/>
+                <label for="paymentMethod2">Betala senare</label>
+              </div>
+              <div className={styles.paymentImgWrapper}>
+                <img
+                  className={styles.klarnaImg}
+                  src={"../images/klarnaLogo.png"}
+                  alt="Klarna"
+                />
+              </div>
+            </div>
+
+            <div className={styles.paymentSection}>
+              <div className={styles.choosePayment}>
+                <input
+                  type="radio"
+                  id="paymentMethod3"
+                  name="payment"
+                  value="swish"
+                  checked />
+                <label for="paymentMethod3">Swish</label>
+              </div>
+              <div className={styles.paymentImgWrapper}>
+                <img
+                  className={styles.swishImg}
+                  src={"../images/swish.png"}
+                  alt="Swish"
+                />
+              </div>
             </div>
           </div>
         </section>

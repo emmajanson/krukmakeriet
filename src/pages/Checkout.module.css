@@ -24,10 +24,9 @@
 .coursesWrapper{
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  width: 90%;
-  padding-top: 3vh;
-  padding-bottom: 3vh;
+  width: 95%;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
 }
 
 h2 {
@@ -45,47 +44,88 @@ h2 {
 .totalAmountWrapper {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  border-top: 1px solid black;
-  padding-top: 3px;
+  width: 95%;
 }
 
 .userFirstInputsWrapper{
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 80%;
   gap: 0.3rem;
 }
 
 .userSecondInputsWrapper{
   display: flex;
-  width: 90%;
+  width: 80%;
   gap: 0.3rem;
 }
 
 .paymentWrapper{
+  width: 80%;
+}
+
+.paymentWrapper h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.paymentSection {
+  display: flex;
+  align-items: center;
   width: 100%;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.paymentOptions {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.payFirstInputsWrapper{
-    display: flex;
-    width: 90%;
-    flex-direction: column;
-    gap: 0.3rem;
+.paymentOptions label {
+  line-height: 32px;
+  margin-left: 1rem;
 }
 
-.paySecondInputsWrapper{
+.paymentOptions input {
+  appearance: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #999;
+  transition: 0.2s all linear;
+  position: relative;
+  top: 7px;
+}
+
+.paymentOptions input:checked {
+  border: 6px solid black;
+}
+
+.choosePayment {
   display: flex;
-  width: 90%;
-  gap: 0.3rem;
+  justify-content: flex-start;
+  width: 60%;
+}
+
+.paymentImgWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 40%;
+}
+
+.klarnaImg {
+ width: 95px;
+ height: auto;
+}
+
+.swishImg {
+  width: 99px;
+  height: auto;
 }
 
 label{
-  display: none;
-  display: inline;
   color: black;
   font-size: 1rem;
   font-weight: 400;
@@ -96,8 +136,7 @@ input{
   width:100%;
 }
 
-.userInfoWrapper input,
-.paymentWrapper input {
+.userInfoWrapper input {
   border: 1px solid black;
   border-radius: 1rem;
   height: 3rem;
@@ -105,13 +144,11 @@ input{
   margin-bottom: 1rem;
 }
 
-.userInfoWrapper input:focus,
-.paymentWrapper input:focus {
+.userInfoWrapper input:focus {
   outline: none;
 }
 
-.userInfoWrapper input::placeholder,
-.paymentWrapper input::placeholder {
+.userInfoWrapper input::placeholder {
   color: #a19b9b;
   font-size: 1rem;
   font-weight: 300;
@@ -132,7 +169,9 @@ input{
 .btnWrapper{
   display: flex;
   gap: 1rem;
-  padding: 2rem;
+  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .checkoutBtn{
@@ -150,38 +189,38 @@ input{
   height: 3rem;
 }
 
+.checkoutBtn:hover {
+  background-color: white;
+  color: #414B42;
+  border: 0.5px solid#414B42;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
 @media screen and (min-width:800px){
   .siteWrapper {
     background-color: rgba(218, 225, 217, 0.8);
+    padding-top: 12vh;
   }
 
   .wrapperAll {
     background-color: white;
-    max-width: 1000px;
+    max-width: 800px;
   }
 
   .basketWrapper{
-    width: 60%;
+    width: 80%;
+    margin-top: 2rem;
   }
 
-  .userInfoWrapper,
-  .paymentWrapper{
+  .userInfoWrapper {
     max-width: 1000px;
   }
 
   .userFirstInputsWrapper,
   .userSecondInputsWrapper,
-  .payFirstInputsWrapper,
-  .paySecondInputsWrapper{
-    width: 50%;
-  }
-
-  .paySecondInputsWrapper{
-    justify-content: center;
-  }
-
-  label {
-    display: block;
+  .paymentWrapper {
+    width: 60%;
   }
 
   .btnWrapper{
