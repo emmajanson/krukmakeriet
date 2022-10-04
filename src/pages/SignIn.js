@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import styles from "./SignIn.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { AllContext } from "../context/AllContext";
@@ -15,6 +15,7 @@ function SignIn() {
   const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [passwordTooShort, setPasswordTooShort] = useState(false);
 
@@ -34,7 +35,9 @@ function SignIn() {
       );
       if (auth.currentUser.emailVerified === true) {
         setRefresh((curr) => !curr);
-        navigate("/profile", { state: { user: user.user.displayName } });
+        location.state
+          ? navigate("/checkout")
+          : navigate("/profile", { state: { user: user.user.displayName } });
       } else {
         setNotVerified(true);
         return;

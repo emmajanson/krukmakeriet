@@ -71,6 +71,7 @@
     max-width: 954px;
   }
   .productsWrapper{
+    width: 70%;
     padding-top: 5rem;
     padding-bottom: 4rem;
     flex-direction: row;
@@ -98,7 +99,7 @@
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
-    width: 23%;
+    width: 32%;
     min-height: 346px;
     margin-top: 1.5rem;
     margin: 1.5rem 0 0 0; 
@@ -131,7 +132,7 @@
 
   }
   .details {
-    width: 23%;
+    width: 32%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
