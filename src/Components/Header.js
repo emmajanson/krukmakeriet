@@ -122,7 +122,7 @@ function Header() {
           <nav
             data-count={basketAmount}
             className={
-              basketAmount ? styles.linkWrapper : styles.linkWrapperFalse
+              basketAmount > 0 ? styles.linkWrapper : styles.linkWrapperFalse
             }
           ></nav>
         </nav>
