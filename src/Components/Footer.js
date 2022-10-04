@@ -38,13 +38,13 @@ function Footer() {
 
         <div className={styles.bottomContWrapper}>
           <article className={styles.socialMediaWrapper}>
-            <a className={styles.iconLink} href="#">
+            <a className={styles.iconLink} href="https://www.facebook.com/" target="_blank">
               <FaFacebook className={styles.socialIcon} />
             </a>
-            <a className={styles.iconLink} href="#">
+            <a className={styles.iconLink} href="https://www.instagram.com/" target="_blank">
               <FaInstagram className={styles.socialIcon} />
             </a>
-            <a className={styles.iconLink} href="#">
+            <a className={styles.iconLink} href="https://twitter.com/" target="_blank">
               <FaTwitter className={styles.socialIcon} />
             </a>
           </article>
