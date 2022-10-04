@@ -238,20 +238,12 @@ function Checkout() {
         <form className={styles.userInfoWrapper}>
           <h2>Leveransuppgifter</h2>
           <div className={styles.userFirstInputsWrapper}>
-            <label name="firstName">Förnamn*</label>
+            <label name="firstName">Förnamn och Efternamn*</label>
             <input
               className={styles.inputLarge}
               type="text"
-              name="firstName"
-              placeholder="Ex. Anna"
-            ></input>
-
-            <label name="lastName">Efternamn*</label>
-            <input
-              className={styles.inputLarge}
-              type="text"
-              name="lastName"
-              placeholder="Ex. Andersson"
+              name="name"
+              placeholder="Ex. Anna Andersson"
               required
             ></input>
 
@@ -315,7 +307,8 @@ function Checkout() {
                   id="paymentMethod1"
                   name="payment"
                   value="paydirectly"
-                  checked />
+                  checked 
+                />
                 <label for="paymentMethod1">Betala direkt</label>
               </div>
               <div className={styles.paymentImgWrapper}>
@@ -333,7 +326,8 @@ function Checkout() {
                   type="radio"
                   id="paymentMethod2"
                   name="payment"
-                  value="paylater"/>
+                  value="paylater"
+                />
                 <label for="paymentMethod2">Betala senare</label>
               </div>
               <div className={styles.paymentImgWrapper}>
@@ -352,7 +346,7 @@ function Checkout() {
                   id="paymentMethod3"
                   name="payment"
                   value="swish"
-                  checked />
+                />
                 <label for="paymentMethod3">Swish</label>
               </div>
               <div className={styles.paymentImgWrapper}>
