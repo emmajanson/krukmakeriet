@@ -61,7 +61,7 @@ export default function Home() {
             src={process.env.PUBLIC_URL + "/images/homeLinkShop.jpg"}
             alt="En fin bild"
           />
-          <p className={styles.linkImageText}>SHOP</p>
+          <p className={styles.linkImageText}>BUTIKEN</p>
         </div>
 
         <div
