@@ -172,28 +172,28 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link onClick={() => toggleMenu(isActiveMobile, isOpen)} to="/">
+            <Link onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}} to="/">
               Hem
             </Link>
             <Link
-              onClick={() => toggleMenu(isActiveMobile, isOpen)}
+              onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
               to="/courses"
             >
               Kurser
             </Link>
-            <Link onClick={() => toggleMenu(isActiveMobile, isOpen)} to="/shop">
+            <Link onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}} to="/shop">
               Butik
             </Link>
             {user == null ? (
               <Link
-                onClick={() => toggleMenu(isActiveMobile, isOpen)}
+                onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
                 to="/signin"
               >
                 Logga in
               </Link>
             ) : (
               <Link
-                onClick={() => toggleMenu(isActiveMobile, isOpen)}
+                onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
                 to={adminPermission ? "/admin" : "/profile"}
               >
                 {adminPermission ? "Admin" : "Profil"}
@@ -201,7 +201,7 @@ function Header() {
             )}
             {user == null ? (
               <Link
-                onClick={() => toggleMenu(isActiveMobile, isOpen)}
+                onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
                 to="/signup"
               >
                 Registrera dig
