@@ -39,6 +39,7 @@ function Checkout() {
     courseBasket,
     setCourseBasket,
     setRefresh,
+    setBasketAmount,
   } = useContext(AllContext);
 
   const totalSum = (basket) => {
@@ -83,7 +84,13 @@ function Checkout() {
 
   async function updateProducts() {
     // Creates a string-name with the date for the purchase.
-    const currDate = new Date().getDate();
+    const currDate = () => {
+      if (new Date().getDate() < 10) {
+        return `0${new Date().getDate()}`;
+      } else {
+        return `${new Date().getDate()}`;
+      }
+    };
     const currMonth = () => {
       if (new Date().getMonth() + 1 < 10) {
         return `0${new Date().getMonth() + 1}`;
@@ -92,8 +99,20 @@ function Checkout() {
       }
     };
     const currYear = new Date().getFullYear();
-    const currHour = new Date().getHours();
-    const currMinute = new Date().getMinutes();
+    const currHour = () => {
+      if (new Date().getHours() + 1 < 10) {
+        return `0${new Date().getHours() + 1}`;
+      } else {
+        return `${new Date().getHours() + 1}`;
+      }
+    };
+    const currMinute = () => {
+      if (new Date().getMinutes() + 1 < 10) {
+        return `0${new Date().getMinutes() + 1}`;
+      } else {
+        return `${new Date().getMinutes() + 1}`;
+      }
+    };
     const currSecond = () => {
       if (new Date().getSeconds() + 1 < 10) {
         return `0${new Date().getSeconds() + 1}`;
@@ -104,7 +123,7 @@ function Checkout() {
 
     const orderNumber = Math.floor(100000000 + Math.random() * 900000000);
 
-    const currentDate = `${currYear}-${currMonth()}-${currDate} ${currHour}:${currMinute}:${currSecond()}`;
+    const currentDate = `${currYear}-${currMonth()}-${currDate()} ${currHour()}:${currMinute()}:${currSecond()}`;
 
     // Adding the purchased Products and Courses to users DB
     const userDoc = doc(db, "users", currUID);
@@ -135,12 +154,12 @@ function Checkout() {
         }),
       });
 
-      const idArray = productBasket.map((item) => {
-        return {
-          amount: item.amount,
-          id: item.id,
-        };
-      });
+      // const idArray = productBasket.map((item) => {
+      //   return {
+      //     amount: item.amount,
+      //     id: item.id,
+      //   };
+      // });
 
       // idArray.map(async (item) => {
       //   const currentAmount = await getDoc(db, "products", item.id);
@@ -157,20 +176,23 @@ function Checkout() {
       //     amount: currentAmount - idArray[i].amount,
       //   });
       // }
+
+      // Removes items from shoppingcart
+      localStorage.setItem("productBasket", "[]");
+      localStorage.setItem("courseBasket", "[]");
+      setCourseBasket([]);
+      setProductBasket([]);
+      setBasketAmount(0);
+      setRefresh((curr) => !curr);
     } else {
       return;
     }
 
-    if (courseBasket) {
-      const courseIDs = courseBasket.map((course) => {
-        return course.id;
-      });
-    }
-
-    // Removes items from shoppingcart
-    localStorage.setItem("productBasket", "[]");
-    localStorage.setItem("courseBasket", "[]");
-    setRefresh((curr) => !curr);
+    // if (courseBasket) {
+    //   const courseIDs = courseBasket.map((course) => {
+    //     return course.id;
+    //   });
+    // }
   }
 
   return (
@@ -267,10 +289,10 @@ function Checkout() {
             </div>
             <div className={styles.inputMedium}>
               <label name="city">Stad*</label>
-              <input 
-                type="text" 
-                name="city" 
-                placeholder="Ex. Stockholm" 
+              <input
+                type="text"
+                name="city"
+                placeholder="Ex. Stockholm"
                 required
               ></input>
             </div>
@@ -311,12 +333,7 @@ function Checkout() {
             </div>
             <div className={styles.inputSmall}>
               <label name="cvc">CVC*</label>
-              <input 
-                type="text" 
-                name="cvc" 
-                placeholder="xxx" 
-                required
-                ></input>
+              <input type="text" name="cvc" placeholder="xxx" required></input>
             </div>
           </div>
         </section>
