@@ -12,8 +12,8 @@ p{
     left: 0;
     top: 5%;
     display: flex;
-    border: .5px solid rgb(125, 125, 125)
-    
+    border: .5px solid rgb(125, 125, 125);
+    overflow-y: auto;
   }
   .form {
     display: flex;

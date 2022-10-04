@@ -97,6 +97,7 @@ function Admin() {
   }
 
   return permission === "true" ? (
+    <div className={styles.bgWrapper}>
     <main className={styles.wrapper}>
       <h2 className={styles.heading}>Administration</h2>
 
@@ -210,6 +211,7 @@ function Admin() {
       <ListOfExsitingCourses rerender={setRerender} />
       <ListOfExsitingProducts rerender={setRerender} />
     </main>
+    </div>
   ) : (
     <h1 style={{ paddingTop: "10rem" }}>Access denied!</h1>
   );
