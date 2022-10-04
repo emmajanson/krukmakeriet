@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import {
   signOut,
@@ -35,14 +35,24 @@ function Profile() {
   const [showNewUserEmail, setShowNewUserEmail] = useState(false);
   const [firstNewPassword, setFirstNewPassword] = useState(null);
   const [secondNewPassword, setSecondNewPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState(false);
-  const [confirmDeleteUser, setConfirmDeleteUser] = useState(false);
   const [userProducts, setUserProducts] = useState([]);
   const [userCourses, setUserCourses] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [showErrorMessage1, setShowErrorMessage1] = useState(false);
+  const [showErrorMessage2, setShowErrorMessage2] = useState(false);
+  const [showErrorMessageDelete, setShowErrorMessageDelete] = useState(false);
 
   const navigate = useNavigate();
 
+  const inputRef1 = useRef("");
+  const inputRef2 = useRef("");
+  const inputRef3 = useRef("");
+  const inputRef4 = useRef("");
+
   const permission = localStorage.getItem("admin");
+
+  var passwordChecker = false;
+  var deleteChecker = false;
 
   // Signs out the user, and navigates to signin-page
   async function logout() {
@@ -97,46 +107,60 @@ function Profile() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reauth funkade");
-        setConfirmDeleteUser(true);
+        deleteChecker = true;
       })
       .catch((error) => {
-        console.log("lösenordet stämmer inte", error.message);
-        setConfirmDeleteUser(false);
+        deleteChecker = false;
       });
-    if (confirmDeleteUser === true) {
+    if (deleteChecker === true) {
       deleteUser(user);
-      console.log("konto borttaget");
     } else {
       console.log("lösenordet stämde inte");
+      setShowErrorMessageDelete(true);
+      setTimeout(() => {
+        setShowErrorMessageDelete(false);
+      }, 5000);
     }
+    inputRef1.current.value = "";
   }
 
   async function handleChangePassword() {
+    inputRef2.current.value = "";
+    inputRef3.current.value = "";
+    inputRef4.current.value = "";
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
-        console.log("reauth funkade");
-        setConfirmPassword(true);
+        passwordChecker = true;
       })
       .catch((error) => {
-        console.log("lösenordet stämmer inte", error.message);
-        setConfirmPassword(false);
+        passwordChecker = false;
       });
-    if (confirmPassword === true) {
-      console.log("ditt gamla lösenord stämmer");
+    if (passwordChecker === true) {
       if (firstNewPassword !== secondNewPassword) {
-        console.log("Lösenorden är inte samma");
+        console.log("inte samma pass");
+        setShowErrorMessage1(true);
+        setTimeout(() => {
+          setShowErrorMessage1(false);
+        }, 5000);
       } else {
         updatePassword(user, firstNewPassword);
-        console.log("lösenord uppdaterat");
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false);
+        }, 5000);
+        console.log("lösenord bytt");
       }
     } else {
-      console.log("något stämmer inte");
+      setShowErrorMessage2(true);
+      setTimeout(() => {
+        setShowErrorMessage2(false);
+      }, 5000);
+      console.log("lösenordet stämmer inte");
     }
   }
 
-  return user == null ? (
+  return user == null || user.emailVerified === false ? (
     <Navigate to="/signin" />
   ) : (
     <div className={styles.bgWrapper}>
@@ -151,8 +175,8 @@ function Profile() {
               <h6 className={styles.title}>Dina uppgifter</h6>
 
               {/* !!!rendera ut kunden uppgifter i p-taggarna nedan!!!! */}
-              <p className={styles.text}></p>
-              <p className={styles.text}></p>
+              <p className={styles.text}>{user.displayName}</p>
+              <p className={styles.text}>{user.email}</p>
 
               <button className={styles.button} onClick={logout}>
                 Logga ut
@@ -169,6 +193,7 @@ function Profile() {
                   Ditt lösenord
                 </label>
                 <input
+                  ref={inputRef1}
                   id="password1"
                   type="password"
                   name="password"
@@ -177,6 +202,11 @@ function Profile() {
                     setOldPassword(e.target.value);
                   }}
                 />
+                {showErrorMessageDelete ? (
+                  <p style={{ color: "red" }}>Fel lösenord</p>
+                ) : (
+                  ""
+                )}
               </div>
               <button className={styles.button} onClick={handleDeleteUser}>
                 Ta bort
@@ -192,6 +222,7 @@ function Profile() {
                 Gammalt lösenord
               </label>
               <input
+                ref={inputRef2}
                 id="old-password"
                 type="password"
                 name="old-password"
@@ -206,6 +237,7 @@ function Profile() {
                 Nytt lösenord
               </label>
               <input
+                ref={inputRef3}
                 id="new-password"
                 type="password"
                 name="password"
@@ -220,6 +252,7 @@ function Profile() {
                 Upprepa nytt lösenord
               </label>
               <input
+                ref={inputRef4}
                 id="confirm-password"
                 type="password"
                 name="confirm-password"
@@ -228,8 +261,18 @@ function Profile() {
                   setSecondNewPassword(e.target.value);
                 }}
               />
-              {showNewUserEmail ? (
-                <p style={{ color: "red" }}>Email changed</p>
+              {showMessage ? (
+                <p style={{ color: "green" }}>Lösenord ändrat</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage1 ? (
+                <p style={{ color: "red" }}>Lösenorden är inte samma</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage2 ? (
+                <p style={{ color: "red" }}>Fel lösenord</p>
               ) : (
                 ""
               )}

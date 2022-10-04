@@ -32,6 +32,7 @@ function ShopItem({ productData }) {
     }
 
     console.log("Added to basket " + productData.name);
+    console.log(productData);
   }
 
   //const timeout = setTimeout(trigger, 2000);

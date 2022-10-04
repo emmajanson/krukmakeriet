@@ -11,6 +11,7 @@ function SignIn() {
   const [isPasswordWrong, setIsPasswordWrong] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
+  const [notVerified, setNotVerified] = useState(false);
   const { setRefresh } = useContext(AllContext);
 
   const navigate = useNavigate();
@@ -31,9 +32,13 @@ function SignIn() {
         userEmail,
         userPassword
       );
-      setRefresh((curr) => !curr);
-
-      navigate("/profile", { state: { user: user.user.displayName } });
+      if (auth.currentUser.emailVerified === true) {
+        setRefresh((curr) => !curr);
+        navigate("/profile", { state: { user: user.user.displayName } });
+      } else {
+        setNotVerified(true);
+        return;
+      }
     } catch (error) {
       switch (error.message) {
         case "Firebase: Error (auth/wrong-password).":
@@ -58,7 +63,7 @@ function SignIn() {
           break;
       }
     }
-  }
+  };
 
   return (
     <main className={styles.wrapper}>
@@ -92,7 +97,7 @@ function SignIn() {
                 setUserNotFound(false);
               }}
             />
-      
+
             {userNotFound ? (
               <p style={{ color: "red" }}>* Användare hittas ej</p>
             ) : (
@@ -100,6 +105,11 @@ function SignIn() {
             )}
             {invalidEmail ? (
               <p style={{ color: "red" }}>* Felaktigt angiven e-post</p>
+            ) : (
+              ""
+            )}
+            {notVerified ? (
+              <p style={{ color: "red" }}>* Verifiera ditt konto</p>
             ) : (
               ""
             )}
@@ -119,7 +129,9 @@ function SignIn() {
               }}
             />
             {passwordTooShort ? (
-              <p style={{ color: "red" }}>* Lösenordet måste vara minst sex tecken</p>
+              <p style={{ color: "red" }}>
+                * Lösenordet måste vara minst sex tecken
+              </p>
             ) : (
               ""
             )}
@@ -129,10 +141,7 @@ function SignIn() {
               ""
             )}
           </div>
-          <button
-            type="submit"
-            className={styles.buttonClassWhite}
-          >
+          <button type="submit" className={styles.buttonClassWhite}>
             Logga in
           </button>
           <button

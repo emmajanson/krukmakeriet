@@ -1,30 +1,28 @@
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
-import styles from "./HamburgerButton.module.css"
+import styles from "./HamburgerButton.module.css";
 
-const Burger = () => {
-  const [isOpen, toggle] = useState(false);
-
+const Burger = ({ isOpen, setIsOpen }) => {
   const first = useSpring({
     transform: isOpen
       ? "translate(5px, 32px) rotate(-45deg)"
-      : "translate(2px, 7px) rotate(0deg)"
+      : "translate(2px, 7px) rotate(0deg)",
   });
   const second = useSpring({
     transform: isOpen
       ? "translate(10px, 4px) rotate(45deg)"
-      : "translate(2px, 19px) rotate(0deg)"
+      : "translate(2px, 19px) rotate(0deg)",
   });
   const third = useSpring({
     transform: isOpen
       ? "translate(5px, 32px) rotate(-45deg)"
-      : "translate(2px, 31px) rotate(0deg)"
+      : "translate(2px, 31px) rotate(0deg)",
   });
 
   return (
     <div className={styles.burger}>
-      <svg className={!isOpen ? styles.burgerSvg : styles.burgerSvgOpen}
-        onClick={() => toggle(!isOpen)}
+      <svg
+        className={!isOpen ? styles.burgerSvg : styles.burgerSvgOpen}
         width="40"
         height="32"
         padding="10"

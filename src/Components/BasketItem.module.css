@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   width: 100%;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .imgWrapper {
@@ -18,16 +18,14 @@
 .textWrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 20px;
   flex-grow: 1;
   padding-bottom: 25px;
+  width: 30%;
 }
 
 .heading {
   font-size: 18px;
-  margin-top: px;
+  display: flex;
 }
 
 .changeAmountWrapper {
@@ -38,32 +36,27 @@
   border-radius: 20px;
   color: white;
   justify-content: center;
-  padding: 6px;
-}
-.changeAmount {
-  cursor: pointer;
-  width: 30%;
-  display: flex;
-  justify-content: center;
+  padding: 4px;
 }
 
-.input {
-  text-align: center;
-  width: 20%;
-  outline: none;
-  border-radius: 5px;
-  border: 0.5px solid grey;
+.changeAmount {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
 .priceDeleteWrapper {
   display: flex;
   flex-direction: column;
+  width: 15%;
 }
+
 .price {
   font-size: 18px;
 }
+
 .deleteBtn {
-  font-size: 24px;
+  font-size: 18px;
   margin-top: 22px;
   margin-left: 7px;
 }
