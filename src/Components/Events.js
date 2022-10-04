@@ -4,7 +4,7 @@ import styles from "./Events.module.css";
 function Events() {
   
   return (
-    <section className={styles.wrapper}>
+    <section className={styles.wrapper} data-testid="events">
       <div className={styles.contentWrapper}>
         <div className={styles.imgWrapper}>
           <img
