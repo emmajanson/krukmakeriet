@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import {
   signOut,
@@ -40,8 +40,14 @@ function Profile() {
   const [showMessage, setShowMessage] = useState(false);
   const [showErrorMessage1, setShowErrorMessage1] = useState(false);
   const [showErrorMessage2, setShowErrorMessage2] = useState(false);
+  const [showErrorMessageDelete, setShowErrorMessageDelete] = useState(false);
 
   const navigate = useNavigate();
+
+  const inputRef1 = useRef("");
+  const inputRef2 = useRef("");
+  const inputRef3 = useRef("");
+  const inputRef4 = useRef("");
 
   const permission = localStorage.getItem("admin");
 
@@ -110,10 +116,18 @@ function Profile() {
       deleteUser(user);
     } else {
       console.log("lösenordet stämde inte");
+      setShowErrorMessageDelete(true);
+      setTimeout(() => {
+        setShowErrorMessageDelete(false);
+      }, 5000);
     }
+    inputRef1.current.value = "";
   }
 
   async function handleChangePassword() {
+    inputRef2.current.value = "";
+    inputRef3.current.value = "";
+    inputRef4.current.value = "";
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
       .then(() => {
@@ -179,6 +193,7 @@ function Profile() {
                   Ditt lösenord
                 </label>
                 <input
+                  ref={inputRef1}
                   id="password1"
                   type="password"
                   name="password"
@@ -187,6 +202,11 @@ function Profile() {
                     setOldPassword(e.target.value);
                   }}
                 />
+                {showErrorMessageDelete ? (
+                  <p style={{ color: "red" }}>Fel lösenord</p>
+                ) : (
+                  ""
+                )}
               </div>
               <button className={styles.button} onClick={handleDeleteUser}>
                 Ta bort
@@ -202,6 +222,7 @@ function Profile() {
                 Gammalt lösenord
               </label>
               <input
+                ref={inputRef2}
                 id="old-password"
                 type="password"
                 name="old-password"
@@ -216,6 +237,7 @@ function Profile() {
                 Nytt lösenord
               </label>
               <input
+                ref={inputRef3}
                 id="new-password"
                 type="password"
                 name="password"
@@ -230,6 +252,7 @@ function Profile() {
                 Upprepa nytt lösenord
               </label>
               <input
+                ref={inputRef4}
                 id="confirm-password"
                 type="password"
                 name="confirm-password"
