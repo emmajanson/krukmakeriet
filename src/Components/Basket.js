@@ -1,12 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BasketItem from "./BasketItem";
 import styles from "./Basket.module.css";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AllContext } from "../context/AllContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 function Basket({ toggleBasket }, isActiveBasket) {
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
 
   /*
   let { productBasket} = useContext(AppContext)
@@ -17,6 +20,12 @@ function Basket({ toggleBasket }, isActiveBasket) {
   if (productBasket === null) {productBasket = []}
 
   */
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   const { productBasket, courseBasket } = useContext(AllContext);
 
@@ -40,6 +49,13 @@ function Basket({ toggleBasket }, isActiveBasket) {
   const totalSumProduct = totalSum(productBasket);
   const totalSumCourse = totalSum(courseBasket);
   const totalSumBasket = totalSumProduct + totalSumCourse;
+
+  function ScrollToView() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <section className={styles.wrapper}>
@@ -79,7 +95,10 @@ function Basket({ toggleBasket }, isActiveBasket) {
         <button
           className={styles.checkoutBtn}
           onClick={() => {
-            navigate("/checkout");
+            user === null
+              ? navigate("/signin", { state: true })
+              : navigate("/checkout");
+            ScrollToView();
             toggleBasket(!isActiveBasket);
           }}
         >

@@ -195,6 +195,13 @@ function Checkout() {
     // }
   }
 
+  function ScrollToView() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   return (
     <main className={styles.siteWrapper}>
       <div className={styles.wrapperAll}>
@@ -351,6 +358,7 @@ function Checkout() {
             onClick={() => {
               setShowPopup(true);
               updateProducts();
+              ScrollToView();
             }}
             className={styles.checkoutBtn}
           >
