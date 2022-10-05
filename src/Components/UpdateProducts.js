@@ -30,7 +30,6 @@ function UpdateProducts({
   setAddUpdateFunction,
   getProducts,
   desc,
-  setShowMessage,
   setShowPopup
 }) {
   const productsCollectionRef = collection(db, "products");
