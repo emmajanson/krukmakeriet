@@ -21,6 +21,7 @@ function Basket({ toggleBasket }, isActiveBasket) {
 
   */
 
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -50,6 +51,7 @@ function Basket({ toggleBasket }, isActiveBasket) {
   const totalSumCourse = totalSum(courseBasket);
   const totalSumBasket = totalSumProduct + totalSumCourse;
 
+  // Scrolls to the top
   function ScrollToView() {
     window.scrollTo({
       top: 0,
