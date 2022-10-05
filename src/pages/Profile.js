@@ -163,7 +163,7 @@ function Profile() {
   return user == null || user.emailVerified === false ? (
     <Navigate to="/signin" />
   ) : (
-    <div className={styles.bgWrapper}>
+    <div className={styles.bgWrapper} data-testid="profile-test">
       <main className={styles.wrapper}>
         <h2 className={styles.heading}>Profil</h2>
 
