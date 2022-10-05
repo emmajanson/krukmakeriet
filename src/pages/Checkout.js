@@ -23,16 +23,6 @@ function Checkout() {
 
   const usersRef = collection(db, "users");
 
-  /*
-  let { productBasket} = useContext(AppContext)
-  let { courseBasket} = useContext(AppContext)
-
-  
-  if (courseBasket === null) {courseBasket = []}
-  if (productBasket === null) {productBasket = []}
-
-  */
-
   const {
     productBasket,
     setProductBasket,

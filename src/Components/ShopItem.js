@@ -13,6 +13,8 @@ function ShopItem({ productData }) {
     setAddedToBasketPopupOpen,
   } = useContext(AllContext);
 
+  //Adds the product to the basket
+
   function addToBasket(product) {
     if (productBasket === null) {
       setProductBasket([{ ...product, amount: 1 }]);
@@ -30,12 +32,9 @@ function ShopItem({ productData }) {
         setProductBasket([...productBasket, { ...product, amount: 1 }]);
       }
     }
-
-    console.log("Added to basket " + productData.name);
-    console.log(productData);
   }
 
-  //const timeout = setTimeout(trigger, 2000);
+  //Timout trigger for the basket notice
 
   function trigger() {
     setAddedToBasketPopupOpen(false);
@@ -57,7 +56,6 @@ function ShopItem({ productData }) {
     setSelectedProduct(productData);
   };
 
-  //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
     <article className={styles.shopItemWrapper} onClick={shopItemClicked}>
       <div className={styles.imgWrapper}>
