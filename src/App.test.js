@@ -1,11 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Footer from "../src/Components/Footer";
-import Header from "./Components/Header";
 import { AllContextProvider } from "./context/AllContext";
-import Courses from "./pages/Courses";
 import "@testing-library/jest-dom";
 import App from "./app";
 
@@ -25,10 +22,10 @@ describe("App and navigation", () => {
   });
 });
 
-describe('Footer', () => {
-  test('Should render without crash', async () => {
-     render(<Footer />)
-     const routeForFooter = screen.getByTestId("footer");
-     expect(routeForFooter).toBeInTheDocument()
-})
-})
+describe("Footer", () => {
+  test("Should render without crash", async () => {
+    render(<Footer />);
+    const routeForFooter = screen.getByTestId("footer");
+    expect(routeForFooter).toBeInTheDocument();
+  });
+});

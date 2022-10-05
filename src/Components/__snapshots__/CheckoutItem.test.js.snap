@@ -2,7 +2,7 @@
 
 exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
 <article
-  className="productItemWrapper"
+  className="wrapper"
   data-testid="checkoutItem"
 >
   <div
@@ -10,48 +10,65 @@ exports[`CheckoutItem create a snapshot to test the rendering of element 1`] = `
   >
     <img
       alt=""
-      className="itemImage"
+      className="basketImage"
     />
   </div>
   <div
-    className="infoWrapper"
+    className="textWrapper"
   >
-    <h3
-      className="name"
-    />
     <p
-      className="info"
-    />
-    <p
-      className="price"
+      className="heading"
     />
     <div
-      className="editQuantityWrapper"
+      className="changeAmountWrapper"
     >
-      <button
-        className="quantityBtn"
-        data-testid="decrementBtn"
+      <p
+        className="changeAmount"
         onClick={[Function]}
       >
+         
         -
-      </button>
+         
+      </p>
+      <p />
       <p
-        data-testid="counterText"
-      />
-      <button
-        className="quantityBtn"
+        className="changeAmount"
         data-testid="incrementBtn"
         onClick={[Function]}
       >
         +
-      </button>
+      </p>
     </div>
   </div>
-  <button
-    className="removeBtn"
-    onClick={[Function]}
+  <div
+    className="priceDeleteWrapper"
   >
-    Delete
-  </button>
+    <p
+      className="price"
+    >
+      :-
+    </p>
+    <svg
+      className="deleteBtn"
+      data-testid="decrementBtn"
+      fill="currentColor"
+      height="1em"
+      onClick={[Function]}
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+        }
+      }
+      viewBox="0 0 448 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+      />
+    </svg>
+  </div>
 </article>
 `;
