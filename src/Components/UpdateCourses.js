@@ -32,7 +32,6 @@ function UpdateCourses({
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  setShowMessage,
   setShowPopup
 }) {
   const coursesCollectionRef = collection(db, "courses");
