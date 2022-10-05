@@ -26,7 +26,6 @@ import {
 import UserOrders from "../Components/UserOrders";
 import UserCourses from "../Components/UserCourses";
 
-//Fånga upp: Firebase: Error (auth/requires-recent-login).
 
 function Profile() {
   const [user, setUser] = useState({});
