@@ -52,9 +52,9 @@ function ShopModal() {
   //const timeout = setTimeout(trigger, 2000);
 
   return (
-    <article>
+        <article id="shopModal">
       <section className={styles.iconXContainer}>
-        <section className={styles.iconXWrapper} onClick={closeModal}>
+                <section id="closeButton" className={styles.iconXWrapper} onClick={closeModal}>
           <FontAwesomeIcon icon={faTimes} />
         </section>
       </section>

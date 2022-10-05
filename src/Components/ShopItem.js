@@ -57,7 +57,7 @@ function ShopItem({ productData }) {
   };
 
   return (
-    <article
+    <article className={styles.shopItemWrapper} onClick={shopItemClicked} data-testid="shopItem">
       className={styles.shopItemWrapper}
       onClick={shopItemClicked}
       title="productItem"

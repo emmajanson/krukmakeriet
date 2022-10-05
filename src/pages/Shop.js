@@ -31,7 +31,7 @@ function Shop() {
 
   return (
     <main className={styles.wrapper}>
-       <Modal
+      <Modal
         isOpen = {shopProductModalOpen}
         onRequestClose = {() => setShopProductModalOpen(false)}
         className = {styles.shopProductModal}
