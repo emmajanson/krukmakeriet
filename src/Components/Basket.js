@@ -11,6 +11,7 @@ function Basket({ toggleBasket }, isActiveBasket) {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
 
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
