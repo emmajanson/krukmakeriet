@@ -4,7 +4,6 @@ import { db, storage } from "../firebase-config";
 import { useState, useEffect } from "react";
 import {
   collection,
-  getDocs,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -30,7 +29,7 @@ function UpdateProducts({
   setAddUpdateFunction,
   getProducts,
   desc,
-  setShowPopup
+  setShowPopup,
 }) {
   const productsCollectionRef = collection(db, "products");
   const [productName, setProductName] = useState("");
@@ -38,7 +37,7 @@ function UpdateProducts({
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState("");
-  const [productLongerDesc, setProductLongerDesc] = useState("")
+  const [productLongerDesc, setProductLongerDesc] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imageURL, setImageURL] = useState([]);
 
@@ -118,9 +117,9 @@ function UpdateProducts({
     };
     await updateDoc(productDoc, newUpdatedProduct);
     console.log("UpdateProduct function");
-    setShowPopup(true)
+    setShowPopup(true);
     setTimeout(() => {
-      setShowPopup(false)
+      setShowPopup(false);
     }, 2000);
     onClose(false);
     getProducts();
@@ -204,7 +203,7 @@ function UpdateProducts({
           <div>
             <p>Längre beskrivning: *</p>
             <textarea
-            type="textarea"
+              type="textarea"
               className={styles.product_longer_desc}
               value={productLongerDesc}
               onChange={(e) => {

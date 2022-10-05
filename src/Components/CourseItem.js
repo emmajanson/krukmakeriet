@@ -3,7 +3,7 @@ import styles from "./CourseItem.module.css";
 import { useContext } from "react";
 import { AllContext } from "../context/AllContext";
 import Popup from "./Popup.js";
-import { FaTag, FaClock, FaUser } from "react-icons/fa";
+import { FaTag, FaClock } from "react-icons/fa";
 
 function CourseItem({ courseData }) {
   const { courseBasket, setCourseBasket } = useContext(AllContext);

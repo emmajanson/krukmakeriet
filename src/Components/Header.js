@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import Basket from "./Basket";
@@ -14,15 +14,11 @@ function Header() {
   const [isActiveMobile, setIsActiveMobile] = useState(false);
   const [isActiveBasket, setIsActiveBasket] = useState(false);
   const [user, setUser] = useState({});
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  const articleRef = useRef();
 
   const {
     productBasket,
     courseBasket,
     adminPermission,
-    showTopBtn,
     setShowTopBtn,
     basketAmount,
     setBasketAmount,
@@ -172,28 +168,49 @@ function Header() {
           }
         >
           <div className={styles.mobileMenuLinkWrapper}>
-            <Link onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}} to="/">
+            <Link
+              onClick={() => {
+                toggleMenu(isActiveMobile, isOpen);
+                ScrollToView();
+              }}
+              to="/"
+            >
               Hem
             </Link>
             <Link
-              onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
+              onClick={() => {
+                toggleMenu(isActiveMobile, isOpen);
+                ScrollToView();
+              }}
               to="/courses"
             >
               Kurser
             </Link>
-            <Link onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}} to="/shop">
+            <Link
+              onClick={() => {
+                toggleMenu(isActiveMobile, isOpen);
+                ScrollToView();
+              }}
+              to="/shop"
+            >
               Butik
             </Link>
             {user == null ? (
               <Link
-                onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
+                onClick={() => {
+                  toggleMenu(isActiveMobile, isOpen);
+                  ScrollToView();
+                }}
                 to="/signin"
               >
                 Logga in
               </Link>
             ) : (
               <Link
-                onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
+                onClick={() => {
+                  toggleMenu(isActiveMobile, isOpen);
+                  ScrollToView();
+                }}
                 to={adminPermission ? "/admin" : "/profile"}
               >
                 {adminPermission ? "Admin" : "Profil"}
@@ -201,7 +218,10 @@ function Header() {
             )}
             {user == null ? (
               <Link
-                onClick={() => {toggleMenu(isActiveMobile, isOpen); ScrollToView();}}
+                onClick={() => {
+                  toggleMenu(isActiveMobile, isOpen);
+                  ScrollToView();
+                }}
                 to="/signup"
               >
                 Registrera dig

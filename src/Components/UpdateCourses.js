@@ -4,7 +4,6 @@ import { db, storage } from "../firebase-config";
 import { useState, useEffect } from "react";
 import {
   collection,
-  getDocs,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -13,7 +12,6 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { v4 } from "uuid";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-
 
 function UpdateCourses({
   id,
@@ -32,7 +30,7 @@ function UpdateCourses({
   setAddNewCourseFunction,
   getCourses,
   setAddUpdateFunction,
-  setShowPopup
+  setShowPopup,
 }) {
   const coursesCollectionRef = collection(db, "courses");
   const [courseName, setCourseName] = useState("");
@@ -75,7 +73,6 @@ function UpdateCourses({
       });
     });
   }, []);
-
 
   //everytime a change is made in the input fields display the latest changes in the modal
   useEffect(() => {
@@ -125,9 +122,9 @@ function UpdateCourses({
     };
     await updateDoc(courseDoc, newUpdatedCourse);
     console.log("UpdateCourse function");
-    setShowPopup(true)
+    setShowPopup(true);
     setTimeout(() => {
-      setShowPopup(false)
+      setShowPopup(false);
     }, 2000);
     onClose(false);
     getCourses();
@@ -231,7 +228,7 @@ function UpdateCourses({
           />
           <p>Kursens bild: *</p>
           <div className={styles.upload_div}>
-            <img src={courseImage} className={styles.uploaded_image} alt=""/>
+            <img src={courseImage} className={styles.uploaded_image} alt="" />
             <div className={styles.btns}>
               <input
                 className={styles.upload_image}

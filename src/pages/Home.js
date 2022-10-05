@@ -1,12 +1,20 @@
 import Events from "../Components/Events";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 export default function Home() {
   let navigate = useNavigate();
 
   const homeRef = useRef();
+
+  // Scrolls the user to the top
+  function ScrollToView() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <main data-testid="home" className={styles.wrapper} ref={homeRef}>
@@ -54,6 +62,7 @@ export default function Home() {
           className={styles.linkImageWrapper}
           onClick={() => {
             navigate("/shop");
+            ScrollToView();
           }}
         >
           <img
@@ -68,6 +77,7 @@ export default function Home() {
           className={styles.linkImageWrapper}
           onClick={() => {
             navigate("/courses");
+            ScrollToView();
           }}
         >
           <img
