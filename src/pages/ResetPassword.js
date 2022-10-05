@@ -41,7 +41,7 @@ function ResetPassword() {
   }
 
   return (
-    <main className={styles.wrapperResetPassword}>
+    <main className={styles.wrapperResetPassword} data-testid="reset-test">
       <section>
         <input
           type="text"
