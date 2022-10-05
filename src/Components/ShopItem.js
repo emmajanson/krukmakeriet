@@ -59,7 +59,7 @@ function ShopItem({ productData }) {
 
   //  en onClick ska in på shopItemWrapper för att öppna produkt modalen
   return (
-    <article className={styles.shopItemWrapper} onClick={shopItemClicked}>
+    <article className={styles.shopItemWrapper} onClick={shopItemClicked} data-testid="shopItem">
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
       </div>
