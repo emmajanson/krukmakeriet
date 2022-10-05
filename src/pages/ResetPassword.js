@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./SignUp.module.css";
+import styles from "./ResetPassword.module.css";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -42,7 +42,8 @@ function ResetPassword() {
 
   return (
     <main className={styles.wrapperResetPassword} data-testid="reset-test">
-      <section>
+      <section className={styles.wrapperInput}>
+        <h3 className={styles.resetPasswordTitle}>Glömt ditt lösenord?</h3>
         <input
           type="text"
           placeholder="Enter your email"
