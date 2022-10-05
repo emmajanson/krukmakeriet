@@ -4,20 +4,12 @@ import { AllContext } from "../context/AllContext";
 import { FaTrash } from "react-icons/fa";
 
 function BasketItem({ productData }) {
-  /*
-  let { productBasket} = useContext(AppContext)
-  let { courseBasket} = useContext(AppContext)
-
-  
-  if (courseBasket === null) {courseBasket = []}
-  if (productBasket === null) {productBasket = []}
-
-  */
-
   const { productBasket, setProductBasket } = useContext(AllContext);
   const { courseBasket, setCourseBasket } = useContext(AllContext);
 
   const basketZero = productData.amount === 0;
+
+  //Checks if the product is in the courseBasket
 
   const isProduct = courseBasket.some((product) => {
     if (product.id === productData.id) {
@@ -26,11 +18,15 @@ function BasketItem({ productData }) {
     return false;
   });
 
+  //Checks if the product is in the basket
+
   function decrementAmount(productData) {
     const courseExist = courseBasket.find((item) => item.id === productData.id);
     const productExist = productBasket.find(
       (item) => item.id === productData.id
     );
+
+    //Updates the amount of the product in the basket
 
     if (isProduct) {
       courseExist.amount > 0
@@ -77,10 +73,10 @@ function BasketItem({ productData }) {
     );
   }
 
-  function deleteItem(productData) {
-    //.filter på alla som inte är productData.id
-    //uppdatera state med den här listan
+  //Filter out all items that are not productData.id
+  //Update state with this list
 
+  function deleteItem(productData) {
     setCourseBasket(courseBasket.filter((item) => item.id !== productData.id));
     setProductBasket(
       productBasket.filter((item) => item.id !== productData.id)
@@ -96,22 +92,20 @@ function BasketItem({ productData }) {
       <div className={styles.textWrapper}>
         <p className={styles.heading}>{productData.name}</p>
         <div className={styles.changeAmountWrapper}>
-          {basketZero ?  <p
-            className={styles.changeAmount}
-            onClick={() => decrementAmount(productData)}
-          >
-
-          </p> :  <p
-            className={styles.changeAmount}
-            onClick={() => decrementAmount(productData)}
-            
-          >
+          {basketZero ? (
+            <p
+              className={styles.changeAmount}
+              onClick={() => decrementAmount(productData)}
+            ></p>
+          ) : (
+            <p
+              className={styles.changeAmount}
+              onClick={() => decrementAmount(productData)}
+            >
               {" "}
-            -{" "}
-          </p>
-
-      }
-            
+              -{" "}
+            </p>
+          )}
 
           <p>{productData.amount}</p>
           <p
@@ -126,7 +120,7 @@ function BasketItem({ productData }) {
 
       <div className={styles.priceDeleteWrapper}>
         <p className={styles.price}>{productData.price}:-</p>
-        <FaTrash 
+        <FaTrash
           className={styles.deleteBtn}
           onClick={() => deleteItem(productData)}
         />

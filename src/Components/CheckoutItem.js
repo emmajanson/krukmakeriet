@@ -4,16 +4,6 @@ import { AllContext } from "../context/AllContext";
 import { FaTrash } from "react-icons/fa";
 
 function CheckoutItem({ productData }) {
-  /*
-  let { productBasket} = useContext(AppContext)
-  let { courseBasket} = useContext(AppContext)
-
-  
-  if (courseBasket === null) {courseBasket = []}
-  if (productBasket === null) {productBasket = []}
-
-  */
-
   const { productBasket, setProductBasket, courseBasket, setCourseBasket } =
     useContext(AllContext);
 
@@ -78,8 +68,6 @@ function CheckoutItem({ productData }) {
   }
 
   function deleteItem(productData) {
-    //.filter på alla som inte är productData.id
-    //uppdatera state med den här listan
     setCourseBasket(courseBasket.filter((item) => item.id !== productData.id));
     setProductBasket(
       productBasket.filter((item) => item.id !== productData.id)
@@ -95,22 +83,20 @@ function CheckoutItem({ productData }) {
       <div className={styles.textWrapper}>
         <p className={styles.heading}>{productData.name}</p>
         <div className={styles.changeAmountWrapper}>
-          {basketZero ?  <p
-            className={styles.changeAmount}
-            onClick={() => decrementAmount(productData)}
-          >
-
-          </p> :  <p
-            className={styles.changeAmount}
-            onClick={() => decrementAmount(productData)}
-            
-          >
+          {basketZero ? (
+            <p
+              className={styles.changeAmount}
+              onClick={() => decrementAmount(productData)}
+            ></p>
+          ) : (
+            <p
+              className={styles.changeAmount}
+              onClick={() => decrementAmount(productData)}
+            >
               {" "}
-            -{" "}
-          </p>
-
-      }
-            
+              -{" "}
+            </p>
+          )}
 
           <p>{productData.amount}</p>
           <p
@@ -125,7 +111,7 @@ function CheckoutItem({ productData }) {
 
       <div className={styles.priceDeleteWrapper}>
         <p className={styles.price}>{productData.price}:-</p>
-        <FaTrash 
+        <FaTrash
           className={styles.deleteBtn}
           onClick={() => deleteItem(productData)}
         />

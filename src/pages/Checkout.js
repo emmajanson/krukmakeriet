@@ -3,15 +3,7 @@ import styles from "./Checkout.module.css";
 import CheckoutItem from "../Components/CheckoutItem";
 import { AllContext } from "../context/AllContext";
 import { useNavigate } from "react-router-dom";
-import {
-  addDoc,
-  arrayUnion,
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import Popup from "../Components/PopUpTemplate";
 import { auth, db } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
@@ -20,18 +12,6 @@ function Checkout() {
   const navigate = useNavigate();
 
   const [showPopup, setShowPopup] = useState(false);
-
-  const usersRef = collection(db, "users");
-
-  /*
-  let { productBasket} = useContext(AppContext)
-  let { courseBasket} = useContext(AppContext)
-
-  
-  if (courseBasket === null) {courseBasket = []}
-  if (productBasket === null) {productBasket = []}
-
-  */
 
   const {
     productBasket,

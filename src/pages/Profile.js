@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import {
   signOut,
   onAuthStateChanged,
-  updateProfile,
-  getAuth,
-  updateUser,
   deleteUser,
   updatePassword,
   reauthenticateWithCredential,
@@ -13,25 +10,15 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
-import ResetPassword from "./ResetPassword.js";
 
-import {
-  collection,
-  addDoc,
-  setDoc,
-  doc,
-  updateDoc,
-  getDoc,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import UserOrders from "../Components/UserOrders";
 import UserCourses from "../Components/UserCourses";
-
 
 function Profile() {
   const [user, setUser] = useState({});
   const [userID, setUserID] = useState("");
   const [oldPassword, setOldPassword] = useState(null);
-  const [showNewUserEmail, setShowNewUserEmail] = useState(false);
   const [firstNewPassword, setFirstNewPassword] = useState(null);
   const [secondNewPassword, setSecondNewPassword] = useState(false);
   const [userProducts, setUserProducts] = useState([]);
@@ -47,8 +34,6 @@ function Profile() {
   const inputRef2 = useRef("");
   const inputRef3 = useRef("");
   const inputRef4 = useRef("");
-
-  const permission = localStorage.getItem("admin");
 
   var passwordChecker = false;
   var deleteChecker = false;
