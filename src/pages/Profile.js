@@ -84,6 +84,7 @@ function Profile() {
     const productArray = [];
     const courseArray = [];
 
+    // Converting the purchased items to new separate arrays
     objKeys[0].forEach((item, index) => {
       const courseLength = objValues[0][index][0].bookedCourses.courses.length;
       const productLength =

@@ -22,8 +22,6 @@ function Checkout() {
   const [showPopup, setShowPopup] = useState(false);
 
   const usersRef = collection(db, "users");
-  
-  
 
   /*
   let { productBasket} = useContext(AppContext)
@@ -66,19 +64,11 @@ function Checkout() {
   const totalSumCourse = totalSum(courseBasket);
   const totalSumBasket = totalSumProduct + totalSumCourse;
 
-  // _PRODUCTS_
-  // 1. Lägga till de köpta Products i användarens DB. (för varje köp, lägg till ett nytt objekt (döp till ett datum))
-  // 2. Uppdatera "amount" på de produkter som köpts (Går inte att minska under 0).
-
-  // _COURSES_
-  // 1. Lägga till Courses i användarens DB.
-  // 2. Uppdatera "spots" i den kursen som är bokad.
-  // 3. Lägga till användarens E-mail i en array på den kurs som är bokad (för admin).
-
   const [userName, setUserName] = useState("");
   const [currUID, setCurrUID] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
+  // Checking who's logged in and saving the user-info in states
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setCurrUID(user.uid);
@@ -88,7 +78,7 @@ function Checkout() {
   }, []);
 
   async function updateProducts() {
-    // Creates a string-name with the date for the purchase.
+    // Creates a string-name with the date for the purchase
     const currDate = () => {
       if (new Date().getDate() < 10) {
         return `0${new Date().getDate()}`;
@@ -127,12 +117,11 @@ function Checkout() {
     };
 
     const orderNumber = Math.floor(100000000 + Math.random() * 900000000);
-
     const currentDate = `${currYear}-${currMonth()}-${currDate()} ${currHour()}:${currMinute()}:${currSecond()}`;
 
-    // Adding the purchased Products and Courses to users DB
     const userDoc = doc(db, "users", currUID);
 
+    // Adding the purchased Products and Courses to users DB
     if (productBasket || courseBasket) {
       await updateDoc(userDoc, {
         [`purchases.${currentDate}`]: arrayUnion({
@@ -159,29 +148,6 @@ function Checkout() {
         }),
       });
 
-      // const idArray = productBasket.map((item) => {
-      //   return {
-      //     amount: item.amount,
-      //     id: item.id,
-      //   };
-      // });
-
-      // idArray.map(async (item) => {
-      //   const currentAmount = await getDoc(db, "products", item.id);
-      //   const productRef = doc(db, "products", item.id);
-      //   await updateDoc(productRef, {
-      //     amount: currentAmount - item.amount,
-      //   });
-      // });
-
-      // for (let i = 0; i < idArray.length; i++) {
-      //   const currentAmount = await getDoc(db, "products", idArray[i].id);
-      //   const productRef = doc(db, "products", idArray[i].id);
-      //   await updateDoc(productRef, {
-      //     amount: currentAmount - idArray[i].amount,
-      //   });
-      // }
-
       // Removes items from shoppingcart
       localStorage.setItem("productBasket", "[]");
       localStorage.setItem("courseBasket", "[]");
@@ -192,14 +158,9 @@ function Checkout() {
     } else {
       return;
     }
-
-    // if (courseBasket) {
-    //   const courseIDs = courseBasket.map((course) => {
-    //     return course.id;
-    //   });
-    // }
   }
 
+  // Scroll the page to the top when checking out
   function ScrollToView() {
     window.scrollTo({
       top: 0,
