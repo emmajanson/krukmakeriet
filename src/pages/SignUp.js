@@ -5,12 +5,11 @@ import { auth, db } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
-  updateDoc,
   onAuthStateChanged,
   sendEmailVerification,
   getAuth,
 } from "firebase/auth";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { act } from "react-test-renderer";
 import Popup from "../Components/PopUpTemplate";
 
@@ -25,7 +24,6 @@ function SignUp() {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const usersCollectionRef = collection(db, "users");
 
   const [showPopup, setShowPopup] = useState(false);
 

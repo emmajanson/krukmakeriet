@@ -11,7 +11,6 @@ function ListOfExsitingCourses() {
   const courseCollectionRef = collection(db, "courses");
   const [courses, setCourses] = useState([]);
   const [courseID, setCourseID] = useState();
-  const [updateOnly, setUpdateOnly] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [addUpdateFunction, setAddUpdateFunction] = useState(false);
   const [addNewCourseFunction, setAddNewCourseFunction] = useState(false);
@@ -58,11 +57,11 @@ function ListOfExsitingCourses() {
   //get the courses from db
   async function getCourses() {
     const data = await getDocs(courseCollectionRef);
-    setCourses(data.docs
-      .sort((doc, b) =>
-            doc.details > b.details ? 1 : -1
-          )
-      .map((doc) => ({ ...doc.data(), id: doc.id })));
+    setCourses(
+      data.docs
+        .sort((doc, b) => (doc.details > b.details ? 1 : -1))
+        .map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
   }
   //render the courses when refreshed
   useEffect(() => {
