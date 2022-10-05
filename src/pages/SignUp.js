@@ -29,6 +29,7 @@ function SignUp() {
 
   const [showPopup, setShowPopup] = useState(false);
 
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       act(() => {
@@ -37,6 +38,7 @@ function SignUp() {
     });
   }, []);
 
+  // Handle the register and push a valid user to Firebase and send varification mail to the user
   async function register() {
     if (signinPassword.length < 6) {
       setPasswordTooShort(true);

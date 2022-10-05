@@ -1,166 +1,166 @@
-/*Mobile first*/
+/*mobile*/
 p {
   margin: 5px;
 }
-@media only screen and (max-width: 600px) {
-  .wrapper {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    background-color: white;
-    left: 0;
-    top: 5%;
-    display: flex;
-    border: 0.5px solid rgb(125, 125, 125);
-    overflow-y: auto;
-  }
-  .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 90%;
-    margin: auto;
-  }
-  .button {
-    background: rgba(65, 75, 66, 1);
-    width: 160px;
-    height: 40px;
-    border-radius: 50px;
-    padding: 5px 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: white;
-    border: 0.5px solid black;
-  }
-  .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin-top: 4rem;
-    margin-right: 1rem;
-    font-size: x-large;
-  }
-  .uploadBtn {
-    background-color: rgba(65, 75, 66, 1);
-    width: 110px;
-    height: 35px;
-    border-radius: 50px;
-    padding: 5px 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: white;
-    border: none;
-  }
-  .showBtn {
-    background: white;
-    width: 160px;
-    height: 40px;
-    border-radius: 50px;
-    padding: 5px 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: black;
-    border: 0.5px solid black;
-  }
-  .noShowBtn {
-    display: none;
-  }
-  .uploadedImage {
-    width: 100px;
-    height: 100px;
-    border-radius: 15px;
-  }
-  .upload_image::-webkit-file-upload-button {
-    display: none;
-  }
-  .upload_image::before {
-    content: "Välj bild";
-    background: rgba(65, 75, 66, 1);
-    width: 110px;
-    height: 35px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: white;
-  }
-  .product_longer_desc{
-    border-radius: 5px;
-    border: 2px solid black;
-    width: 100%;
-    height: 120px;
-    padding: 5px;
-    border: .5px solid black;
-  }
-  .product_price {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    border-radius: 5px;
-    height: 45px;
-    padding: 5px;
-    border: 0.5px solid black;
-  }
-  .product_desc {
-    width: 80%;
-    border-radius: 5px;
-    height: 45px;
-    padding: 5px;
-    border: 0.5px solid black;
-  }
-  .product_name {
-    border-radius: 5px;
-    height: 45px;
-    padding: 5px;
-    border: 0.5px solid black;
-  }
-  .price_quantity {
-    display: flex;
-  }
-  .date_spots {
-    display: flex;
-    width: 80%;
-  }
-  .product_quantity {
-    width: 90%;
-    border-radius: 5px;
-    height: 45px;
-    padding: 5px;
-    border: 0.5px solid black;
-  }
-  .spots {
-    width: 130px;
-  }
-  .upload_div {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  input[type="file"] {
-    color: transparent;
-  }
-  .btns {
-    display: flex;
-    flex-direction: column;
-  }
-  .submiit {
-    width: 100%;
-    height: 5rem;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-end;
-  }
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: white;
+  left: 0;
+  top: 5%;
+  display: flex;
+  border: 0.5px solid rgb(125, 125, 125);
+  overflow-y: auto;
 }
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 90%;
+  margin: auto;
+}
+.button {
+  background: rgba(65, 75, 66, 1);
+  width: 160px;
+  height: 40px;
+  border-radius: 50px;
+  padding: 5px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  border: 1px solid rgb(65, 75, 66);
+}
+.icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 4rem;
+  margin-right: 1rem;
+  font-size: x-large;
+}
+.uploadBtn {
+  background-color: rgba(65, 75, 66, 1);
+  width: 110px;
+  height: 35px;
+  border-radius: 50px;
+  padding: 5px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  border: none;
+}
+.showBtn {
+  background: white;
+  width: 160px;
+  height: 40px;
+  border-radius: 50px;
+  padding: 5px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  border: 1px solid rgb(65, 75, 66);
+}
+.noShowBtn {
+  display: none;
+}
+.uploadedImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+}
+.upload_image::-webkit-file-upload-button {
+  display: none;
+}
+.upload_image::before {
+  content: "Välj bild";
+  background: rgba(65, 75, 66, 1);
+  width: 110px;
+  height: 35px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+.product_longer_desc{
+  border-radius: 5px;
+  border: 2px solid black;
+  width: 100%;
+  height: 120px;
+  padding: 5px;
+  border: .5px solid black;
+}
+.product_price {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  border-radius: 5px;
+  height: 45px;
+  padding: 5px;
+  border: 0.5px solid black;
+}
+.product_desc {
+  width: 80%;
+  border-radius: 5px;
+  height: 45px;
+  padding: 5px;
+  border: 0.5px solid black;
+}
+.product_name {
+  border-radius: 5px;
+  height: 45px;
+  padding: 5px;
+  border: 0.5px solid black;
+}
+.price_quantity {
+  display: flex;
+}
+.date_spots {
+  display: flex;
+  width: 80%;
+}
+.product_quantity {
+  width: 90%;
+  border-radius: 5px;
+  height: 45px;
+  padding: 5px;
+  border: 0.5px solid black;
+}
+.spots {
+  width: 130px;
+}
+.upload_div {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+}
+input[type="file"] {
+  color: transparent;
+}
+.btns {
+  display: flex;
+  flex-direction: column;
+}
+.submiit {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
 /* desktop */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 800px) {
   .overlay {
     z-index: 100;
     background-color: rgba(255, 255, 255, 0.5);
@@ -172,6 +172,7 @@ p {
   }
   .wrapper {
     width: 60vw;
+    max-width: 954px;
     height: 90vh;
     margin: auto;
     position: fixed;
@@ -186,7 +187,7 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 50%;
+    width: 60%;
     height: 100%;
     margin: auto;
   }
@@ -201,7 +202,7 @@ p {
     align-items: center;
     cursor: pointer;
     color: white;
-    border: 0.5px solid black;
+    border: 1px solid rgb(65, 75, 66);
   }
   .icon {
     position: absolute;
@@ -235,7 +236,7 @@ p {
     align-items: center;
     cursor: pointer;
     color: black;
-    border: 0.5px solid black;
+    border: 1px solid rgb(65, 75, 66);
   }
   .noShowBtn {
     display: none;
@@ -296,15 +297,12 @@ p {
     padding: 5px;
     border: 0.5px solid black;
   }
-
   .spots {
     width: 130px;
   }
-
   .upload_div {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
   input[type="file"] {

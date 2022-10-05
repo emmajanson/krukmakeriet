@@ -1,9 +1,9 @@
 .wrapper{
-  padding-top: 15vh; /*tillfällig*/
+  padding-top: 11vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 4rem;
+  padding-bottom: 7rem;
 }
 .bannerWrapper{
   width: 90%;
@@ -69,12 +69,13 @@
 @media screen and (min-width:800px){
   .wrapper{
     width: 100%;
-    padding-top: 15vh;
+    padding-top: 11vh;
   }
   .bannerWrapper{
     width: 100%;
     max-width: 954px;
     height: 70vh;
+    padding-top: 3rem;
   }
   .bannerBg{
     height:6.5rem; 
