@@ -22,18 +22,6 @@ function Checkout() {
   const [showPopup, setShowPopup] = useState(false);
 
   const usersRef = collection(db, "users");
-  
-  
-
-  /*
-  let { productBasket} = useContext(AppContext)
-  let { courseBasket} = useContext(AppContext)
-
-  
-  if (courseBasket === null) {courseBasket = []}
-  if (productBasket === null) {productBasket = []}
-
-  */
 
   const {
     productBasket,

@@ -26,8 +26,6 @@ function CourseItem({ courseData }) {
         setCourseBasket([...courseBasket, { ...course, amount: 1 }]);
       }
     }
-
-    console.log("Added to basket " + courseData.name);
   }
 
   const timeout = setTimeout(trigger, 2000);
@@ -59,7 +57,6 @@ function CourseItem({ courseData }) {
           <p className={styles.length}>
             <FaClock /> {courseData.duration}min
           </p>
-          {/* <p className={styles.spots}><FaUser />   XX/{courseData.spots}</p> */}
         </div>
         <p className={styles.info}>{courseData.info}</p>
 

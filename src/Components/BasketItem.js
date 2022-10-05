@@ -18,15 +18,15 @@ function BasketItem({ productData }) {
     return false;
   });
 
+  //Checks if the product is in the basket
+
   function decrementAmount(productData) {
     const courseExist = courseBasket.find((item) => item.id === productData.id);
     const productExist = productBasket.find(
       (item) => item.id === productData.id
     );
 
-    /*
-      Checks if the product is in the courseBasket or the prodcutBasket
-    */
+    //Updates the amount of the product in the basket
 
     if (isProduct) {
       courseExist.amount > 0
@@ -73,10 +73,10 @@ function BasketItem({ productData }) {
     );
   }
 
-  function deleteItem(productData) {
-    //filter på alla som inte är productData.id
-    //uppdatera state med den här listan
+  //Filter out all items that are not productData.id
+  //Update state with this list
 
+  function deleteItem(productData) {
     setCourseBasket(courseBasket.filter((item) => item.id !== productData.id));
     setProductBasket(
       productBasket.filter((item) => item.id !== productData.id)
