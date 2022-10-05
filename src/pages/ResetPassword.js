@@ -12,6 +12,7 @@ function ResetPassword() {
   const [notValidEmail, setNotValidEmail] = useState(false);
   const [notSameEmail, setNotSameEmail] = useState(false);
 
+  //send password reset to registered user
   async function resetClickHandler() {
     if (email === auth.currentUser.email) {
       try {
@@ -51,7 +52,11 @@ function ResetPassword() {
         ></input>
         {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
         {notValidEmail ? <p style={{ color: "red" }}>Email not valid!</p> : ""}
-        {notSameEmail ? <p style={{ color: "red" }}>Not the registered email!</p> : ""}
+        {notSameEmail ? (
+          <p style={{ color: "red" }}>Not the registered email!</p>
+        ) : (
+          ""
+        )}
 
         <button
           onClick={resetClickHandler}
