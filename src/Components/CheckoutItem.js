@@ -75,7 +75,7 @@ function CheckoutItem({ productData }) {
   }
 
   return (
-    <article className={styles.wrapper}>
+    <article className={styles.wrapper} data-testid="checkoutItem">
       <div className={styles.imgWrapper}>
         <img src={productData.img} alt="" className={styles.basketImage} />
       </div>
@@ -101,10 +101,10 @@ function CheckoutItem({ productData }) {
           <p>{productData.amount}</p>
           <p
             className={styles.changeAmount}
+            data-testid="incrementBtn"
             onClick={() => incrementAmount(productData)}
           >
-            {" "}
-            +{" "}
+            +
           </p>
         </div>
       </div>
@@ -113,6 +113,7 @@ function CheckoutItem({ productData }) {
         <p className={styles.price}>{productData.price}:-</p>
         <FaTrash
           className={styles.deleteBtn}
+          data-testid="decrementBtn"
           onClick={() => deleteItem(productData)}
         />
       </div>

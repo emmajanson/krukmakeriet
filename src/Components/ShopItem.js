@@ -57,7 +57,11 @@ function ShopItem({ productData }) {
   };
 
   return (
-    <article className={styles.shopItemWrapper} onClick={shopItemClicked}>
+    <article
+      className={styles.shopItemWrapper}
+      onClick={shopItemClicked}
+      title="productItem"
+    >
       <div className={styles.imgWrapper}>
         <img className={styles.shopItemImage} src={productData.img} alt="" />
       </div>
