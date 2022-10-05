@@ -68,6 +68,7 @@
   height: 3rem;
   background-color: white;
   color: #414B42;
+  cursor: pointer;
 }
 
 .resetPasswordButton {
