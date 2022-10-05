@@ -231,7 +231,7 @@ function UpdateCourses({
           />
           <p>Kursens bild: *</p>
           <div className={styles.upload_div}>
-            <img src={courseImage} className={styles.uploaded_image} />
+            <img src={courseImage} className={styles.uploaded_image} alt=""/>
             <div className={styles.btns}>
               <input
                 className={styles.upload_image}
