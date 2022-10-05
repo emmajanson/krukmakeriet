@@ -7,8 +7,9 @@ import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 
 function Courses() {
-  /*Render from db */
   const [courses, setCourses] = useState([]);
+
+  //Render from Database
 
   useEffect(() => {
     const coursesCollectionRef = collection(db, "courses");
@@ -21,9 +22,9 @@ function Courses() {
   }, []);
 
   return (
-    <main className={styles.wrapper}>
+    <main className={styles.wrapper} data-testid="courses">
       <h2 className={styles.heading}>Kurser</h2>
-      <section className={styles.courseWrapper} data-testid="courses">
+      <section className={styles.courseWrapper}>
         {courses
           .sort((course, nextCourse) =>
             course.details > nextCourse.details ? 1 : -1

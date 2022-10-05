@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import styles from "./HamburgerButton.module.css";
 
-const Burger = ({ isOpen, setIsOpen }) => {
+const Burger = ({ isOpen }) => {
   const first = useSpring({
     transform: isOpen
       ? "translate(5px, 32px) rotate(-45deg)"

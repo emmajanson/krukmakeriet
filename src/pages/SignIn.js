@@ -37,7 +37,7 @@ function SignIn() {
         setRefresh((curr) => !curr);
         location.state
           ? navigate("/checkout")
-          : navigate("/profile", { state: { user: user.user.displayName } });
+          : navigate("/shop", { state: { user: user.user.displayName } });
       } else {
         setNotVerified(true);
         return;

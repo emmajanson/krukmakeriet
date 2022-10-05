@@ -11,16 +11,7 @@ function Basket({ toggleBasket }, isActiveBasket) {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
 
-  /*
-  let { productBasket} = useContext(AppContext)
-  let { courseBasket} = useContext(AppContext)
-
-  
-  if (courseBasket === null) {courseBasket = []}
-  if (productBasket === null) {productBasket = []}
-
-  */
-
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -29,6 +20,8 @@ function Basket({ toggleBasket }, isActiveBasket) {
 
   const { productBasket, courseBasket } = useContext(AllContext);
 
+  //Runs an forEach loop and returns the total sum of those items
+
   const totalSum = (basket) => {
     let sum = 0;
     basket.forEach((item) => {
@@ -36,6 +29,14 @@ function Basket({ toggleBasket }, isActiveBasket) {
     });
     return sum;
   };
+
+  //Runs the totalSum function and returns the total sum of the products and courses
+  const totalSumProduct = totalSum(productBasket);
+  const totalSumCourse = totalSum(courseBasket);
+  const totalSumBasket = totalSumProduct + totalSumCourse;
+
+  //Makes the <h4> text appear if products/courses are in the basket
+
   let coursesInBasket = "";
   if (courseBasket.length > 0) {
     coursesInBasket = "Kurser";
@@ -45,10 +46,6 @@ function Basket({ toggleBasket }, isActiveBasket) {
   if (productBasket.length > 0) {
     productsInBasket = "Produkter";
   }
-
-  const totalSumProduct = totalSum(productBasket);
-  const totalSumCourse = totalSum(courseBasket);
-  const totalSumBasket = totalSumProduct + totalSumCourse;
 
   function ScrollToView() {
     window.scrollTo({

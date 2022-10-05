@@ -5,12 +5,11 @@ import { auth, db } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
-  updateDoc,
   onAuthStateChanged,
   sendEmailVerification,
   getAuth,
 } from "firebase/auth";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { act } from "react-test-renderer";
 import Popup from "../Components/PopUpTemplate";
 
@@ -25,10 +24,10 @@ function SignUp() {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const usersCollectionRef = collection(db, "users");
 
   const [showPopup, setShowPopup] = useState(false);
 
+  // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       act(() => {
@@ -37,6 +36,7 @@ function SignUp() {
     });
   }, []);
 
+  // Handle the register and push a valid user to Firebase and send varification mail to the user
   async function register() {
     if (signinPassword.length < 6) {
       setPasswordTooShort(true);

@@ -40,12 +40,10 @@ export const AllContextProvider = ({ children }) => {
     async function getUsers() {
       const data = await getDocs(usersRef);
       const users = data.docs.map((doc) => ({ ...doc.data() }));
-      console.log(users, "anv a");
       onAuthStateChanged(auth, async (user) => {
         if (!user) return;
 
         const isAdmin = users.find((a) => a.uid === user.uid);
-        console.log(user);
         setAdminPermission(isAdmin.admin);
         localStorage.setItem("admin", isAdmin.admin);
       });

@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import {
   signOut,
   onAuthStateChanged,
-  updateProfile,
-  getAuth,
-  updateUser,
   deleteUser,
   updatePassword,
   reauthenticateWithCredential,
@@ -13,26 +10,15 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import styles from "./Profile.module.css";
-import ResetPassword from "./ResetPassword.js";
 
-import {
-  collection,
-  addDoc,
-  setDoc,
-  doc,
-  updateDoc,
-  getDoc,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import UserOrders from "../Components/UserOrders";
 import UserCourses from "../Components/UserCourses";
-
-//Fånga upp: Firebase: Error (auth/requires-recent-login).
 
 function Profile() {
   const [user, setUser] = useState({});
   const [userID, setUserID] = useState("");
   const [oldPassword, setOldPassword] = useState(null);
-  const [showNewUserEmail, setShowNewUserEmail] = useState(false);
   const [firstNewPassword, setFirstNewPassword] = useState(null);
   const [secondNewPassword, setSecondNewPassword] = useState(false);
   const [userProducts, setUserProducts] = useState([]);
@@ -48,8 +34,6 @@ function Profile() {
   const inputRef2 = useRef("");
   const inputRef3 = useRef("");
   const inputRef4 = useRef("");
-
-  const permission = localStorage.getItem("admin");
 
   var passwordChecker = false;
   var deleteChecker = false;
@@ -84,6 +68,7 @@ function Profile() {
     const productArray = [];
     const courseArray = [];
 
+    // Converting the purchased items to new separate arrays
     objKeys[0].forEach((item, index) => {
       const courseLength = objValues[0][index][0].bookedCourses.courses.length;
       const productLength =
@@ -103,6 +88,7 @@ function Profile() {
     setUserCourses(courseArray);
   }
 
+  // Check's if the password is correct, if it is you can delete the account.
   async function handleDeleteUser() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
@@ -124,6 +110,7 @@ function Profile() {
     inputRef1.current.value = "";
   }
 
+  // Check's if the  old password is correct, and if the two  new input passwords matches
   async function handleChangePassword() {
     inputRef2.current.value = "";
     inputRef3.current.value = "";
@@ -163,7 +150,7 @@ function Profile() {
   return user == null || user.emailVerified === false ? (
     <Navigate to="/signin" />
   ) : (
-    <div className={styles.bgWrapper}>
+    <div className={styles.bgWrapper} data-test="profile-test">
       <main className={styles.wrapper}>
         <h2 className={styles.heading}>Profil</h2>
 

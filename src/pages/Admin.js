@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Admin.module.css";
 import ListOfExsitingCourses from "../Components/ListOfExsitingCourses";
 import ListOfExsitingProducts from "../Components/ListOfExsitingProducts";
@@ -98,119 +98,119 @@ function Admin() {
 
   return permission === "true" ? (
     <div className={styles.bgWrapper}>
-    <main className={styles.wrapper}>
-      <h2 className={styles.heading}>Administration</h2>
+      <main className={styles.wrapper}>
+        <h2 className={styles.heading}>Administration</h2>
 
-      <section className={styles.userInfoWrapper}>
-        <h5 className={styles.subheading}>Ditt konto</h5>
+        <section className={styles.userInfoWrapper}>
+          <h5 className={styles.subheading}>Ditt konto</h5>
 
-        <section className={styles.accountSection}>
-          <article className={styles.article}>
-            <h6 className={styles.title}>Dina uppgifter</h6>
+          <section className={styles.accountSection}>
+            <article className={styles.article}>
+              <h6 className={styles.title}>Dina uppgifter</h6>
 
-            {/* !!!rendera ut kunden uppgifter i p-taggarna nedan!!!! */}
-            <p className={styles.text}>{user.displayName}</p>
-            <p className={styles.text}>{user.email}</p>
+              {/* !!!rendera ut kunden uppgifter i p-taggarna nedan!!!! */}
+              <p className={styles.text}>{user.displayName}</p>
+              <p className={styles.text}>{user.email}</p>
 
-            <button className={styles.button} onClick={logout}>
-              Logga ut
-            </button>
-          </article>
-          <article className={styles.article}>
-            <h6 className={styles.title}>Ta bort konto</h6>
-            <p className={styles.text}>
-              {" "}
-              För att ta bort ditt konto behöver du fylla i ditt lösenord
-            </p>
+              <button className={styles.button} onClick={logout}>
+                Logga ut
+              </button>
+            </article>
+            <article className={styles.article}>
+              <h6 className={styles.title}>Ta bort konto</h6>
+              <p className={styles.text}>
+                {" "}
+                För att ta bort ditt konto behöver du fylla i ditt lösenord
+              </p>
+              <div className={styles.inputWrapper}>
+                <label className={styles.label} htmlFor="password">
+                  Ditt lösenord
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="***********"
+                  onChange={(e) => {
+                    setOldPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <button className={styles.button} onClick={handleDeleteUser}>
+                Ta bort
+              </button>
+            </article>
+          </section>
+
+          <section className={styles.passwordSection}>
+            <h6 className={styles.title}>Byt lösenord</h6>
+            <p className={styles.text}>Här kan du byta ditt lösenord</p>
             <div className={styles.inputWrapper}>
-              <label className={styles.label} htmlFor="password">
-                Ditt lösenord
+              <label className={styles.label} htmlFor="old-password">
+                Gammalt lösenord
               </label>
               <input
-                id="password"
+                id="old-password"
                 type="password"
-                name="password"
+                name="old-password"
                 placeholder="***********"
                 onChange={(e) => {
                   setOldPassword(e.target.value);
                 }}
               />
             </div>
-            <button className={styles.button} onClick={handleDeleteUser}>
-              Ta bort
+            <div className={styles.inputWrapper}>
+              <label className={styles.label} htmlFor="password">
+                Nytt lösenord
+              </label>
+              <input
+                id="new-password"
+                type="password"
+                name="password"
+                placeholder="***********"
+                onChange={(e) => {
+                  setFirstNewPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <label className={styles.label} htmlFor="confirm-password">
+                Upprepa nytt lösenord
+              </label>
+              <input
+                id="confirm-password"
+                type="password"
+                name="confirm-password"
+                placeholder="***********"
+                onChange={(e) => {
+                  setSecondNewPassword(e.target.value);
+                }}
+              />
+              {showMessage ? (
+                <p style={{ color: "green" }}>Lösenord ändrat</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage1 ? (
+                <p style={{ color: "red" }}>Lösenorden är inte samma</p>
+              ) : (
+                ""
+              )}
+              {showErrorMessage2 ? (
+                <p style={{ color: "red" }}>Fel lösenord</p>
+              ) : (
+                ""
+              )}
+            </div>
+            <button className={styles.button} onClick={handleChangePassword}>
+              Uppdatera
             </button>
-          </article>
+          </section>
         </section>
 
-        <section className={styles.passwordSection}>
-          <h6 className={styles.title}>Byt lösenord</h6>
-          <p className={styles.text}>Här kan du byta ditt lösenord</p>
-          <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="old-password">
-              Gammalt lösenord
-            </label>
-            <input
-              id="old-password"
-              type="password"
-              name="old-password"
-              placeholder="***********"
-              onChange={(e) => {
-                setOldPassword(e.target.value);
-              }}
-            />
-          </div>
-          <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="password">
-              Nytt lösenord
-            </label>
-            <input
-              id="new-password"
-              type="password"
-              name="password"
-              placeholder="***********"
-              onChange={(e) => {
-                setFirstNewPassword(e.target.value);
-              }}
-            />
-          </div>
-          <div className={styles.inputWrapper}>
-            <label className={styles.label} htmlFor="confirm-password">
-              Upprepa nytt lösenord
-            </label>
-            <input
-              id="confirm-password"
-              type="password"
-              name="confirm-password"
-              placeholder="***********"
-              onChange={(e) => {
-                setSecondNewPassword(e.target.value);
-              }}
-            />
-            {showMessage ? (
-              <p style={{ color: "green" }}>Lösenord ändrat</p>
-            ) : (
-              ""
-            )}
-            {showErrorMessage1 ? (
-              <p style={{ color: "red" }}>Lösenorden är inte samma</p>
-            ) : (
-              ""
-            )}
-            {showErrorMessage2 ? (
-              <p style={{ color: "red" }}>Fel lösenord</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <button className={styles.button} onClick={handleChangePassword}>
-            Uppdatera
-          </button>
-        </section>
-      </section>
-
-      <ListOfExsitingCourses rerender={setRerender} />
-      <ListOfExsitingProducts rerender={setRerender} />
-    </main>
+        <ListOfExsitingCourses rerender={setRerender} />
+        <ListOfExsitingProducts rerender={setRerender} />
+      </main>
     </div>
   ) : (
     <h1 style={{ paddingTop: "10rem" }}>Access denied!</h1>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./SignUp.module.css";
+import styles from "./ResetPassword.module.css";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -12,8 +12,9 @@ function ResetPassword() {
   const [notValidEmail, setNotValidEmail] = useState(false);
   const [notSameEmail, setNotSameEmail] = useState(false);
 
+  //send password reset to registered user
   async function resetClickHandler() {
-    if (email === auth.currentUser.email) {
+    if (email) {
       try {
         const checkEmail = await sendPasswordResetEmail(auth, email);
         console.log(checkEmail);
@@ -40,8 +41,9 @@ function ResetPassword() {
   }
 
   return (
-    <main className={styles.wrapperResetPassword}>
-      <section>
+    <main className={styles.wrapperResetPassword} data-testid="reset-test">
+      <section className={styles.wrapperInput}>
+        <h3 className={styles.resetPasswordTitle}>Glömt ditt lösenord?</h3>
         <input
           type="text"
           placeholder="Enter your email"
@@ -49,9 +51,9 @@ function ResetPassword() {
             setEmail(e.target.value);
           }}
         ></input>
-        {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
-        {notValidEmail ? <p style={{ color: "red" }}>Email not valid!</p> : ""}
-        {notSameEmail ? <p style={{ color: "red" }}>Not the registered email!</p> : ""}
+        {userNotFound ? <p style={{ color: "red" }}>User not found</p> : ""}
+        {notValidEmail ? <p style={{ color: "red" }}>Email not valid</p> : ""}
+        {notSameEmail ? <p style={{ color: "red" }}>Enter your email</p> : ""}
 
         <button
           onClick={resetClickHandler}

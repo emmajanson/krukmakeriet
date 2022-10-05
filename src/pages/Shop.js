@@ -12,10 +12,11 @@ import Popup from '../Components/Popup';
 
 function Shop() {
 
-  /*Render from db */
   const [products, setProducts] = useState([])
 
   const {shopProductModalOpen, setShopProductModalOpen, addedToBasketPopupOpen, setAddedToBasketPopupOpen} = useContext(AllContext);
+
+  //Render from Database
 
   useEffect(() => {
     const productsCollectionRef = collection(db, "products");

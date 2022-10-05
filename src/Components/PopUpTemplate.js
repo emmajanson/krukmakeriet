@@ -1,13 +1,10 @@
 import React from "react";
 import styles from "./PopupTemplate.module.css";
 import { useNavigate } from "react-router-dom";
-import Checkout from "../pages/Checkout";
 import {
   FiX,
   // FiUser,
 } from "react-icons/fi";
-
-import { FaCheckCircle } from "react-icons/fa";
 
 function Popup(props) {
   const navigate = useNavigate();
@@ -25,8 +22,8 @@ function Popup(props) {
           <FiX color="black" size={39} />
         </div>
         <div className={styles.contentWrapper}>
-        <img id={styles.checkMark} src="../images/Icons/checkMark.svg"></img>
-        <div className={styles.textWrapper}>{props.children}</div>
+          <img id={styles.checkMark} src="../images/Icons/checkMark.svg"></img>
+          <div className={styles.textWrapper}>{props.children}</div>
         </div>
       </div>
     </div>
