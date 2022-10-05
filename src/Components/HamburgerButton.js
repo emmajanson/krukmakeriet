@@ -20,7 +20,7 @@ const Burger = ({ isOpen, setIsOpen }) => {
   });
 
   return (
-    <div className={styles.burger}>
+    <div className={styles.burger} data-testid="hamburgurbtn" >
       <svg
         className={!isOpen ? styles.burgerSvg : styles.burgerSvgOpen}
         width="40"
