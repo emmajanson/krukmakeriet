@@ -6,7 +6,6 @@ describe("Test if NotFound renders", () => {
   test("Checks if NotFound renders", async () => {
     render(<NotFound />);
     const element = screen.getByTestId("notFound");
-    console.log(element);
     expect(element).toBeInTheDocument();
   });
 });

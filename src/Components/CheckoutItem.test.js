@@ -1,10 +1,9 @@
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import CheckoutItem from "./CheckoutItem";
 import { AllContextProvider } from "../context/AllContext";
 import { BrowserRouter } from "react-router-dom";
 import renderer from "react-test-renderer";
-import userEvent from "@testing-library/user-event";
 
 const mockProductData = [
   {

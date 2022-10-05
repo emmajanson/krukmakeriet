@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AllContext } from "../context/AllContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
+import { act } from "react-dom/test-utils";
 
 function Basket({ toggleBasket }, isActiveBasket) {
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ function Basket({ toggleBasket }, isActiveBasket) {
   // Checking who's logged in and saving the user in a state
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      act(() => {
+        setUser(currentUser);
+      });
     });
   }, []);
 
