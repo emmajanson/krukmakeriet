@@ -103,6 +103,7 @@ function Profile() {
     setUserCourses(courseArray);
   }
 
+  // Check's if the password is correct, if it is you can delete the account.
   async function handleDeleteUser() {
     var cred = EmailAuthProvider.credential(user.email, oldPassword);
     await reauthenticateWithCredential(user, cred)
@@ -124,6 +125,7 @@ function Profile() {
     inputRef1.current.value = "";
   }
 
+  // Check's if the  old password is correct, and if the two  new input passwords matches
   async function handleChangePassword() {
     inputRef2.current.value = "";
     inputRef3.current.value = "";
