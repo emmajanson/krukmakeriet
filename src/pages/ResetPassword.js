@@ -40,7 +40,7 @@ function ResetPassword() {
   }
 
   return (
-    <main className={styles.wrapperResetPassword}>
+    <main className={styles.wrapperResetPassword} data-testid="reset-test">
       <section>
         <input
           type="text"
@@ -51,7 +51,11 @@ function ResetPassword() {
         ></input>
         {userNotFound ? <p style={{ color: "red" }}>User not found!</p> : ""}
         {notValidEmail ? <p style={{ color: "red" }}>Email not valid!</p> : ""}
-        {notSameEmail ? <p style={{ color: "red" }}>Not the registered email!</p> : ""}
+        {notSameEmail ? (
+          <p style={{ color: "red" }}>Not the registered email!</p>
+        ) : (
+          ""
+        )}
 
         <button
           onClick={resetClickHandler}
